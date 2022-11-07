@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+
+$background-image: url("./images/main_background.jpeg");
+$font-type: "Lalezar", sans-serif;
+$white-color: #ffffff;
+$orange-color: #e77929;
+$grey-color: #d9d9d9;
+$dark-green-color: #0b1f04;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $font-type;
+}
+
+body {
+  margin: 0;
+}
+
+.centered {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing_background {
+  width: 100vw;
+  height: 100vh;
+  background-color: $dark-green-color;
+  background-size: cover;
+  h1 {
+    position: relative;
+    margin: 0 auto;
+    font: 3rem $font-type;
+    color: $white-color;
+    text-align: center;
+    top: 35%;
+  }
+  span {
+    color: $orange-color;
+  }
+}
+
+.button_container {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 30vw;
+  width: 40vw;
+  height: 100vh;
+  .main_button {
+    font-family: $font-type;
+    font-size: 1rem;
+    margin-top: 45vh;
+    width: 10rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 5px;
+    color: $orange-color;
+  }
+}

@@ -1,16 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Oxygen", sans-serif;
+  font-family: "Lalezar", sans-serif;
 }
 
 body {
   margin: 0;
-  background-color: whitesmoke;
 }
 
 .centered {
@@ -20,3 +18,40 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.landing_background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b1f04;
+  background-size: cover;
+}
+.landing_background h1 {
+  position: relative;
+  margin: 0 auto;
+  font: 3rem "Lalezar", sans-serif;
+  color: #ffffff;
+  text-align: center;
+  top: 35%;
+}
+.landing_background span {
+  color: #e77929;
+}
+
+.button_container {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 30vw;
+  width: 40vw;
+  height: 100vh;
+}
+.button_container .main_button {
+  font-family: "Lalezar", sans-serif;
+  font-size: 1rem;
+  margin-top: 45vh;
+  width: 10rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 5px;
+  color: #e77929;
+}/*# sourceMappingURL=index.css.map */
