@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo } from "react";
 import ReactModal from "react-modal";
-import Select from "react-select";
+import CreateAccountForm from "./CreateAccountForm";
 import countryList from "react-select-country-list";
 
 const CreateAccountModal = (props) => {
@@ -23,20 +23,12 @@ const CreateAccountModal = (props) => {
 
   const closeModal = () => {
     props.setModalIsOpen(false);
+    setAccountCreated(false);
   };
 
-  // captures input from input form for creating appointment
+  // updates modal content to show 'account successfully created' message
 
-  const usernameRef = useRef();
-  const passwordRef = useRef();
-  const emailRef = useRef();
-  const nameRef = useRef();
-  const descriptionRef = useRef();
-  const [category, setCategory] = useState("");
-  const attendingWithRef = useRef();
-  const orgRef = useRef();
-  const addressRef = useRef();
-  const [recurring, setRecurring] = useState("");
+  const [accountCreated, setAccountCreated] = useState(false);
 
   // creates new object to be passed into fetch PUT function
 
@@ -52,15 +44,10 @@ const CreateAccountModal = (props) => {
     //   recurring: recurring,
     // });
     console.log(value);
-    props.setModalIsOpen(false);
+    setAccountCreated(true);
   };
 
   const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
-
-  const changeHandler = (value) => {
-    setValue(value);
-  };
 
   return (
     <div>
@@ -68,45 +55,20 @@ const CreateAccountModal = (props) => {
         isOpen={props.modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Login Modal"
+        contentLabel="Create Account Modal"
       >
-        <h2 className="modal_header">Create Your Account</h2>
-        <div>Fill in the following details:</div>
-        <form className="create_account_form">
-          <div className="input_container">
-            <div className="modal_label">
-              <label>Username</label>
-            </div>
-            <input type="text" ref={usernameRef} required />
-          </div>
-          <div className="input_container">
-            <div className="modal_label">
-              <label>Password</label>
-            </div>
-            <input type="text" ref={passwordRef} required />
-          </div>
-          <div className="input_container">
-            <div className="modal_label">
-              <label>Email</label>
-            </div>
-            <input type="text" ref={emailRef} required />
-          </div>
-          <div className="input_container">
-            <div className="modal_label">
-              <label>Country</label>
-            </div>
-            <Select
-              className="country_selector"
-              options={options}
-              value={value}
-              onChange={changeHandler}
-            />
-          </div>
-          <br />
-          <button className="modal_button" onClick={createAccount}>
-            CREATE
-          </button>
-        </form>
+        {accountCreated ? (
+          <>
+            <div>Account successfully created!</div>
+            <div>You may proceed to login</div>
+          </>
+        ) : (
+          <CreateAccountForm
+            createAccount={createAccount}
+            value={value}
+            setValue={setValue}
+          />
+        )}
       </ReactModal>
     </div>
   );
