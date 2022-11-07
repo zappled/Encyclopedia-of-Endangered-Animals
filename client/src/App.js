@@ -1,6 +1,21 @@
 import React from "react";
+import ReactModal from "./components/LoginModal";
+import CreateAccountModal from "./components/CreateAccountModal";
+import { useState } from "react";
 
 function App() {
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
+  const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+  const [apptBody, setApptBody] = useState({});
+
+  const openLoginModal = () => {
+    setLoginModalIsOpen(true);
+  };
+
+  const openCreateModal = () => {
+    setCreateModalIsOpen(true);
+  };
+
   return (
     <>
       <div className="landing_background">
@@ -8,10 +23,24 @@ function App() {
           ENCYCLOPEDIA OF <span>ENDANGERED</span> ANIMALS
         </h1>
         <div className="button_container">
-          <button className="main_button">LOGIN</button>
-          <button className="main_button">CREATE ACCOUNT</button>
+          <button onClick={openLoginModal} className="main_button">
+            LOGIN
+          </button>
+          <button onClick={openCreateModal} className="main_button">
+            CREATE ACCOUNT
+          </button>
         </div>
       </div>
+      <ReactModal
+        modalIsOpen={loginModalIsOpen}
+        setModalIsOpen={setLoginModalIsOpen}
+      />
+      <CreateAccountModal
+        modalIsOpen={createModalIsOpen}
+        setModalIsOpen={setCreateModalIsOpen}
+        apptBody={apptBody}
+        setApptBody={setApptBody}
+      />
     </>
   );
 }

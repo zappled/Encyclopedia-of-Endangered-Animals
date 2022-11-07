@@ -1,4 +1,12 @@
+@use "./components/modal";
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+
+@mixin theme($theme: $grey-color) {
+  background: $theme;
+  border: none;
+  color: $orange-color;
+  font: 1rem $font-type;
+}
 
 $background-image: url("./images/main_background.jpeg");
 $font-type: "Lalezar", sans-serif;
@@ -51,15 +59,15 @@ body {
   justify-content: space-evenly;
   margin-left: 30vw;
   width: 40vw;
-  height: 100vh;
   .main_button {
-    font-family: $font-type;
-    font-size: 1rem;
+    @include theme;
     margin-top: 45vh;
     width: 10rem;
     height: 2.5rem;
-    border: none;
     border-radius: 5px;
-    color: $orange-color;
+  }
+  .main_button:hover {
+    background-color: $orange-color;
+    color: $grey-color;
   }
 }

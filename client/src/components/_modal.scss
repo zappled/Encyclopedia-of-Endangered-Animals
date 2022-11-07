@@ -1,0 +1,48 @@
+@mixin theme($theme: $grey-color) {
+  background: $theme;
+  border: none;
+  color: $orange-color;
+  font: 1rem $font-type;
+}
+
+$orange-color: #e77929;
+$grey-color: #d9d9d9;
+$white-color: #ffffff;
+$font-type: "Lalezar", sans-serif;
+
+.modal_header {
+  color: $orange-color;
+}
+
+.modal_button {
+  @include theme;
+  width: 5rem;
+  height: 1.75rem;
+  border-radius: 5px;
+}
+
+.modal_button:hover {
+  background-color: $orange-color;
+  color: $grey-color;
+}
+
+.create_account_form {
+  justify-content: center;
+  width: 12.5rem;
+}
+
+.input_container {
+  width: 10rem;
+  margin-left: 1.25rem;
+}
+
+.modal_label {
+  width: 5rem;
+  text-align: left;
+  margin-left: 6px;
+}
+
+.country_selector {
+  width: 10rem;
+  font-size: 0.75rem;
+}

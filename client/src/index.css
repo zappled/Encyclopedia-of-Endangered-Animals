@@ -1,4 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+.modal_header {
+  color: #e77929;
+}
+
+.modal_button {
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  width: 5rem;
+  height: 1.75rem;
+  border-radius: 5px;
+}
+
+.modal_button:hover {
+  background-color: #e77929;
+  color: #d9d9d9;
+}
+
+.create_account_form {
+  justify-content: center;
+  width: 12.5rem;
+}
+
+.input_container {
+  width: 10rem;
+  margin-left: 1.25rem;
+}
+
+.modal_label {
+  width: 5rem;
+  text-align: left;
+  margin-left: 6px;
+}
+
+.country_selector {
+  width: 10rem;
+  font-size: 0.75rem;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -43,15 +83,18 @@ body {
   justify-content: space-evenly;
   margin-left: 30vw;
   width: 40vw;
-  height: 100vh;
 }
 .button_container .main_button {
-  font-family: "Lalezar", sans-serif;
-  font-size: 1rem;
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
   margin-top: 45vh;
   width: 10rem;
   height: 2.5rem;
-  border: none;
   border-radius: 5px;
-  color: #e77929;
+}
+.button_container .main_button:hover {
+  background-color: #e77929;
+  color: #d9d9d9;
 }/*# sourceMappingURL=index.css.map */
