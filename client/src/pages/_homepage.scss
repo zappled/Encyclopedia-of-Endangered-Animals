@@ -4,10 +4,11 @@ $orange-color: #e77929;
 $dark-green-color: #0b1f04;
 $grey-color: #d9d9d9;
 $conservation-image: url("./images/homepage/conservation_image.jpeg");
+$search-image: url("./images/homepage/search_image.jpeg");
 
-.homepage_container {
+.page_container {
   width: 70vw;
-  height: 100vh;
+  height: 131vh;
   margin: 0 auto;
 }
 
@@ -94,22 +95,38 @@ $conservation-image: url("./images/homepage/conservation_image.jpeg");
   margin-bottom: 0.5rem;
 }
 
-.conservation_box {
-  width: 100%;
-  margin-top: 2rem;
-  height: 15rem;
+.conservation_title {
   position: relative;
+  color: white;
+  font-size: 2.25rem;
+  margin: 0.5rem;
+  text-align: center;
+  top: 3rem;
+  overflow: hidden;
 }
 
-.conservation_box::before {
-  content: "";
+.conservation_image {
+  height: 100%;
+  flex-grow: 1;
   background-image: $conservation-image;
-  background-position: 0 25%;
+  background-position: 30% 25%;
   background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  opacity: 0.4;
+}
+
+.search_database_title {
+  color: white;
+  font-size: 2.25rem;
+  margin: 0.5rem 15%;
+  max-width: 17rem;
+  text-align: center;
+  position: relative;
+  top: 3rem;
+}
+
+.search_image {
+  height: 100%;
+  flex-grow: 1;
+  background-image: $search-image;
+  background-position: 50% 25%;
+  background-size: cover;
 }

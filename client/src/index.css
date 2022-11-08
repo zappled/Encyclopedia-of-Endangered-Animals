@@ -110,10 +110,13 @@
   margin-right: 1rem;
   color: #d9d9d9;
 }
+.navbar_right_container .username {
+  top: 0.25rem;
+}
 
-.homepage_container {
+.page_container {
   width: 70vw;
-  height: 100vh;
+  height: 131vh;
   margin: 0 auto;
 }
 
@@ -204,24 +207,125 @@
   margin-bottom: 0.5rem;
 }
 
-.conservation_box {
-  width: 100%;
-  margin-top: 2rem;
-  height: 15rem;
+.conservation_title {
   position: relative;
+  color: white;
+  font-size: 2.25rem;
+  margin: 0.5rem;
+  text-align: center;
+  top: 3rem;
+  overflow: hidden;
 }
 
-.conservation_box::before {
-  content: "";
+.conservation_image {
+  height: 100%;
+  flex-grow: 1;
   background-image: url("./images/homepage/conservation_image.jpeg");
-  background-position: 0 25%;
+  background-position: 30% 25%;
   background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  opacity: 0.4;
+}
+
+.search_database_title {
+  color: white;
+  font-size: 2.25rem;
+  margin: 0.5rem 15%;
+  max-width: 17rem;
+  text-align: center;
+  position: relative;
+  top: 3rem;
+}
+
+.search_image {
+  height: 100%;
+  flex-grow: 1;
+  background-image: url("./images/homepage/search_image.jpeg");
+  background-position: 50% 25%;
+  background-size: cover;
+}
+
+.conservation_page_container {
+  width: 70vw;
+  height: 52.9vh;
+  margin: 0 auto;
+}
+
+.conservation_banner {
+  background-image: url("./images/conservation_status/status_banner.jpeg");
+  background-size: cover;
+  background-position: 10% 33%;
+}
+
+.conservation_page_title {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.conservation_icon_container {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15%;
+}
+
+.conservation_page_content {
+  width: 50%;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.conservation_page_content span {
+  font-size: 1.5rem;
+  color: #e77929;
+}
+
+.conservation_button_container {
+  margin: 1rem 0 1rem 0;
+}
+
+.conservation_button {
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  width: 25%;
+  background-color: #0b1f04;
+  padding: 0.5rem;
+}
+
+.conservation_button:active {
+  background-color: #e77929;
+  color: #d9d9d9;
+}
+
+.active_button {
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  width: 25%;
+  background-color: #e77929;
+  padding: 0.5rem;
+  color: #d9d9d9;
+}
+
+.conservation_details_container {
+  background-color: #0b1f04;
+  height: 10rem;
+  color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+}
+
+.conservation_icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 1rem;
+}
+
+.conservation_icon_enlarged {
+  width: 5rem;
+  height: 5rem;
+  margin-left: 1rem;
+  margin-top: 2.5rem;
 }
 
 * {

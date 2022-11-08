@@ -6,10 +6,11 @@ import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 import regionIcon from "../images/icons/data/icons8-globe_lightgrey.png";
+import { Link } from "react-router-dom";
 
 const Homepage = () => {
   const [animalIndex, setAnimalIndex] = useState(0);
-  // const [conservationStatus, setConservationStatus] = useState("");
+  const currentPage = "Homepage";
 
   useEffect(() => {
     setAnimalIndex(Math.floor(Math.random() * animals.length));
@@ -33,13 +34,13 @@ const Homepage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar currentPage={currentPage} />
       <HomepageCarousel />
-      <div className="homepage_container">
+      <div className="page_container">
         <div className="feature_box">
           <div className="featured_details">
             <div className="featured_label">
-              <span class="material-symbols-outlined">star</span>Featured
+              <span className="material-symbols-outlined">star</span>Featured
               Animal:
             </div>
             <div className="featured_name">{animals[animalIndex].name}</div>
@@ -55,8 +56,26 @@ const Homepage = () => {
           </div>
           <img className="featured_image" src={animals[animalIndex].image} />
         </div>
-        <div className="conservation_box"></div>
-        <div className="search_box"></div>
+
+        <Link to="/conservation_status" style={{ textDecoration: "none" }}>
+          <div className="feature_box">
+            <div className="featured_details">
+              <div className="conservation_title">
+                Conservation Statuses Explained
+              </div>
+            </div>
+            <div className="conservation_image"></div>
+          </div>
+        </Link>
+
+        <div className="feature_box">
+          <div className="featured_details">
+            <div className="search_database_title">
+              Search Our Animal Database
+            </div>
+          </div>
+          <div className="search_image"></div>
+        </div>
       </div>
     </>
   );

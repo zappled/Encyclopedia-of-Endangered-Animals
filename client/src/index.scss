@@ -1,6 +1,7 @@
 @use "./components/modal";
 @use "./common/navbar";
 @use "./pages/homepage";
+@use "./pages/conservationstatus";
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 
 @mixin theme($theme: $grey-color) {
