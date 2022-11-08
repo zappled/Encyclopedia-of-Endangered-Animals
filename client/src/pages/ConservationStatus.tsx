@@ -16,7 +16,7 @@ const ConservationStatus = () => {
     <>
       <div
         className="conservation_page_title"
-        style={{ width: "50%", marginTop: "3rem" }}
+        style={{ width: "50%", marginTop: "3.5rem" }}
       >
         Click the labels above to learn more about the various conservation
         statuses categorized by IUCN (International Union for Conservation of

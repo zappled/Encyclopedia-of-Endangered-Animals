@@ -22,12 +22,16 @@ const Navbar = (props) => {
             </div>
           </Link>
         </div>
+
         <div className="navlink_container">
-          <div className="navlink">
-            <span className="material-symbols-outlined">search</span>Search
-            Database
-          </div>
+          <Link to="/search/animals" style={{ textDecoration: "none" }}>
+            <div className="navlink">
+              <span className="material-symbols-outlined">search</span>Search
+              Database
+            </div>
+          </Link>
         </div>
+
         <div className="navlink_container">
           <div className="navlink">
             {" "}

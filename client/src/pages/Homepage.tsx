@@ -10,14 +10,14 @@ import { Link } from "react-router-dom";
 
 const Homepage = () => {
   const [animalIndex, setAnimalIndex] = useState(0);
-  const currentPage = "Homepage";
+  const currentPage: string = "Homepage";
 
   useEffect(() => {
     setAnimalIndex(Math.floor(Math.random() * animals.length));
   }, []);
 
-  let conservation_status = "test";
-  let conservationIcon = "";
+  let conservation_status: string = "test";
+  let conservationIcon: string = "";
 
   const getStatus = () => {
     const dataStatus = animals[animalIndex].conservation_status;

@@ -2,6 +2,7 @@
 @use "./common/navbar";
 @use "./pages/homepage";
 @use "./pages/conservationstatus";
+@use "./pages/searchanimals";
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 
 @mixin theme($theme: $grey-color) {
@@ -11,7 +12,6 @@
   font: 1rem $font-type;
 }
 
-$background-image: url("./images/main_background.jpeg");
 $font-type: "Lalezar", sans-serif;
 $white-color: #ffffff;
 $orange-color: #e77929;
