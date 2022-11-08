@@ -12,6 +12,7 @@ $font-type: "Lalezar", sans-serif;
 
 .modal_header {
   color: $orange-color;
+  margin-top: 0;
 }
 
 .modal_button {
@@ -45,4 +46,9 @@ $font-type: "Lalezar", sans-serif;
 .country_selector {
   width: 10rem;
   font-size: 0.75rem;
+}
+
+.login_icon {
+  width: 2.5rem;
+  height: 2.5rem;
 }

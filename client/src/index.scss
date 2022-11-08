@@ -1,4 +1,6 @@
 @use "./components/modal";
+@use "./common/navbar";
+@use "./pages/homepage";
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 
 @mixin theme($theme: $grey-color) {
@@ -17,9 +19,6 @@ $dark-green-color: #0b1f04;
 
 * {
   box-sizing: border-box;
-}
-
-html {
   font-family: $font-type;
 }
 

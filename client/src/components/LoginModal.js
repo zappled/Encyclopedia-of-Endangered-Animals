@@ -1,6 +1,7 @@
 import { buildQueries } from "@testing-library/react";
 import React, { useRef, useState } from "react";
 import ReactModal from "react-modal";
+import redPandaIcon from "../images/icons/animals/icons8_redpanda_lightgrey.png";
 
 const LoginModal = (props) => {
   const customStyles = {
@@ -37,7 +38,7 @@ const LoginModal = (props) => {
         style={customStyles}
         contentLabel="Login Modal"
       >
-        <h2 className="modal_header">Login</h2>
+        <img src={redPandaIcon} className="login_icon" alt="panda icon" />
         <form className="create_account_form">
           <div className="input_container">
             <div className="modal_label">
