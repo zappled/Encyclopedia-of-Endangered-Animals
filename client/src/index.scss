@@ -22,6 +22,10 @@ $dark-green-color: #0b1f04;
   font-family: $font-type;
 }
 
+#root {
+  background-color: $grey-color;
+}
+
 body {
   margin: 0;
 }
@@ -58,15 +62,16 @@ body {
   justify-content: space-evenly;
   margin-left: 30vw;
   width: 40vw;
-  .main_button {
-    @include theme;
-    margin-top: 45vh;
-    width: 10rem;
-    height: 2.5rem;
-    border-radius: 5px;
-  }
-  .main_button:hover {
-    background-color: $orange-color;
-    color: $grey-color;
-  }
+}
+
+.main_button {
+  @include theme;
+  margin-top: 45vh;
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 5px;
+}
+.main_button:hover {
+  background-color: $orange-color;
+  color: $grey-color;
 }

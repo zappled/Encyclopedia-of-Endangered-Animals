@@ -2,6 +2,7 @@ $font-type: "Lalezar", sans-serif;
 $white-color: #ffffff;
 $orange-color: #e77929;
 $dark-green-color: #0b1f04;
+$grey-color: #d9d9d9;
 $conservation-image: url("./images/homepage/conservation_image.jpeg");
 
 .homepage_container {
@@ -44,6 +45,9 @@ $conservation-image: url("./images/homepage/conservation_image.jpeg");
   position: relative;
   display: flex;
   border: 10px solid $dark-green-color;
+  .main_button {
+    margin-top: 0.5rem;
+  }
 }
 
 .featured_details {
@@ -57,7 +61,7 @@ $conservation-image: url("./images/homepage/conservation_image.jpeg");
   font-size: 1.5rem;
   color: $orange-color;
   span {
-    color: white;
+    color: $grey-color;
     position: relative;
     top: 0.25rem;
     margin-right: 0.5rem;
@@ -67,6 +71,7 @@ $conservation-image: url("./images/homepage/conservation_image.jpeg");
 .featured_name {
   color: white;
   font-size: 2.25rem;
+  margin: 0.5rem 0;
 }
 
 .featured_image {
@@ -74,6 +79,19 @@ $conservation-image: url("./images/homepage/conservation_image.jpeg");
   height: 100%;
   object-fit: cover;
   object-position: 0% 15%;
+}
+
+.featured_icon {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.8rem;
+  top: -0.1rem;
+}
+
+.featured_info {
+  color: $orange-color;
+  margin-bottom: 0.5rem;
 }
 
 .conservation_box {

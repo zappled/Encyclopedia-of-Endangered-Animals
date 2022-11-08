@@ -154,6 +154,9 @@
   display: flex;
   border: 10px solid #0b1f04;
 }
+.feature_box .main_button {
+  margin-top: 0.5rem;
+}
 
 .featured_details {
   width: 26rem;
@@ -167,7 +170,7 @@
   color: #e77929;
 }
 .featured_label span {
-  color: white;
+  color: #d9d9d9;
   position: relative;
   top: 0.25rem;
   margin-right: 0.5rem;
@@ -176,6 +179,7 @@
 .featured_name {
   color: white;
   font-size: 2.25rem;
+  margin: 0.5rem 0;
 }
 
 .featured_image {
@@ -185,6 +189,19 @@
      object-fit: cover;
   -o-object-position: 0% 15%;
      object-position: 0% 15%;
+}
+
+.featured_icon {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.8rem;
+  top: -0.1rem;
+}
+
+.featured_info {
+  color: #e77929;
+  margin-bottom: 0.5rem;
 }
 
 .conservation_box {
@@ -210,6 +227,10 @@
 * {
   box-sizing: border-box;
   font-family: "Lalezar", sans-serif;
+}
+
+#root {
+  background-color: #d9d9d9;
 }
 
 body {
@@ -249,7 +270,8 @@ body {
   margin-left: 30vw;
   width: 40vw;
 }
-.button_container .main_button {
+
+.main_button {
   background: #d9d9d9;
   border: none;
   color: #e77929;
@@ -259,7 +281,8 @@ body {
   height: 2.5rem;
   border-radius: 5px;
 }
-.button_container .main_button:hover {
+
+.main_button:hover {
   background-color: #e77929;
   color: #d9d9d9;
 }/*# sourceMappingURL=index.css.map */
