@@ -25,6 +25,36 @@ const animals = [
     population: "415,000",
     threats: ["Human Intrusion", "Biological Resource Use", "Climate Change"],
   },
+  {
+    id: 2,
+    name: "African Forest Elephant",
+    conservation_status: "CR",
+    image: "https://wir.iucnredlist.org/MFxxwnxv-df6qSb-cQd.jpg",
+    habitat: ["Forest", "Savanna", "Shrubland"],
+    region: ["Western & Central Africa"],
+    population: "415,000",
+    threats: ["Human Intrusion", "Biological Resource Use", "Climate Change"],
+  },
+  {
+    id: 2,
+    name: "African Forest Elephant",
+    conservation_status: "CR",
+    image: "https://wir.iucnredlist.org/MFxxwnxv-df6qSb-cQd.jpg",
+    habitat: ["Forest", "Savanna", "Shrubland"],
+    region: ["Western & Central Africa"],
+    population: "415,000",
+    threats: ["Human Intrusion", "Biological Resource Use", "Climate Change"],
+  },
+  {
+    id: 2,
+    name: "African Forest Elephant",
+    conservation_status: "CR",
+    image: "https://wir.iucnredlist.org/MFxxwnxv-df6qSb-cQd.jpg",
+    habitat: ["Forest", "Savanna", "Shrubland"],
+    region: ["Western & Central Africa"],
+    population: "415,000",
+    threats: ["Human Intrusion", "Biological Resource Use", "Climate Change"],
+  },
 ];
 
 export default animals;

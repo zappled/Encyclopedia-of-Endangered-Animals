@@ -3,8 +3,8 @@ import ReactModal from "../components/LoginModal";
 import CreateAccountModal from "../components/CreateAccountModal";
 
 const LandingPage = () => {
-  const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
-  const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+  const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
+  const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
   const [apptBody, setApptBody] = useState({});
 
   const openLoginModal = () => {
