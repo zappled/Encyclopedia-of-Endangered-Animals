@@ -1,0 +1,59 @@
+@mixin theme($theme: $dark-green-color) {
+  background: $theme;
+  border: none;
+  color: $orange-color;
+  font: 1rem $font-type;
+}
+
+$font-type: "Lalezar", sans-serif;
+$white-color: #ffffff;
+$orange-color: #e77929;
+$grey-color: #d9d9d9;
+$dark-green-color: #0b1f04;
+
+.database_page_container {
+  width: 70vw;
+  min-height: 95vh;
+  margin: 0 auto;
+  display: flex;
+}
+
+.database_button_container {
+  height: 10vh;
+  width: 100%;
+  text-align: center;
+}
+
+.database_page_button {
+  position: relative;
+  @include theme;
+  width: 15rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+.animal_data_table {
+  margin: 1rem;
+  width: 98vw;
+  font-size: 0.8rem;
+  font-family: "Times New Roman";
+  text-align: center;
+  justify-content: center;
+  thead {
+    background-color: white;
+  }
+  th,
+  td {
+    border: 1px solid black;
+    font-family: "Times New Roman";
+  }
+}
+
+.edit_database_button {
+  @include theme;
+  font-family: "Times New Roman";
+  margin: 0.1rem;
+  width: 5rem;
+  font-size: 0.8rem;
+}

@@ -459,6 +459,59 @@
   line-height: 3.2rem;
 }
 
+.database_page_container {
+  width: 70vw;
+  min-height: 95vh;
+  margin: 0 auto;
+  display: flex;
+}
+
+.database_button_container {
+  height: 10vh;
+  width: 100%;
+  text-align: center;
+}
+
+.database_page_button {
+  position: relative;
+  background: #0b1f04;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  width: 15rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+.animal_data_table {
+  margin: 1rem;
+  width: 98vw;
+  font-size: 0.8rem;
+  font-family: "Times New Roman";
+  text-align: center;
+  justify-content: center;
+}
+.animal_data_table thead {
+  background-color: white;
+}
+.animal_data_table th,
+.animal_data_table td {
+  border: 1px solid black;
+  font-family: "Times New Roman";
+}
+
+.edit_database_button {
+  background: #0b1f04;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  font-family: "Times New Roman";
+  margin: 0.1rem;
+  width: 5rem;
+  font-size: 0.8rem;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Lalezar", sans-serif;

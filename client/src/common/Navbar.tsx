@@ -41,7 +41,9 @@ const Navbar = (props) => {
         </div>
         <div className="navbar_right_container">
           <span className="username">Username123</span>
-          <span className="material-symbols-outlined">database</span>
+          <Link to="/edit_database">
+            <span className="material-symbols-outlined">database</span>
+          </Link>
           <span className="material-symbols-outlined">settings</span>
         </div>
       </div>

@@ -4,6 +4,8 @@ import LandingPage from "./pages/LandingPage";
 import Homepage from "./pages/Homepage";
 import ConservationStatus from "./pages/ConservationStatus";
 import SearchAnimals from "./pages/SearchAnimals";
+import EditDatabase from "./pages/EditDatabase";
+import AnimalData from "./pages/AnimalData";
 import "@coreui/coreui/dist/css/coreui.min.css";
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/search/animals" element={<SearchAnimals />} />
         {/* <Route path="/search/users" element={<SearchUsers />} /> */}
         <Route path="/conservation_status" element={<ConservationStatus />} />
+        <Route path="/edit_database" element={<EditDatabase />} />
+        <Route path="/edit_database/search" element={<AnimalData />} />
       </Routes>
     </>
   );

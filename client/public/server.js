@@ -17,9 +17,17 @@ app.get("/", (request, response) => {
 
 app.get("/search/users", usersDB.getUsers);
 
+app.put("/users", usersDB.createUser);
+
+app.delete("/users/delete", usersDB.deleteUser);
+
 app.get("/search/animals", animalsDB.getAllAnimals);
 
 app.get("/search/animals/:id", animalsDB.getAnimalByID);
+
+app.delete("/search/animals", animalsDB.deleteAnimal);
+
+app.post("/login", usersDB.loginUser);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
