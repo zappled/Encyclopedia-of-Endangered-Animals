@@ -85,7 +85,6 @@ $dark-green-color: #0b1f04;
 .animal_entry_container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2.8rem;
   margin-left: 1rem;
 }
 
@@ -124,4 +123,12 @@ $dark-green-color: #0b1f04;
     margin-top: 70%;
     margin-left: 15%;
   }
+}
+
+.filter_indicator {
+  position: relative;
+  height: 2.8rem;
+  width: 100%;
+  text-align: center;
+  line-height: 3.2rem;
 }

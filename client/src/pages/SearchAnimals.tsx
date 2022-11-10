@@ -16,6 +16,8 @@ const SearchAnimals = () => {
 
   const [animals, setAnimals] = useState([]);
   const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [currentFilter, setCurrentFilter] = useState("");
 
   function shuffle(array: []) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -37,115 +39,146 @@ const SearchAnimals = () => {
   };
 
   const filterbyName = (input) => {
+    setIsFiltered(true);
     const filtered = unfilteredAnimals.filter((animal) =>
       animal.name.toLowerCase().includes(input)
     );
     setAnimals(filtered);
+    setCurrentFilter(`name: "${input}"`);
+    if (!input) {
+      setIsFiltered(false);
+    }
   };
 
   const filterbyStatus = (e: string) => {
+    setIsFiltered(true);
     if (e === "VU") {
       const filtered = unfilteredAnimals.filter(
         (animal) => animal.conservation_status === "VULNERABLE"
       );
       setAnimals(filtered);
+      setCurrentFilter(`conservation status: "Vulnerable"`);
     } else if (e === "EN") {
       const filtered = unfilteredAnimals.filter(
         (animal) => animal.conservation_status === "ENDANGERED"
       );
       setAnimals(filtered);
+      setCurrentFilter(`conservation status: "Endangered"`);
     } else if (e === "CR") {
       const filtered = unfilteredAnimals.filter(
         (animal) => animal.conservation_status === "CRITICALLY ENDANGERED"
       );
       setAnimals(filtered);
+      setCurrentFilter(`conservation status: "Critically Endangered"`);
     }
   };
 
   const filterbyHabitat = (e: string) => {
+    setIsFiltered(true);
     if (e === "FOREST") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Forest")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Forest"`);
     } else if (e === "SAVANNA") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Savanna")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Savanna"`);
     } else if (e === "SHRUBLAND") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Shrubland")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Shrubland"`);
     } else if (e === "GRASSLAND") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Grassland")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Grassland"`);
     } else if (e === "WETLANDS") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Wetlands")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Wetlands"`);
     } else if (e === "ROCKY") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Rocky")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Rocky Areas"`);
     } else if (e === "CAVE") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Cave")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Cave/Subterranean"`);
     } else if (e === "DESERT") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Desert")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Desert"`);
     } else if (e === "MARINE") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes("Marine")
       );
       setAnimals(filtered);
+      setCurrentFilter(`habitat: "Marine"`);
     }
   };
 
   const filterbyThreats = (e: string) => {
+    setIsFiltered(true);
     if (e === "HUMAN") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Human Intrusion")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Human Intrusion"`);
     } else if (e === "RESOURCE") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Biological Resource Use")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Biological Resource Use"`);
     } else if (e === "INVASIVE") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Invasive Species and Diseases")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Invasive Species and Diseases"`);
     } else if (e === "POLLUTION") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Pollution")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Pollution"`);
     } else if (e === "CLIMATE") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Climate Change")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Climate Change"`);
     } else if (e === "GEOLOGICAL") {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes("Geological Events")
       );
       setAnimals(filtered);
+      setCurrentFilter(`threats: "Geological Events"`);
     }
   };
 
-  // for GET
+  const resetFilters = () => {
+    setAnimals(unfilteredAnimals);
+    setIsFiltered(false);
+  };
+
+  // fetches data from animal database on initial mount
   useEffect(() => {
     fetchAnimals();
   }, []);
@@ -248,25 +281,18 @@ const SearchAnimals = () => {
           <button
             className={"search_header_button"}
             style={{ color: "#d9d9d9" }}
-            onClick={() => setAnimals(unfilteredAnimals)}
+            onClick={resetFilters}
           >
             Reset Search Filters
           </button>
-
-          {/* </div> */}
         </div>
-        <div className="search_results_container">
-          {/* {animals.map(entry => ({
-                id={entry.id}
-                name={entry.name}
-                conservation_status={entry.conservation_status}
-                image={entry.image}
-                habitat={entry.habitat}
-                region={entry.region}
-                population={entry.population}
-                threats={entry.threats}
 
-          } as SearchAnimalResults))} */}
+        <div className="search_results_container">
+          <div className="filter_indicator">
+            <span style={{ display: isFiltered ? "block" : "none" }}>
+              You are filtering by {currentFilter}
+            </span>
+          </div>
           <div className="animal_entry_container">
             {animals.map((entry: any) => {
               return (
