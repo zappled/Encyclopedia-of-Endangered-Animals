@@ -7,7 +7,7 @@ import criticallyEndangeredIcon from "../images/icons/conservation/critically_en
 import ConservationStatus from "./ConservationStatus";
 
 const SearchAnimals = () => {
-  const currentPage = "Search for Animals";
+  const currentPage: string = "Search for Animals";
   const [activeButton, setActiveButton] = useState<string>("");
   const [conservationDisplay, setConservationDisplay] =
     useState<boolean>(false);
@@ -16,8 +16,8 @@ const SearchAnimals = () => {
 
   const [animals, setAnimals] = useState([]);
   const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false);
-  const [currentFilter, setCurrentFilter] = useState("");
+  const [isFiltered, setIsFiltered] = useState<boolean>(false);
+  const [currentFilter, setCurrentFilter] = useState<string>("");
 
   function shuffle(array: []) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -52,125 +52,29 @@ const SearchAnimals = () => {
 
   const filterbyStatus = (e: string) => {
     setIsFiltered(true);
-    if (e === "VU") {
-      const filtered = unfilteredAnimals.filter(
-        (animal) => animal.conservation_status === "VULNERABLE"
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`conservation status: "Vulnerable"`);
-    } else if (e === "EN") {
-      const filtered = unfilteredAnimals.filter(
-        (animal) => animal.conservation_status === "ENDANGERED"
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`conservation status: "Endangered"`);
-    } else if (e === "CR") {
-      const filtered = unfilteredAnimals.filter(
-        (animal) => animal.conservation_status === "CRITICALLY ENDANGERED"
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`conservation status: "Critically Endangered"`);
-    }
+    const filtered = unfilteredAnimals.filter(
+      (animal) => animal.conservation_status === e.toUpperCase()
+    );
+    setAnimals(filtered);
+    setCurrentFilter(`habitat: "${e}"`);
   };
 
   const filterbyHabitat = (e: string) => {
     setIsFiltered(true);
-    if (e === "FOREST") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Forest")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Forest"`);
-    } else if (e === "SAVANNA") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Savanna")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Savanna"`);
-    } else if (e === "SHRUBLAND") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Shrubland")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Shrubland"`);
-    } else if (e === "GRASSLAND") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Grassland")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Grassland"`);
-    } else if (e === "WETLANDS") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Wetlands")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Wetlands"`);
-    } else if (e === "ROCKY") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Rocky")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Rocky Areas"`);
-    } else if (e === "CAVE") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Cave")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Cave/Subterranean"`);
-    } else if (e === "DESERT") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Desert")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Desert"`);
-    } else if (e === "MARINE") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.habitats.includes("Marine")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`habitat: "Marine"`);
-    }
+    const filtered = unfilteredAnimals.filter((animal) =>
+      animal.habitats.includes(e)
+    );
+    setAnimals(filtered);
+    setCurrentFilter(`habitat: "${e}"`);
   };
 
   const filterbyThreats = (e: string) => {
     setIsFiltered(true);
-    if (e === "HUMAN") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Human Intrusion")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Human Intrusion"`);
-    } else if (e === "RESOURCE") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Biological Resource Use")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Biological Resource Use"`);
-    } else if (e === "INVASIVE") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Invasive Species and Diseases")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Invasive Species and Diseases"`);
-    } else if (e === "POLLUTION") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Pollution")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Pollution"`);
-    } else if (e === "CLIMATE") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Climate Change")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Climate Change"`);
-    } else if (e === "GEOLOGICAL") {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.threats.includes("Geological Events")
-      );
-      setAnimals(filtered);
-      setCurrentFilter(`threats: "Geological Events"`);
-    }
+    const filtered = unfilteredAnimals.filter((animal) =>
+      animal.threats.includes(e)
+    );
+    setAnimals(filtered);
+    setCurrentFilter(`threats: "${e}"`);
   };
 
   const resetFilters = () => {
@@ -221,12 +125,12 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: conservationDisplay ? "block" : "none" }}
           >
-            <p onClick={() => filterbyStatus("VU")}>Vulnerable</p>
-            <p onClick={() => filterbyStatus("EN")}>Endangered</p>
-            <p onClick={() => filterbyStatus("CR")}>Critically Endangered</p>
+            <p onClick={() => filterbyStatus("Vulnerable")}>Vulnerable</p>
+            <p onClick={() => filterbyStatus("Endangered")}>Endangered</p>
+            <p onClick={() => filterbyStatus("Critically Endangered")}>
+              Critically Endangered
+            </p>
           </button>
-          {/* </div> */}
-          {/* <div className="search_button_container"> */}
           <button
             className={
               habitatDisplay ? "search_active_button" : "search_header_button"
@@ -239,18 +143,18 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: habitatDisplay ? "block" : "none" }}
           >
-            <p onClick={() => filterbyHabitat("FOREST")}>Forest</p>
-            <p onClick={() => filterbyHabitat("SAVANNA")}>Savanna</p>
-            <p onClick={() => filterbyHabitat("SHRUBLAND")}>Shrubland</p>
-            <p onClick={() => filterbyHabitat("GRASSLAND")}>Grassland</p>
-            <p onClick={() => filterbyHabitat("WETLANDS")}>Wetlands</p>
-            <p onClick={() => filterbyHabitat("ROCKY")}>Rocky Areas</p>
-            <p onClick={() => filterbyHabitat("CAVE")}>Caves/Subterranean</p>
-            <p onClick={() => filterbyHabitat("DESERT")}>Desert</p>
-            <p onClick={() => filterbyHabitat("MARINE")}>Marine</p>
+            <p onClick={() => filterbyHabitat("Forest")}>Forest</p>
+            <p onClick={() => filterbyHabitat("Savanna")}>Savanna</p>
+            <p onClick={() => filterbyHabitat("Shrubland")}>Shrubland</p>
+            <p onClick={() => filterbyHabitat("Grassland")}>Grassland</p>
+            <p onClick={() => filterbyHabitat("Wetlands")}>Wetlands</p>
+            <p onClick={() => filterbyHabitat("Rocky Areas")}>Rocky Areas</p>
+            <p onClick={() => filterbyHabitat("Cave/Subterranean")}>
+              Caves/Subterranean
+            </p>
+            <p onClick={() => filterbyHabitat("Desert")}>Desert</p>
+            <p onClick={() => filterbyHabitat("Marine")}>Marine</p>
           </button>
-          {/* </div>
-          <div className="search_button_container"> */}
           <button
             className={
               threatsDisplay ? "search_active_button" : "search_header_button"
@@ -264,16 +168,20 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: threatsDisplay ? "block" : "none" }}
           >
-            <p onClick={() => filterbyThreats("HUMAN")}>Human Intrusion</p>
-            <p onClick={() => filterbyThreats("RESOURCE")}>
+            <p onClick={() => filterbyThreats("Human Intrusion")}>
+              Human Intrusion
+            </p>
+            <p onClick={() => filterbyThreats("Biological Resource Use")}>
               Biological Resource Use
             </p>
-            <p onClick={() => filterbyThreats("INVASIVE")}>
+            <p onClick={() => filterbyThreats("Invasive Species and Diseases")}>
               Invasive Species & Diseases
             </p>
-            <p onClick={() => filterbyThreats("POLLUTION")}>Pollution</p>
-            <p onClick={() => filterbyThreats("CLIMATE")}>Climate Change</p>
-            <p onClick={() => filterbyThreats("GEOLOGICAL")}>
+            <p onClick={() => filterbyThreats("Pollution")}>Pollution</p>
+            <p onClick={() => filterbyThreats("Climate Change")}>
+              Climate Change
+            </p>
+            <p onClick={() => filterbyThreats("Geological Events")}>
               Geological Events
             </p>
           </button>
