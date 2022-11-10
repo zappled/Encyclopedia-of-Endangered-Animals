@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../common/Navbar";
 import SearchAnimalResults from "../components/SearchAnimalResults";
-import animals from "../mockData";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
+import ConservationStatus from "./ConservationStatus";
 
 const SearchAnimals = () => {
   const currentPage = "Search for Animals";
@@ -14,7 +14,141 @@ const SearchAnimals = () => {
   const [habitatDisplay, setHabitatDisplay] = useState<boolean>(false);
   const [threatsDisplay, setThreatsDisplay] = useState<boolean>(false);
 
-  let database = animals;
+  const [animals, setAnimals] = useState([]);
+  const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
+
+  function shuffle(array: []) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  const fetchAnimals = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/search/animals");
+      const data = await response.json();
+      shuffle(data);
+      setAnimals(data);
+      setUnfilteredAnimals(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const filterbyName = (input) => {
+    const filtered = unfilteredAnimals.filter((animal) =>
+      animal.name.toLowerCase().includes(input)
+    );
+    setAnimals(filtered);
+  };
+
+  const filterbyStatus = (e: string) => {
+    if (e === "VU") {
+      const filtered = unfilteredAnimals.filter(
+        (animal) => animal.conservation_status === "VULNERABLE"
+      );
+      setAnimals(filtered);
+    } else if (e === "EN") {
+      const filtered = unfilteredAnimals.filter(
+        (animal) => animal.conservation_status === "ENDANGERED"
+      );
+      setAnimals(filtered);
+    } else if (e === "CR") {
+      const filtered = unfilteredAnimals.filter(
+        (animal) => animal.conservation_status === "CRITICALLY ENDANGERED"
+      );
+      setAnimals(filtered);
+    }
+  };
+
+  const filterbyHabitat = (e: string) => {
+    if (e === "FOREST") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Forest")
+      );
+      setAnimals(filtered);
+    } else if (e === "SAVANNA") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Savanna")
+      );
+      setAnimals(filtered);
+    } else if (e === "SHRUBLAND") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Shrubland")
+      );
+      setAnimals(filtered);
+    } else if (e === "GRASSLAND") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Grassland")
+      );
+      setAnimals(filtered);
+    } else if (e === "WETLANDS") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Wetlands")
+      );
+      setAnimals(filtered);
+    } else if (e === "ROCKY") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Rocky")
+      );
+      setAnimals(filtered);
+    } else if (e === "CAVE") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Cave")
+      );
+      setAnimals(filtered);
+    } else if (e === "DESERT") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Desert")
+      );
+      setAnimals(filtered);
+    } else if (e === "MARINE") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes("Marine")
+      );
+      setAnimals(filtered);
+    }
+  };
+
+  const filterbyThreats = (e: string) => {
+    if (e === "HUMAN") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Human Intrusion")
+      );
+      setAnimals(filtered);
+    } else if (e === "RESOURCE") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Biological Resource Use")
+      );
+      setAnimals(filtered);
+    } else if (e === "INVASIVE") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Invasive Species and Diseases")
+      );
+      setAnimals(filtered);
+    } else if (e === "POLLUTION") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Pollution")
+      );
+      setAnimals(filtered);
+    } else if (e === "CLIMATE") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Climate Change")
+      );
+      setAnimals(filtered);
+    } else if (e === "GEOLOGICAL") {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes("Geological Events")
+      );
+      setAnimals(filtered);
+    }
+  };
+
+  // for GET
+  useEffect(() => {
+    fetchAnimals();
+  }, []);
 
   const openConservationDropdown = () => {
     setConservationDisplay(!conservationDisplay);
@@ -34,7 +168,11 @@ const SearchAnimals = () => {
       <div className="search_page_container">
         <div className="three_buttons_container">
           <div className="animal_search_label">Search by Animal Name:</div>
-          <input className="animal_search_input"></input>
+          <input
+            type="text"
+            className="animal_search_input"
+            onChange={(e) => filterbyName(e.target.value)}
+          />
           {/* <div className="search_button_container"> */}
           <button
             className={
@@ -50,9 +188,9 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: conservationDisplay ? "block" : "none" }}
           >
-            <p>Vulnerable</p>
-            <p>Endangered</p>
-            <p>Critically Endangered</p>
+            <p onClick={() => filterbyStatus("VU")}>Vulnerable</p>
+            <p onClick={() => filterbyStatus("EN")}>Endangered</p>
+            <p onClick={() => filterbyStatus("CR")}>Critically Endangered</p>
           </button>
           {/* </div> */}
           {/* <div className="search_button_container"> */}
@@ -68,15 +206,15 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: habitatDisplay ? "block" : "none" }}
           >
-            <p>Forest</p>
-            <p>Savanna</p>
-            <p>Shrubland</p>
-            <p>Grassland</p>
-            <p>Wetlands</p>
-            <p>Rocky Areas</p>
-            <p>Caves/Subterranean</p>
-            <p>Desert</p>
-            <p>Marine</p>
+            <p onClick={() => filterbyHabitat("FOREST")}>Forest</p>
+            <p onClick={() => filterbyHabitat("SAVANNA")}>Savanna</p>
+            <p onClick={() => filterbyHabitat("SHRUBLAND")}>Shrubland</p>
+            <p onClick={() => filterbyHabitat("GRASSLAND")}>Grassland</p>
+            <p onClick={() => filterbyHabitat("WETLANDS")}>Wetlands</p>
+            <p onClick={() => filterbyHabitat("ROCKY")}>Rocky Areas</p>
+            <p onClick={() => filterbyHabitat("CAVE")}>Caves/Subterranean</p>
+            <p onClick={() => filterbyHabitat("DESERT")}>Desert</p>
+            <p onClick={() => filterbyHabitat("MARINE")}>Marine</p>
           </button>
           {/* </div>
           <div className="search_button_container"> */}
@@ -93,13 +231,28 @@ const SearchAnimals = () => {
             className={"search_header_content"}
             style={{ display: threatsDisplay ? "block" : "none" }}
           >
-            <p>Human Intrusion</p>
-            <p>Biological Resource Use</p>
-            <p>Invasive Species & Diseases</p>
-            <p>Pollution</p>
-            <p>Climate Change</p>
-            <p>Geological Events</p>
+            <p onClick={() => filterbyThreats("HUMAN")}>Human Intrusion</p>
+            <p onClick={() => filterbyThreats("RESOURCE")}>
+              Biological Resource Use
+            </p>
+            <p onClick={() => filterbyThreats("INVASIVE")}>
+              Invasive Species & Diseases
+            </p>
+            <p onClick={() => filterbyThreats("POLLUTION")}>Pollution</p>
+            <p onClick={() => filterbyThreats("CLIMATE")}>Climate Change</p>
+            <p onClick={() => filterbyThreats("GEOLOGICAL")}>
+              Geological Events
+            </p>
           </button>
+
+          <button
+            className={"search_header_button"}
+            style={{ color: "#d9d9d9" }}
+            onClick={() => setAnimals(unfilteredAnimals)}
+          >
+            Reset Search Filters
+          </button>
+
           {/* </div> */}
         </div>
         <div className="search_results_container">
@@ -128,19 +281,29 @@ const SearchAnimals = () => {
                   <div className="animal_details">
                     <div className="animal_label">{entry.name}</div>
                     <div className="animal_status">
-                      {entry.conservation_status == "EN" ? (
+                      {entry.conservation_status === "ENDANGERED" ? (
                         <>
-                          <img src={endangeredIcon} className="featured_icon" />
+                          <img
+                            src={endangeredIcon}
+                            className="featured_icon"
+                            alt="endangered"
+                          />
                         </>
-                      ) : entry.conservation_status == "VU" ? (
+                      ) : entry.conservation_status === "VULNERABLE" ? (
                         <>
-                          <img src={vulnerableIcon} className="featured_icon" />
+                          <img
+                            src={vulnerableIcon}
+                            className="featured_icon"
+                            alt="vulnerable"
+                          />
                         </>
-                      ) : entry.conservation_status == "CR" ? (
+                      ) : entry.conservation_status ===
+                        "CRITICALLY ENDANGERED" ? (
                         <>
                           <img
                             src={criticallyEndangeredIcon}
                             className="featured_icon"
+                            alt="critically endangered"
                           />
                         </>
                       ) : (
