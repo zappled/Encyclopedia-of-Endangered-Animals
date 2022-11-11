@@ -16,7 +16,7 @@ const Homepage = () => {
     setAnimalIndex(Math.floor(Math.random() * animals.length));
   }, []);
 
-  let conservation_status: string = "test";
+  let conservation_status: string = "";
   let conservationIcon: string = "";
 
   const getStatus = () => {

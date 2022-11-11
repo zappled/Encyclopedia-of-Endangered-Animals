@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ReactModal from "../components/LoginModal";
 import CreateAccountModal from "../components/CreateAccountModal";
 
+import Context from "../context/context";
+
 const LandingPage = () => {
   const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);

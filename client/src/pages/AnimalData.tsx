@@ -4,8 +4,11 @@ import Navbar from "../common/Navbar";
 import EditDatabaseModal from "../components/EditDatabaseModal";
 
 const AnimalData = () => {
+  const [error, setError] = useState(null);
+  const [deleteId, setDeleteId] = useState({});
   const currentPage: string = "Animal Database Entries";
   const [animals, setAnimals] = useState([]);
+  const [firstUpdateDelete, setFirstUpdateDelete] = useState(true);
 
   const fetchAnimals = async () => {
     try {
@@ -16,6 +19,36 @@ const AnimalData = () => {
       console.log(err);
     }
   };
+
+  const deleteAnimal = async () => {
+    try {
+      const res = await fetch(`http://localhost:5001/search/animals`, {
+        method: "DELETE",
+        body: JSON.stringify(deleteId),
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + bearer,
+        },
+      });
+      if (res.status !== 200) {
+        throw new Error("Something went wrong!");
+      }
+      await res.json();
+      fetchAnimals();
+      console.log("entry deleted");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  // for DELETE
+  useEffect(() => {
+    if (firstUpdateDelete === true) {
+      setFirstUpdateDelete(false);
+    } else {
+      deleteAnimal();
+    }
+  }, [deleteId]);
 
   // fetches data from animal database on initial mount
   useEffect(() => {
@@ -62,7 +95,12 @@ const AnimalData = () => {
                     >
                       Edit
                     </button>
-                    <button className="edit_database_button">Delete</button>
+                    <button
+                      className="edit_database_button"
+                      onClick={() => setDeleteId({ id: entry.id })}
+                    >
+                      Delete
+                    </button>
                   </td>
                   <td>{entry.class}</td>
                   <td>{entry.conservation_status}</td>

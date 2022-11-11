@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../common/Navbar";
-import SearchAnimalResults from "../components/SearchAnimalResults";
+// import SearchAnimalResults from "./SearchAnimalResults";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
 import ConservationStatus from "./ConservationStatus";
+import { Link } from "react-router-dom";
 
 const SearchAnimals = () => {
   const currentPage: string = "Search for Animals";
-  const [activeButton, setActiveButton] = useState<string>("");
   const [conservationDisplay, setConservationDisplay] =
     useState<boolean>(false);
   const [habitatDisplay, setHabitatDisplay] = useState<boolean>(false);
@@ -201,51 +201,60 @@ const SearchAnimals = () => {
               You are filtering by {currentFilter}
             </span>
           </div>
+
           <div className="animal_entry_container">
             {animals.map((entry: any) => {
               return (
-                <div className="animal_entry">
-                  <div
-                    className="animal_picture"
-                    style={{
-                      backgroundImage: `url(${entry.image}`,
-                      backgroundSize: "cover",
-                    }}
-                  ></div>
-                  <div className="animal_details">
-                    <div className="animal_label">{entry.name}</div>
-                    <div className="animal_status">
-                      {entry.conservation_status === "ENDANGERED" ? (
-                        <>
-                          <img
-                            src={endangeredIcon}
-                            className="featured_icon"
-                            alt="endangered"
-                          />
-                        </>
-                      ) : entry.conservation_status === "VULNERABLE" ? (
-                        <>
-                          <img
-                            src={vulnerableIcon}
-                            className="featured_icon"
-                            alt="vulnerable"
-                          />
-                        </>
-                      ) : entry.conservation_status ===
-                        "CRITICALLY ENDANGERED" ? (
-                        <>
-                          <img
-                            src={criticallyEndangeredIcon}
-                            className="featured_icon"
-                            alt="critically endangered"
-                          />
-                        </>
-                      ) : (
-                        ""
-                      )}
+                <>
+                  <Link
+                    to={`/search/animals/${entry.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className="animal_entry">
+                      <div
+                        className="animal_picture"
+                        style={{
+                          backgroundImage: `url(${entry.image}`,
+                          backgroundSize: "cover",
+                        }}
+                      ></div>
+                      <div className="animal_details">
+                        <div className="animal_label">{entry.name}</div>
+                        <div className="animal_status">
+                          {entry.conservation_status === "ENDANGERED" ? (
+                            <>
+                              <img
+                                src={endangeredIcon}
+                                className="featured_icon"
+                                alt="endangered"
+                              />
+                            </>
+                          ) : entry.conservation_status === "VULNERABLE" ? (
+                            <>
+                              <img
+                                src={vulnerableIcon}
+                                className="featured_icon"
+                                alt="vulnerable"
+                              />
+                            </>
+                          ) : entry.conservation_status ===
+                            "CRITICALLY ENDANGERED" ? (
+                            <>
+                              <img
+                                src={criticallyEndangeredIcon}
+                                className="featured_icon"
+                                alt="critically endangered"
+                              />
+                            </>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </Link>
+                  {/* <SearchAnimalResults /> */}
+                </>
               );
             })}
           </div>
