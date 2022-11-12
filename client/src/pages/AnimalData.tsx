@@ -29,24 +29,25 @@ const AnimalData = () => {
   };
 
   const deleteAnimal = async () => {
-    console.log("test");
-    try {
-      const res = await fetch(`http://localhost:5001/search/animals`, {
-        method: "DELETE",
-        body: JSON.stringify(deleteId),
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: "Bearer " + bearer,
-        },
-      });
-      // if (res.status !== 200) {
-      //   throw new Error("Something went wrong!");
-      // }
-      // await res.json();
-      fetchAnimals();
-      console.log("entry deleted");
-    } catch (err) {
-      setError(err.message);
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      try {
+        const res = await fetch(`http://localhost:5001/search/animals`, {
+          method: "DELETE",
+          body: JSON.stringify(deleteId),
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: "Bearer " + bearer,
+          },
+        });
+        // if (res.status !== 200) {
+        //   throw new Error("Something went wrong!");
+        // }
+        // await res.json();
+        fetchAnimals();
+        console.log("entry deleted");
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
