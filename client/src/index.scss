@@ -4,6 +4,7 @@
 @use "./pages/conservationstatus";
 @use "./pages/searchanimals";
 @use "./pages/editdatabase";
+@use "./pages/settings";
 @import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
 
 @mixin theme($theme: $grey-color) {

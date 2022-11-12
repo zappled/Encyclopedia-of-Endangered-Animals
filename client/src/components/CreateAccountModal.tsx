@@ -26,26 +26,17 @@ const CreateAccountModal = (props) => {
     setAccountCreated(false);
   };
 
+  // captures input from input form for creating account
+
+  // const usernameRef = useRef<any>(null);
+  // const passwordRef = useRef<any>(null);
+  // const emailRef = useRef<any>(null);
+
   // updates modal content to show 'account successfully created' message
 
   const [accountCreated, setAccountCreated] = useState(false);
 
   // creates new object to be passed into fetch PUT function
-
-  const createAccount = (e) => {
-    e.preventDefault();
-    // props.setApptBody({
-    //   name: nameRef.current.value,
-    //   description: descriptionRef.current.value,
-    //   category: category,
-    //   with_who: attendingWithRef.current.value,
-    //   organization: orgRef.current.value,
-    //   address: addressRef.current.value,
-    //   recurring: recurring,
-    // });
-    console.log(value);
-    setAccountCreated(true);
-  };
 
   const [value, setValue] = useState("");
 
@@ -64,9 +55,10 @@ const CreateAccountModal = (props) => {
           </>
         ) : (
           <CreateAccountForm
-            createAccount={createAccount}
             value={value}
             setValue={setValue}
+            accountCreated={accountCreated}
+            setAccountCreated={setAccountCreated}
           />
         )}
       </ReactModal>

@@ -57,7 +57,9 @@ const Navbar = (props) => {
           ) : (
             ""
           )}
-          <span className="material-symbols-outlined">settings</span>
+          <Link to="/settings">
+            <span className="material-symbols-outlined">settings</span>
+          </Link>
         </div>
       </div>
     </>

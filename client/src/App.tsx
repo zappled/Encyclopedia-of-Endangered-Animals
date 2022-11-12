@@ -8,6 +8,7 @@ import EditDatabase from "./pages/EditDatabase";
 import AnimalData from "./pages/AnimalData";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import SearchAnimalResults from "./pages/SearchAnimalResults";
+import Settings from "./pages/Settings";
 import Context from "./context/context";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/edit_database" element={<EditDatabase />} />
           <Route path="/edit_database/search" element={<AnimalData />} />
           <Route path="/search/animals/:id" element={<SearchAnimalResults />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </>
     </Context.Provider>

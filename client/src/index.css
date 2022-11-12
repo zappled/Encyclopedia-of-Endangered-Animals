@@ -535,6 +535,33 @@
   font-size: 0.8rem;
 }
 
+.settings_page_container {
+  width: 70vw;
+  height: 88vh;
+  margin: 0 auto;
+}
+
+.settings_button_container {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.settings_button {
+  background: #0b1f04;
+  border: none;
+  color: #d9d9d9;
+  font: 1rem "Lalezar", sans-serif;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  width: 12rem;
+  margin-bottom: 1rem;
+}
+
+#delete_button {
+  color: #e77929;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Lalezar", sans-serif;

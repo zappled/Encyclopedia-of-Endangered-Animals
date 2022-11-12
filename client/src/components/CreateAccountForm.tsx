@@ -4,13 +4,42 @@ import { useRef, useState, useMemo } from "react";
 import countryList from "react-select-country-list";
 
 const CreateAccountForm = (props) => {
-  const usernameRef = useRef();
-  const passwordRef = useRef();
-  const emailRef = useRef();
+  const [error, setError] = useState(null);
+  const usernameRef = useRef<any>();
+  const passwordRef = useRef<any>();
+  const emailRef = useRef<any>();
   const options = useMemo(() => countryList().getData(), []);
 
-  const changeHandler = (value) => {
+  const changeHandler = (value: string) => {
     props.setValue(value);
+  };
+
+  const createAccount = async (e: any) => {
+    e.preventDefault();
+    const accountDetails = {
+      name: usernameRef.current.value,
+      password: passwordRef.current.value,
+      email: emailRef.current.value,
+      country: props.value.value,
+    };
+    try {
+      const res = await fetch(`http://localhost:5001/users`, {
+        method: "PUT",
+        body: JSON.stringify(accountDetails),
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + bearer,
+        },
+      });
+      const user = await res.json();
+      if (res.status !== 200) {
+        alert(user);
+        return;
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+    props.setAccountCreated(true);
   };
 
   return (
@@ -28,13 +57,13 @@ const CreateAccountForm = (props) => {
           <div className="modal_label">
             <label>Password</label>
           </div>
-          <input type="text" ref={passwordRef} required />
+          <input type="password" ref={passwordRef} required />
         </div>
         <div className="input_container">
           <div className="modal_label">
             <label>Email</label>
           </div>
-          <input type="text" ref={emailRef} required />
+          <input type="email" ref={emailRef} required />
         </div>
         <div className="input_container">
           <div className="modal_label">
@@ -48,7 +77,7 @@ const CreateAccountForm = (props) => {
           />
         </div>
         <br />
-        <button className="modal_button" onClick={props.createAccount}>
+        <button className="modal_button" onClick={createAccount}>
           CREATE
         </button>
       </form>

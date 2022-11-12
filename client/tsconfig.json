@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ES2021.String", "DOM"],
+    "lib": ["ES2021.String", "dom"],
     "outDir": "./dist",
     "allowJs": true,
     "target": "es5",

@@ -29,8 +29,6 @@ const SearchAnimalResults = () => {
       for (const threat of data[0].threats) {
         threatsSet.add(threat);
       }
-      console.log(habitatSet);
-      console.log(threatsSet);
       setHabitats(habitatSet);
       setThreats(threatsSet);
       if (res.status !== 200) {

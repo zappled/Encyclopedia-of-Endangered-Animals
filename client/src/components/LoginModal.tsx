@@ -33,15 +33,13 @@ const LoginModal = (props) => {
     props.setModalIsOpen(false);
   };
 
-  // captures input from input form for creating appointment
+  // captures input from input form for logging in
 
   const usernameRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
 
   const loginAccount = async (e: any) => {
     e.preventDefault();
-    console.log(usernameRef.current.value);
-    console.log(passwordRef.current.value);
     const loginDetails = {
       name: usernameRef.current.value,
       password: passwordRef.current.value,

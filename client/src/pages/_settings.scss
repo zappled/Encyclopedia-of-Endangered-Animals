@@ -1,0 +1,36 @@
+$font-type: "Lalezar", sans-serif;
+$white-color: #ffffff;
+$orange-color: #e77929;
+$grey-color: #d9d9d9;
+$dark-green-color: #0b1f04;
+
+@mixin theme($theme: $dark-green-color) {
+  background: $theme;
+  border: none;
+  color: $grey-color;
+  font: 1rem $font-type;
+}
+
+.settings_page_container {
+  width: 70vw;
+  height: 88vh;
+  margin: 0 auto;
+}
+
+.settings_button_container {
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.settings_button {
+  @include theme;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  width: 12rem;
+  margin-bottom: 1rem;
+}
+
+#delete_button {
+  color: $orange-color;
+}

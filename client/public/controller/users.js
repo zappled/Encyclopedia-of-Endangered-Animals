@@ -13,12 +13,6 @@ const pool = new Pool({
 });
 
 const createUser = async (req, res) => {
-  // const user = await user_accounts.findOne({ username: req.body.username });
-  // if (user) {
-  //   return res
-  //     .status(400)
-  //     .json({ status: "error", message: "duplicate username" });
-  // }
   const { name, email, password, country } = req.body;
 
   const user = await pool.query(
