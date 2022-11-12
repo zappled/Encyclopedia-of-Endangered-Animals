@@ -33,6 +33,8 @@ app.patch("/users/password", usersDB.changePassword);
 
 app.patch("/users/email", usersDB.changeEmail);
 
+app.patch("/users/status", usersDB.toggleAdminStatus);
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);

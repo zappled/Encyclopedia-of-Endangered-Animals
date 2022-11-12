@@ -154,6 +154,28 @@ const changeEmail = async (req, res) => {
   }
 };
 
+const toggleAdminStatus = async (req, res) => {
+  const { uuid, isAdmin } = req.body;
+  let adminStatus = "";
+  if (isAdmin) {
+    adminStatus = false;
+  } else {
+    adminStatus = true;
+  }
+  try {
+    pool.query("SELECT * FROM user_accounts WHERE user_accounts.uuid = $1", [
+      uuid,
+    ]);
+    pool.query("UPDATE user_accounts SET is_admin=$1 WHERE uuid=$2", [
+      adminStatus,
+      uuid,
+    ]);
+    res.status(200).send("Admin status has been updated");
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
@@ -161,4 +183,5 @@ module.exports = {
   loginUser,
   changePassword,
   changeEmail,
+  toggleAdminStatus,
 };
