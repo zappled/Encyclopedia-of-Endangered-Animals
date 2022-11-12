@@ -45,7 +45,6 @@ const SearchAnimalResults = () => {
   // fetches data from animal database on initial mount
   useEffect(() => {
     fetchAnimalById();
-    // getThreats();
   }, []);
 
   return (

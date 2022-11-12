@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import redPandaIcon from "../images/icons/animals/icons8_redpanda_lightgrey.png";
 import { Link } from "react-router-dom";
+import Context from "../context/context";
 
 const Navbar = (props) => {
+  const context = useContext(Context);
+
   return (
     <>
       <div className="navbar">
@@ -40,7 +43,11 @@ const Navbar = (props) => {
           </div>
         </div>
         <div className="navbar_right_container">
-          <span className="username">Username123</span>
+          <span className="username">
+            {context.userId
+              ? JSON.stringify(context.userId).replaceAll(`"`, "")
+              : ""}
+          </span>
           <Link to="/edit_database">
             <span className="material-symbols-outlined">database</span>
           </Link>

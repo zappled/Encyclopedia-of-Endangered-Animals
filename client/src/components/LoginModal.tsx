@@ -59,7 +59,7 @@ const LoginModal = (props) => {
         throw new Error("Something went wrong!");
       }
       context.setIsLoggedIn(true);
-      context.setUserId(usernameRef);
+      context.setUserId(usernameRef.current.value);
       console.log("logged in successfully");
     } catch (err) {
       alert("Login unsuccessful");
