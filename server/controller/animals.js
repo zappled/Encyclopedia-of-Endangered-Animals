@@ -38,17 +38,19 @@ const deleteAnimal = (req, res) => {
   console.log(id);
 
   pool.query(
-    "DELETE FROM animals_habitats WHERE animals_id = $1",
-    "DELETE FROM animals_threats WHERE animals_id = $1",
-    "DELETE FROM animals WHERE id = $1",
-    [id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).send(`Animal deleted with ID: ${id}`);
-    }
+    `
+    DELETE FROM animals_habitats WHERE animals_id = $1;`,
+    [id]
+    // (error, results) => {
+    //   if (error) {
+    //     throw error;
+    //   }
+    //   res.status(200).send(`Animal deleted with ID: ${id}`);
+    // }
   );
+  pool.query(`DELETE FROM animals_threats WHERE animals_id = $1;`, [id]);
+  pool.query(`DELETE FROM animals WHERE id = $1;`, [id]);
+  res.json("Entry deleted");
 };
 
 module.exports = { getAllAnimals, getAnimalByID, deleteAnimal };

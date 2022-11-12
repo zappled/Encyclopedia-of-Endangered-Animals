@@ -15,7 +15,7 @@ const AnimalData = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    context.isLoggedIn ? <></> : navigate("/");
+    context.isLoggedIn ? fetchAnimals() : navigate("/");
   }, []);
 
   const fetchAnimals = async () => {
@@ -29,6 +29,7 @@ const AnimalData = () => {
   };
 
   const deleteAnimal = async () => {
+    console.log("test");
     try {
       const res = await fetch(`http://localhost:5001/search/animals`, {
         method: "DELETE",
@@ -38,10 +39,10 @@ const AnimalData = () => {
           // Authorization: "Bearer " + bearer,
         },
       });
-      if (res.status !== 200) {
-        throw new Error("Something went wrong!");
-      }
-      await res.json();
+      // if (res.status !== 200) {
+      //   throw new Error("Something went wrong!");
+      // }
+      // await res.json();
       fetchAnimals();
       console.log("entry deleted");
     } catch (err) {
@@ -58,11 +59,6 @@ const AnimalData = () => {
     }
   }, [deleteId]);
 
-  // fetches data from animal database on initial mount
-  useEffect(() => {
-    fetchAnimals();
-  }, []);
-
   // controls toggling of modal for updating appointment
 
   const [editDatabaseModalIsOpen, setEditDatabaseModalIsOpen] = useState(false);
@@ -73,64 +69,70 @@ const AnimalData = () => {
 
   return (
     <>
-      <Navbar currentPage={currentPage} />
-      <table className="animal_data_table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Class</th>
-            <th>Conservation Status</th>
-            <th>Region</th>
-            <th>Population</th>
-            <th>Image</th>
-            <th>Threats</th>
-            <th>Habitats</th>
-          </tr>
-        </thead>
-        {animals.map((entry: any, key: any) => {
-          return (
-            <>
-              <tbody key={key}>
-                <tr>
-                  <td>{entry.id}</td>
-                  <td>
-                    {entry.name}
-                    <br />
-                    <button
-                      className="edit_database_button"
-                      onClick={openEditDatabaseModal}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="edit_database_button"
-                      onClick={() => setDeleteId({ id: entry.id })}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td>{entry.class}</td>
-                  <td>{entry.conservation_status}</td>
-                  <td>{entry.region}</td>
-                  <td>{entry.population}</td>
-                  <td>{entry.image}</td>
-                  <td>{new Set(entry.threats)}</td>
-                  <td>{new Set(entry.habitats)}</td>
-                </tr>
-              </tbody>
-            </>
-          );
-        })}
-      </table>
+      {context.isAdmin ? (
+        <>
+          <Navbar currentPage={currentPage} />
+          <table className="animal_data_table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Conservation Status</th>
+                <th>Region</th>
+                <th>Population</th>
+                <th>Image</th>
+                <th>Threats</th>
+                <th>Habitats</th>
+              </tr>
+            </thead>
+            {animals.map((entry: any, key: any) => {
+              return (
+                <>
+                  <tbody key={key}>
+                    <tr>
+                      <td>{entry.id}</td>
+                      <td>
+                        {entry.name}
+                        <br />
+                        <button
+                          className="edit_database_button"
+                          onClick={openEditDatabaseModal}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="edit_database_button"
+                          onClick={() => setDeleteId({ id: entry.id })}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                      <td>{entry.class}</td>
+                      <td>{entry.conservation_status}</td>
+                      <td>{entry.region}</td>
+                      <td>{entry.population}</td>
+                      <td>{entry.image}</td>
+                      <td>{new Set(entry.threats)}</td>
+                      <td>{new Set(entry.habitats)}</td>
+                    </tr>
+                  </tbody>
+                </>
+              );
+            })}
+          </table>
 
-      <EditDatabaseModal
-        editDatabaseModalIsOpen={editDatabaseModalIsOpen}
-        setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}
-        // entry={props.entry}
-        // setUpdatedApptBody={props.setUpdatedApptBody}
-        // updatedApptBody={props.updatedApptBody}
-      />
+          <EditDatabaseModal
+            editDatabaseModalIsOpen={editDatabaseModalIsOpen}
+            setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}
+            // entry={props.entry}
+            // setUpdatedApptBody={props.setUpdatedApptBody}
+            // updatedApptBody={props.updatedApptBody}
+          />
+        </>
+      ) : (
+        <div>Administrator rights is required to view this page</div>
+      )}
     </>
   );
 };
