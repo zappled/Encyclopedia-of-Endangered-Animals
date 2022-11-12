@@ -44,8 +44,8 @@ const Navbar = (props) => {
         </div>
         <div className="navbar_right_container">
           <span className="username">
-            {context.userId
-              ? JSON.stringify(context.userId).replaceAll(`"`, "")
+            {context.username
+              ? JSON.stringify(context.username).replaceAll(`"`, "")
               : ""}
           </span>
           {context.isAdmin ? (

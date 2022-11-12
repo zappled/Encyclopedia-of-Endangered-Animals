@@ -61,8 +61,8 @@ const LoginModal = (props) => {
         context.setIsAdmin(true);
       }
       context.setIsLoggedIn(true);
-      context.setUserId(usernameRef.current.value);
-      console.log("logged in successfully");
+      context.setUsername(usernameRef.current.value);
+      context.setUserId(userDetails.id);
     } catch (err) {
       alert("Login unsuccessful");
       setError(err.message);
@@ -88,7 +88,7 @@ const LoginModal = (props) => {
         style={customStyles}
         contentLabel="Login Modal"
       >
-        {context.userId ? (
+        {context.username ? (
           <>
             <div onClick={() => navigate("/homepage")}>
               <div>Successfully Logged In!</div>

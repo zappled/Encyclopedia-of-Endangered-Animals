@@ -13,17 +13,20 @@ import Context from "./context/context";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState("");
   return (
     <Context.Provider
       value={{
         isLoggedIn,
         setIsLoggedIn,
-        userId,
-        setUserId,
+        username,
+        setUsername,
         isAdmin,
         setIsAdmin,
+        userId,
+        setUserId,
       }}
     >
       <>

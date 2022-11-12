@@ -29,6 +29,10 @@ app.delete("/search/animals", animalsDB.deleteAnimal);
 
 app.post("/login", usersDB.loginUser);
 
+app.patch("/users/password", usersDB.changePassword);
+
+app.patch("/users/email", usersDB.changeEmail);
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);

@@ -115,11 +115,50 @@ const loginUser = async (req, res) => {
       refresh,
     };
     res.json(response);
-    console.log(response);
   } catch (err) {
     console.error(err.message);
     res.status(400).json({ status: "error", message: "login failed" });
   }
 };
 
-module.exports = { getUsers, createUser, deleteUser, loginUser };
+const changePassword = async (req, res) => {
+  const { uuid, password } = req.body;
+  const hash = await bcrypt.hash(password, 12);
+  try {
+    pool.query("SELECT * FROM user_accounts WHERE user_accounts.uuid = $1", [
+      uuid,
+    ]);
+    pool.query("UPDATE user_accounts SET password=$1 WHERE uuid=$2", [
+      hash,
+      uuid,
+    ]);
+    res.status(200).send("Password has been changed");
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+const changeEmail = async (req, res) => {
+  const { uuid, email } = req.body;
+  try {
+    pool.query("SELECT * FROM user_accounts WHERE user_accounts.uuid = $1", [
+      uuid,
+    ]);
+    pool.query("UPDATE user_accounts SET email=$1 WHERE uuid=$2", [
+      email,
+      uuid,
+    ]);
+    res.status(200).send("Email has been changed");
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+module.exports = {
+  getUsers,
+  createUser,
+  deleteUser,
+  loginUser,
+  changePassword,
+  changeEmail,
+};
