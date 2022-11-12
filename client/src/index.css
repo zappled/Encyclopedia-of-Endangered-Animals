@@ -188,6 +188,7 @@
 .featured_image {
   flex-grow: 1;
   height: 100%;
+  width: 20rem;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: 0% 15%;
@@ -219,6 +220,7 @@
 
 .conservation_image {
   height: 100%;
+  width: 20rem;
   flex-grow: 1;
   background-image: url("./images/homepage/conservation_image.jpeg");
   background-position: 30% 25%;
@@ -237,6 +239,7 @@
 
 .search_image {
   height: 100%;
+  width: 20rem;
   flex-grow: 1;
   background-image: url("./images/homepage/search_image.jpeg");
   background-position: 50% 25%;

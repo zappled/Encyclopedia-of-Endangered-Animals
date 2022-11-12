@@ -78,6 +78,7 @@ $search-image: url("./images/homepage/search_image.jpeg");
 .featured_image {
   flex-grow: 1;
   height: 100%;
+  width: 20rem;
   object-fit: cover;
   object-position: 0% 15%;
 }
@@ -107,6 +108,7 @@ $search-image: url("./images/homepage/search_image.jpeg");
 
 .conservation_image {
   height: 100%;
+  width: 20rem;
   flex-grow: 1;
   background-image: $conservation-image;
   background-position: 30% 25%;
@@ -125,6 +127,7 @@ $search-image: url("./images/homepage/search_image.jpeg");
 
 .search_image {
   height: 100%;
+  width: 20rem;
   flex-grow: 1;
   background-image: $search-image;
   background-position: 50% 25%;

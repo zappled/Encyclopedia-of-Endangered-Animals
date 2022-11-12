@@ -12,7 +12,6 @@ const Homepage = () => {
   const currentPage: string = "Homepage";
   const context = useContext(Context);
   const navigate = useNavigate();
-  const [initialMount, setInitialMount] = useState(true);
   const [featuredAnimal, setFeaturedAnimal] = useState<any>({});
 
   const [conservationStatus, setConservationStatus] = useState("");
@@ -45,29 +44,6 @@ const Homepage = () => {
     fetchRandomAnimal();
   }, []);
 
-  // useEffect(() => {
-  //   if (initialMount) {
-  //     setInitialMount(false);
-  //   } else {
-  //     getStatus();
-  //   }
-  // }, [featuredAnimal]);
-
-  // const getStatus = () => {
-  //   console.log(featuredAnimal);
-  //   const dataStatus = featuredAnimal[0].conservation_status;
-  //   if (dataStatus === "CRITICALLY ENDANGERED") {
-  //     conservation_status = "Critically Endangered";
-  //     conservationIcon = criticallyEndangeredIcon;
-  //   } else if (dataStatus === "ENDANGERED") {
-  //     conservation_status = "Endangered";
-  //     conservationIcon = endangeredIcon;
-  //   } else if (dataStatus === "VULNERABLE") {
-  //     conservation_status = "Vulnerable";
-  //     conservationIcon = vulnerableIcon;
-  //   }
-  // };
-
   return (
     <>
       <Navbar currentPage={currentPage} />
@@ -90,7 +66,12 @@ const Homepage = () => {
               <img src={regionIcon} className="featured_icon" />
               {featuredAnimal ? featuredAnimal.region : ""}
             </div>
-            <button className="main_button">LEARN MORE</button>
+            <Link
+              to={`/search/animals/${featuredAnimal.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <button className="main_button">LEARN MORE</button>
+            </Link>
           </div>
           <img
             className="featured_image"
@@ -109,14 +90,16 @@ const Homepage = () => {
           </div>
         </Link>
 
-        <div className="feature_box">
-          <div className="featured_details">
-            <div className="search_database_title">
-              Search Our Animal Database
+        <Link to="/search/animals" style={{ textDecoration: "none" }}>
+          <div className="feature_box">
+            <div className="featured_details">
+              <div className="search_database_title">
+                Search Our Animal Database
+              </div>
             </div>
+            <div className="search_image"></div>
           </div>
-          <div className="search_image"></div>
-        </div>
+        </Link>
       </div>
     </>
   );
