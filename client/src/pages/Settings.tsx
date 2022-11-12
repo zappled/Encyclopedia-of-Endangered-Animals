@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Navbar from "../common/Navbar";
+import { useNavigate } from "react-router-dom";
+import Context from "../context/context";
 
 const Settings = () => {
   const currentPage: string = "Account Settings";
+
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
+
   return (
     <>
       <Navbar currentPage={currentPage} />

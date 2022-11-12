@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import Navbar from "../common/Navbar";
-// import SearchAnimalResults from "./SearchAnimalResults";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
-import ConservationStatus from "./ConservationStatus";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Context from "../context/context";
 
 const SearchAnimals = () => {
   const currentPage: string = "Search for Animals";
@@ -18,6 +18,13 @@ const SearchAnimals = () => {
   const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
   const [currentFilter, setCurrentFilter] = useState<string>("");
+
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
 
   function shuffle(array: []) {
     for (let i = array.length - 1; i > 0; i--) {

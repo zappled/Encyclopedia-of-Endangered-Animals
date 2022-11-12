@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { json } from "stream/consumers";
 import Navbar from "../common/Navbar";
 import EditDatabaseModal from "../components/EditDatabaseModal";
+import Context from "../context/context";
 
 const AnimalData = () => {
   const [error, setError] = useState(null);
@@ -9,6 +11,12 @@ const AnimalData = () => {
   const currentPage: string = "Animal Database Entries";
   const [animals, setAnimals] = useState([]);
   const [firstUpdateDelete, setFirstUpdateDelete] = useState(true);
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
 
   const fetchAnimals = async () => {
     try {

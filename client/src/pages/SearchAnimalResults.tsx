@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "../common/Navbar";
 import { CCarousel } from "@coreui/react";
 import { CCarouselItem } from "@coreui/react";
 import { CCarouselCaption } from "@coreui/react";
 import { CImage } from "@coreui/react";
+import { useNavigate } from "react-router-dom";
+import Context from "../context/context";
 
 const SearchAnimalResults = () => {
   const animalId = window.location.href.slice(37);
@@ -12,6 +14,13 @@ const SearchAnimalResults = () => {
   const [currentPage, setCurrentPage] = useState("");
   const [habitats, setHabitats] = useState({});
   const [threats, setThreats] = useState({});
+
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
 
   const fetchAnimalById = async () => {
     try {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Navbar from "../common/Navbar";
 import dataDeficientIcon from "../images/icons/conservation/data_deficient.png";
 import leastConcernIcon from "../images/icons/conservation/least_concern.png";
@@ -8,9 +8,18 @@ import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
 import extinctWildIcon from "../images/icons/conservation/extinct_in_wild.png";
 import extinctIcon from "../images/icons/conservation/extinct.png";
+import Context from "../context/context";
+import { useNavigate } from "react-router-dom";
 
 const ConservationStatus = () => {
   const currentPage = "Conservation Status";
+
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
 
   const defaultText = (
     <>

@@ -40,8 +40,7 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    context.isLoggedIn ? <></> : navigate("/");
-    fetchRandomAnimal();
+    context.isLoggedIn ? fetchRandomAnimal() : navigate("/");
   }, []);
 
   return (

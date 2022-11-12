@@ -1,9 +1,17 @@
-import React from "react";
+import React, {useEffect, useContext} from "react";
 import Navbar from "../common/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Context from "../context/context";
 
 const EditDatabase = () => {
   const currentPage: string = "Edit Database";
+
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.isLoggedIn ? <></> : navigate("/");
+  }, []);
   return (
     <>
       <Navbar currentPage={currentPage} />
