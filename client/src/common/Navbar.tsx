@@ -48,9 +48,15 @@ const Navbar = (props) => {
               ? JSON.stringify(context.userId).replaceAll(`"`, "")
               : ""}
           </span>
-          <Link to="/edit_database">
-            <span className="material-symbols-outlined">database</span>
-          </Link>
+          {context.isAdmin ? (
+            <>
+              <Link to="/edit_database">
+                <span className="material-symbols-outlined">database</span>
+              </Link>
+            </>
+          ) : (
+            ""
+          )}
           <span className="material-symbols-outlined">settings</span>
         </div>
       </div>

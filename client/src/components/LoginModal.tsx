@@ -58,6 +58,10 @@ const LoginModal = (props) => {
       if (res.status !== 200) {
         throw new Error("Something went wrong!");
       }
+      const userDetails = await res.json();
+      if (userDetails.isAdmin) {
+        context.setIsAdmin(true);
+      }
       context.setIsLoggedIn(true);
       context.setUserId(usernameRef.current.value);
       console.log("logged in successfully");

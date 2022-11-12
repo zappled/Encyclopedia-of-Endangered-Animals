@@ -13,8 +13,18 @@ import Context from "./context/context";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   return (
-    <Context.Provider value={{ isLoggedIn, setIsLoggedIn, userId, setUserId }}>
+    <Context.Provider
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        userId,
+        setUserId,
+        isAdmin,
+        setIsAdmin,
+      }}
+    >
       <>
         <Routes>
           <Route path="/" element={<LandingPage />} />
