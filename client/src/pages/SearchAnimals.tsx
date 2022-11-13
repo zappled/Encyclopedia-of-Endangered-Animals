@@ -117,7 +117,7 @@ const SearchAnimals = () => {
             className="animal_search_input"
             onChange={(e) => filterbyName(e.target.value)}
           />
-          {/* <div className="search_button_container"> */}
+
           <button
             className={
               conservationDisplay

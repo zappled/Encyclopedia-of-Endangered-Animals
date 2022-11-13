@@ -36,11 +36,13 @@ const Navbar = (props) => {
         </div>
 
         <div className="navlink_container">
-          <div className="navlink">
-            {" "}
-            <span className="material-symbols-outlined">person</span>View Other
-            Users
-          </div>
+          <Link to="/search/users" style={{ textDecoration: "none" }}>
+            <div className="navlink">
+              {" "}
+              <span className="material-symbols-outlined">person</span>View
+              Other Users
+            </div>
+          </Link>
         </div>
         <div className="navbar_right_container">
           <span className="username">

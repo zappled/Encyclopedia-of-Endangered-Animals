@@ -9,6 +9,7 @@ import AnimalData from "./pages/AnimalData";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import SearchAnimalResults from "./pages/SearchAnimalResults";
 import Settings from "./pages/Settings";
+import SearchUsers from "./pages/SearchUsers";
 import Context from "./context/context";
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/search/animals" element={<SearchAnimals />} />
-          {/* <Route path="/search/users" element={<SearchUsers />} /> */}
+          <Route path="/search/users" element={<SearchUsers />} />
           <Route path="/conservation_status" element={<ConservationStatus />} />
           <Route path="/edit_database" element={<EditDatabase />} />
           <Route path="/edit_database/search" element={<AnimalData />} />

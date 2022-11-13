@@ -166,7 +166,13 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
-          <div className="results_text">
+          <div
+            className="results_text"
+            style={{
+              textDecoration: "underline",
+              textUnderlineOffset: "1rem",
+            }}
+          >
             {"Wild Population: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>{animal[0].population}</span>
@@ -174,7 +180,10 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
-          <div className="results_text" style={{ fontSize: "1rem" }}>
+          <div
+            className="results_text"
+            style={{ fontSize: "1rem", marginTop: "1rem" }}
+          >
             {"Habitats: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>
