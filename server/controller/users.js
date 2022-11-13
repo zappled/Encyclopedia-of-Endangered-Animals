@@ -58,6 +58,20 @@ const getUsers = (req, res) => {
   });
 };
 
+const getUserById = (req, res) => {
+  const { id } = req.body;
+  pool.query(
+    `SELECT name, country FROM user_accounts WHERE uuid=$1`,
+    [id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
 const deleteUser = (req, res) => {
   const { uuid } = req.body;
 
@@ -122,17 +136,35 @@ const loginUser = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-  const { uuid, password } = req.body;
-  const hash = await bcrypt.hash(password, 12);
+  const { uuid, currentPassword, newPassword } = req.body;
+  const newHash = await bcrypt.hash(newPassword, 12);
   try {
-    pool.query("SELECT * FROM user_accounts WHERE user_accounts.uuid = $1", [
-      uuid,
-    ]);
-    pool.query("UPDATE user_accounts SET password=$1 WHERE uuid=$2", [
-      hash,
-      uuid,
-    ]);
-    res.status(200).send("Password has been changed");
+    const user = await pool.query(
+      "SELECT password FROM user_accounts WHERE user_accounts.uuid = $1",
+      [uuid]
+    );
+    bcrypt.compare(
+      currentPassword,
+      user.rows[0].password,
+      function (err, result) {
+        if (err) {
+          console.log(err.message);
+          return;
+        }
+        if (result) {
+          pool.query("UPDATE user_accounts SET password=$1 WHERE uuid=$2", [
+            newHash,
+            uuid,
+          ]);
+          res.status(200).send("Password has been changed");
+        } else {
+          return res.send({
+            success: false,
+            message: "Passwords do not match",
+          });
+        }
+      }
+    );
   } catch (err) {
     console.error(err.message);
   }
@@ -184,4 +216,5 @@ module.exports = {
   changePassword,
   changeEmail,
   toggleAdminStatus,
+  getUserById,
 };

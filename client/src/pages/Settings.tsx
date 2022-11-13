@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Navbar from "../common/Navbar";
 import { useNavigate } from "react-router-dom";
 import Context from "../context/context";
+import ChangePasswordForm from "../components/ChangePasswordForm";
 
 const Settings = () => {
   const currentPage: string = "Account Settings";
@@ -13,13 +14,21 @@ const Settings = () => {
     context.isLoggedIn ? <></> : navigate("/");
   }, []);
 
+  const [openPasswordForm, setOpenPasswordForm] = useState<boolean>(false);
+
   return (
     <>
       <Navbar currentPage={currentPage} />
       <div className="settings_page_container">
         <div className="settings_button_container">
-          <button className="settings_button">CHANGE PASSWORD</button>
+          <button
+            className="settings_button"
+            onClick={() => setOpenPasswordForm(!openPasswordForm)}
+          >
+            CHANGE PASSWORD
+          </button>
           <br />
+          {openPasswordForm ? <ChangePasswordForm /> : <></>}
           <button className="settings_button">CHANGE EMAIL</button>
           <br />
           <button className="settings_button">EDIT FAVOURITES</button>

@@ -17,6 +17,8 @@ app.get("/", (request, response) => {
 
 app.get("/search/users", usersDB.getUsers);
 
+app.post("/search/users/id", usersDB.getUserById);
+
 app.put("/users", usersDB.createUser);
 
 app.delete("/users/delete", usersDB.deleteUser);

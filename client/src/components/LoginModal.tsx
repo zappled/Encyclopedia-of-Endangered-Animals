@@ -93,7 +93,7 @@ const LoginModal = (props) => {
             <div onClick={() => navigate("/homepage")}>
               <div>Successfully Logged In!</div>
               <div>Click to navigate to main page</div>
-              <div>Auto-redirecting in 5 seconds</div>
+              <div>Auto-redirecting in 5 seconds...</div>
             </div>
           </>
         ) : (
