@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "../common/Navbar";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 import endangeredIcon from "../images/icons/conservation/endangered.png";
@@ -128,16 +128,19 @@ const SearchAnimals = () => {
           >
             Conservation Status
           </button>
-          <button
+          <div
             className={"search_header_content"}
             style={{ display: conservationDisplay ? "block" : "none" }}
           >
+            <p style={{ fontSize: "1rem", color: "#0b1f04" }}>
+              Filter by animal's extinction risk:
+            </p>
             <p onClick={() => filterbyStatus("Vulnerable")}>Vulnerable</p>
             <p onClick={() => filterbyStatus("Endangered")}>Endangered</p>
             <p onClick={() => filterbyStatus("Critically Endangered")}>
               Critically Endangered
             </p>
-          </button>
+          </div>
           <button
             className={
               habitatDisplay ? "search_active_button" : "search_header_button"
@@ -146,10 +149,13 @@ const SearchAnimals = () => {
           >
             Habitat
           </button>
-          <button
+          <div
             className={"search_header_content"}
             style={{ display: habitatDisplay ? "block" : "none" }}
           >
+            <p style={{ fontSize: "1rem", color: "#0b1f04" }}>
+              Filter by animal's living environment:
+            </p>
             <p onClick={() => filterbyHabitat("Forest")}>Forest</p>
             <p onClick={() => filterbyHabitat("Savanna")}>Savanna</p>
             <p onClick={() => filterbyHabitat("Shrubland")}>Shrubland</p>
@@ -161,7 +167,7 @@ const SearchAnimals = () => {
             </p>
             <p onClick={() => filterbyHabitat("Desert")}>Desert</p>
             <p onClick={() => filterbyHabitat("Marine")}>Marine</p>
-          </button>
+          </div>
           <button
             className={
               threatsDisplay ? "search_active_button" : "search_header_button"
@@ -171,10 +177,13 @@ const SearchAnimals = () => {
             Threats
           </button>
 
-          <button
+          <div
             className={"search_header_content"}
             style={{ display: threatsDisplay ? "block" : "none" }}
           >
+            <p style={{ fontSize: "1rem", color: "#0b1f04" }}>
+              Filter by animal's threats to survival:
+            </p>
             <p onClick={() => filterbyThreats("Human Intrusion")}>
               Human Intrusion
             </p>
@@ -191,7 +200,7 @@ const SearchAnimals = () => {
             <p onClick={() => filterbyThreats("Geological Events")}>
               Geological Events
             </p>
-          </button>
+          </div>
 
           <button
             className={"search_header_button"}
