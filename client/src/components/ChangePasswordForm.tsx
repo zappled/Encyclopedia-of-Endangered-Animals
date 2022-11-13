@@ -1,11 +1,13 @@
 import React, { useContext, useRef, useState } from "react";
 import Context from "../context/context";
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = (props) => {
   const [error, setError] = useState(null);
+  const context = useContext(Context);
+
   const currentPasswordRef = useRef<any>();
   const newPasswordRef = useRef<any>();
-  const context = useContext(Context);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const changePassword = async (e: any) => {
     e.preventDefault();
@@ -23,27 +25,53 @@ const ChangePasswordForm = () => {
           // Authorization: "Bearer " + bearer,
         },
       });
-      const user = await res.json();
+      const result = await res.json();
       if (res.status !== 200) {
-        alert(user);
+        alert(result);
         return;
+      }
+      if (result.message === "Password has been changed") {
+        setPasswordChanged(true);
+      } else {
+        alert("Failed to change password");
       }
     } catch (err) {
       setError(err.message);
     }
   };
 
+  const resetPasswordForm = () => {
+    setPasswordChanged(false);
+    props.setOpenPasswordForm(false);
+  };
+
   return (
     <>
       <div className="settings_form">
-        <form>
-          <div>Enter current password:</div>
-          <input type="password" ref={currentPasswordRef} />
-          <div>Enter new password:</div>
-          <input type="password" ref={newPasswordRef} />
-          <br />
-          <button type="submit">Submit</button>
-        </form>
+        {passwordChanged ? (
+          <>
+            <div>Password has been updated</div>
+            <button
+              className="settings_form_button"
+              onClick={resetPasswordForm}
+            >
+              OK
+            </button>
+          </>
+        ) : (
+          <>
+            <form onSubmit={changePassword}>
+              <div>Enter current password:</div>
+              <input type="password" ref={currentPasswordRef} />
+              <div>Enter new password:</div>
+              <input type="password" ref={newPasswordRef} />
+              <br />
+              <button type="submit" className="settings_form_button">
+                Submit
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </>
   );

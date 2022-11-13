@@ -156,7 +156,7 @@ const changePassword = async (req, res) => {
             newHash,
             uuid,
           ]);
-          res.status(200).send("Password has been changed");
+          res.status(200).send({ message: "Password has been changed" });
         } else {
           return res.send({
             success: false,

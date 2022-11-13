@@ -34,3 +34,13 @@ $dark-green-color: #0b1f04;
 #delete_button {
   color: $orange-color;
 }
+
+.settings_form {
+  margin-bottom: 1rem;
+}
+
+.settings_form_button {
+  @include theme;
+  margin: 1rem 0;
+  width: 5rem;
+}

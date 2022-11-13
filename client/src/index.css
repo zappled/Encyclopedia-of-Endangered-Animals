@@ -562,6 +562,19 @@
   color: #e77929;
 }
 
+.settings_form {
+  margin-bottom: 1rem;
+}
+
+.settings_form_button {
+  background: #0b1f04;
+  border: none;
+  color: #d9d9d9;
+  font: 1rem "Lalezar", sans-serif;
+  margin: 1rem 0;
+  width: 5rem;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Lalezar", sans-serif;

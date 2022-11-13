@@ -28,7 +28,11 @@ const Settings = () => {
             CHANGE PASSWORD
           </button>
           <br />
-          {openPasswordForm ? <ChangePasswordForm /> : <></>}
+          {openPasswordForm ? (
+            <ChangePasswordForm setOpenPasswordForm={setOpenPasswordForm} />
+          ) : (
+            <></>
+          )}
           <button className="settings_button">CHANGE EMAIL</button>
           <br />
           <button className="settings_button">EDIT FAVOURITES</button>
