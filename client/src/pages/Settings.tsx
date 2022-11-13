@@ -3,6 +3,7 @@ import Navbar from "../common/Navbar";
 import { useNavigate } from "react-router-dom";
 import Context from "../context/context";
 import ChangePasswordForm from "../components/ChangePasswordForm";
+import ChangeEmailForm from "../components/ChangeEmailForm";
 
 const Settings = () => {
   const currentPage: string = "Account Settings";
@@ -15,6 +16,7 @@ const Settings = () => {
   }, []);
 
   const [openPasswordForm, setOpenPasswordForm] = useState<boolean>(false);
+  const [openEmailForm, setOpenEmailForm] = useState<boolean>(false);
 
   return (
     <>
@@ -33,8 +35,18 @@ const Settings = () => {
           ) : (
             <></>
           )}
-          <button className="settings_button">CHANGE EMAIL</button>
+          <button
+            className="settings_button"
+            onClick={() => setOpenEmailForm(!openEmailForm)}
+          >
+            CHANGE EMAIL
+          </button>
           <br />
+          {openEmailForm ? (
+            <ChangeEmailForm setOpenEmailForm={setOpenEmailForm} />
+          ) : (
+            <></>
+          )}
           <button className="settings_button">EDIT SPOTLIGHT</button>
           <br />
           <button className="settings_button" id="delete_button">

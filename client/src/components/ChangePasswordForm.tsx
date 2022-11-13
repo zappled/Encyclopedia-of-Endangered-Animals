@@ -62,9 +62,9 @@ const ChangePasswordForm = (props) => {
           <>
             <form onSubmit={changePassword}>
               <div>Enter current password:</div>
-              <input type="password" ref={currentPasswordRef} />
+              <input type="password" ref={currentPasswordRef} required />
               <div>Enter new password:</div>
-              <input type="password" ref={newPasswordRef} />
+              <input type="password" ref={newPasswordRef} required />
               <br />
               <button type="submit" className="settings_form_button">
                 Submit

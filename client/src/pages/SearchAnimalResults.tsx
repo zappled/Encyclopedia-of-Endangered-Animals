@@ -143,7 +143,7 @@ const SearchAnimalResults = () => {
       </CCarousel>
       <div className="result_page_container">
         <div className="animal_result">
-          <div className="results_text">
+          <div className="results_text" style={{ marginTop: "1rem" }}>
             {"Class: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>{animal[0].class}</span>

@@ -30,7 +30,7 @@ const Navbar = (props) => {
           <Link to="/search/animals" style={{ textDecoration: "none" }}>
             <div className="navlink">
               <span className="material-symbols-outlined">search</span>Search
-              Database
+              Animals
             </div>
           </Link>
         </div>

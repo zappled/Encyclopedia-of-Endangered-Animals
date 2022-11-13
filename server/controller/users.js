@@ -159,7 +159,6 @@ const changePassword = async (req, res) => {
           res.status(200).send({ message: "Password has been changed" });
         } else {
           return res.send({
-            success: false,
             message: "Passwords do not match",
           });
         }
@@ -173,18 +172,27 @@ const changePassword = async (req, res) => {
 const changeEmail = async (req, res) => {
   const { uuid, email } = req.body;
   try {
-    pool.query("SELECT * FROM user_accounts WHERE user_accounts.uuid = $1", [
-      uuid,
-    ]);
-    pool.query("UPDATE user_accounts SET email=$1 WHERE uuid=$2", [
-      email,
-      uuid,
-    ]);
-    res.status(200).send("Email has been changed");
+    const existingEmail = await pool.query(
+      "SELECT * FROM user_accounts WHERE user_accounts.email = $1",
+      [email]
+    );
+    if (existingEmail.rows.length > 0) {
+      return res.status(401).json("Email has already been registered");
+    } else {
+      pool.query("UPDATE user_accounts SET email=$1 WHERE uuid=$2", [
+        email,
+        uuid,
+      ]);
+      res.status(200).send({ message: "Email has been changed" });
+    }
   } catch (err) {
     console.error(err.message);
   }
 };
+
+// if (userEmail.rows.length > 0) {
+//   return res.status(401).json("Email has already been registered");
+// }
 
 const toggleAdminStatus = async (req, res) => {
   const { uuid, isAdmin } = req.body;
