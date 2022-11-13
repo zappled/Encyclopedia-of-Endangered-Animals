@@ -135,7 +135,7 @@ $dark-green-color: #0b1f04;
 
 .animal_result {
   width: 100%;
-  height: 30rem;
+  height: 16rem;
   background-color: $dark-green-color;
 }
 
@@ -149,4 +149,20 @@ $dark-green-color: #0b1f04;
 .results_text {
   color: $orange-color;
   font-size: 1.25rem;
+  margin: 0.5rem 1rem;
+}
+
+.add_spotlight_button {
+  @include theme;
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+}
+
+.result_page_container {
+  width: 70vw;
+  height: 45.5vh;
+  margin: 0 auto;
+  display: flex;
 }

@@ -464,7 +464,7 @@
 
 .animal_result {
   width: 100%;
-  height: 30rem;
+  height: 16rem;
   background-color: #0b1f04;
 }
 
@@ -480,6 +480,25 @@
 .results_text {
   color: #e77929;
   font-size: 1.25rem;
+  margin: 0.5rem 1rem;
+}
+
+.add_spotlight_button {
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+}
+
+.result_page_container {
+  width: 70vw;
+  height: 45.5vh;
+  margin: 0 auto;
+  display: flex;
 }
 
 .database_page_container {

@@ -35,7 +35,7 @@ const Settings = () => {
           )}
           <button className="settings_button">CHANGE EMAIL</button>
           <br />
-          <button className="settings_button">EDIT FAVOURITES</button>
+          <button className="settings_button">EDIT SPOTLIGHT</button>
           <br />
           <button className="settings_button" id="delete_button">
             DELETE ACCOUNT

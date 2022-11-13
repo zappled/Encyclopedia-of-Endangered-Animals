@@ -27,18 +27,6 @@ const EditDatabase = () => {
                   SEARCH ANIMAL DATABASE
                 </button>
               </Link>
-              <br />
-              <button className="database_page_button">
-                CREATE ANIMAL ENTRY
-              </button>
-              <br />
-              <button className="database_page_button">
-                EDIT ANIMAL ENTRY
-              </button>
-              <br />
-              <button className="database_page_button">
-                DELETE ANIMAL ENTRY
-              </button>
             </div>
           </div>
         </>
