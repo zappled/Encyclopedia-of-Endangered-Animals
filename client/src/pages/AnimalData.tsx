@@ -13,6 +13,7 @@ const AnimalData = () => {
   const [firstUpdateDelete, setFirstUpdateDelete] = useState(true);
   const context = useContext(Context);
   const navigate = useNavigate();
+  const [animalEntry, setAnimalEntry] = useState([]);
 
   useEffect(() => {
     context.isLoggedIn ? fetchAnimals() : navigate("/");
@@ -64,9 +65,10 @@ const AnimalData = () => {
 
   const [editDatabaseModalIsOpen, setEditDatabaseModalIsOpen] = useState(false);
 
-  const openEditDatabaseModal = () => {
-    setEditDatabaseModalIsOpen(true);
-  };
+  // const openEditDatabaseModal = () => {
+  //   setAnimalEntry(entry);
+  //   setEditDatabaseModalIsOpen(true);
+  // };
 
   return (
     <>
@@ -98,7 +100,10 @@ const AnimalData = () => {
                         <br />
                         <button
                           className="edit_database_button"
-                          onClick={openEditDatabaseModal}
+                          onClick={() => {
+                            setAnimalEntry(entry);
+                            setEditDatabaseModalIsOpen(true);
+                          }}
                         >
                           Edit
                         </button>
@@ -122,18 +127,17 @@ const AnimalData = () => {
               );
             })}
           </table>
-
-          <EditDatabaseModal
-            editDatabaseModalIsOpen={editDatabaseModalIsOpen}
-            setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}
-            // entry={props.entry}
-            // setUpdatedApptBody={props.setUpdatedApptBody}
-            // updatedApptBody={props.updatedApptBody}
-          />
         </>
       ) : (
         <div>Administrator rights is required to view this page</div>
       )}
+      <EditDatabaseModal
+        editDatabaseModalIsOpen={editDatabaseModalIsOpen}
+        setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}
+        entry={animalEntry}
+        // setUpdatedApptBody={props.setUpdatedApptBody}
+        // updatedApptBody={props.updatedApptBody}
+      />
     </>
   );
 };

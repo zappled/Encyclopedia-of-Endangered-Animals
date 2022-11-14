@@ -21,20 +21,16 @@ const EditDatabaseModal = (props) => {
 
   // captures input from input form for updating appointment
 
-  //   const dateRef = useRef();
-  //   const startTimeRef = useRef();
-  //   const endTimeRef = useRef();
-  //   const nameRef = useRef();
-  //   const descriptionRef = useRef();
-  //   const [category, setCategory] = useState(props.entry.category);
-  //   const attendingWithRef = useRef();
-  //   const orgRef = useRef();
-  //   const addressRef = useRef();
-  //   const [recurring, setRecurring] = useState(props.entry.recurring);
+  const nameRef = useRef();
+  const classRef = useRef();
+  const regionRef = useRef();
+  const populationRef = useRef();
+  const imageRef = useRef();
+  const [conservationStatus, setConservationStatus] = useState("");
 
-  //   const selectCategory = (e) => {
-  //     setCategory(e.target.value);
-  //   };
+  const selectConservationStatus = (e) => {
+    setConservationStatus(e.target.value);
+  };
 
   //   const selectRecurring = (e) => {
   //     setRecurring(e.target.value);
@@ -42,7 +38,7 @@ const EditDatabaseModal = (props) => {
 
   // creates new object to be passed into fetch POST function
 
-  const updateApptObject = (e) => {
+  const updateEntry = (e) => {
     e.preventDefault();
     props.setUpdatedApptBody({
       //   date: dateRef.current.value,
@@ -73,69 +69,127 @@ const EditDatabaseModal = (props) => {
           <label>Name</label>
           <input
             type="text"
-            // ref={dateRef}
-            // defaultValue={props.entry.date.slice(0, 10)}
+            ref={nameRef}
+            defaultValue={props.entry.name}
             required
           />
           <br />
           <label>Class</label>
           <input
             type="text"
-            // ref={startTimeRef}
-            // defaultValue={props.entry.time}
+            ref={classRef}
+            defaultValue={props.entry.class}
             required
           />
           <br />
           <label>Conservation Status</label>
           <select
-            // onChange={selectCategory}
-            // defaultValue={props.entry.category}
+            onChange={selectConservationStatus}
+            defaultValue={props.entry.conservation_status}
             required
           >
-            <option>Select category</option>
-            <option value="personal">Vulnerable</option>
-            <option value="work">Endangered</option>
-            <option value="medical">Critically Endangered</option>
+            <option>Select option</option>
+            <option value="VULNERABLE">Vulnerable</option>
+            <option value="ENDANGERED">Endangered</option>
+            <option value="CRITICALLY ENDANGERED">Critically Endangered</option>
           </select>
           <br />
           <label>Region</label>
           <input
             type="text"
-            // ref={nameRef}
-            // defaultValue={props.entry.name}
+            ref={regionRef}
+            defaultValue={props.entry.region}
             required
           />
           <br />
           <label>Population</label>
           <input
             type="text"
-            // ref={descriptionRef}
-            // defaultValue={props.entry.description}
+            ref={populationRef}
+            defaultValue={props.entry.population}
           />
           <br />
           <label>Image</label>
           <input
             type="text"
-            // ref={nameRef}
-            // defaultValue={props.entry.name}
+            ref={imageRef}
+            defaultValue={props.entry.image}
             required
           />
           <br />
           <label>Threats</label>
+          <br />
           <input
-            type="text"
-            // ref={addressRef}
-            // defaultValue={props.entry.address}
+            type="checkbox"
+            id="human_intrusion"
+            name="threats"
+            value="1"
           />
+          <label htmlFor="human_intrusion">Human Intrusion</label>
+          <br />
+          <input type="checkbox" id="biological" name="threats" value="2" />
+          <label htmlFor="biological">Biological Resource Use</label>
+          <br />
+          <input type="checkbox" id="invasive" name="threats" value="3" />
+          <label htmlFor="invasive">Invasive Species And Diseases</label>
+          <br />
+          <input type="checkbox" id="pollution" name="threats" value="4" />
+          <label htmlFor="pollution">Pollution</label>
+          <br />
+          <input type="checkbox" id="climate_change" name="threats" value="5" />
+          <label htmlFor="climate_change">Climate Change</label>
+          <br />
+          <input type="checkbox" id="geological" name="threats" value="6" />
+          <label htmlFor="geological">Geological Events</label>
+          <br />
+          <input type="checkbox" id="others" name="threats" value="7" />
+          <label htmlFor="others">Others</label>
           <br />
           <label>Habitats</label>
-          <input
-            type="text"
-            // ref={addressRef}
-            // defaultValue={props.entry.address}
-          />
           <br />
-          <button onClick={updateApptObject}>Submit</button>
+          <input type="checkbox" id="forest" name="habitats" value="1" />
+          <label htmlFor="forest" style={{ marginRight: "0.5rem" }}>
+            Forest
+          </label>
+          <input type="checkbox" id="savanna" name="habitats" value="2" />
+          <label htmlFor="savanna" style={{ marginRight: "0.5rem" }}>
+            Savanna
+          </label>
+          <input type="checkbox" id="shrubland" name="habitats" value="3" />
+          <label htmlFor="shrubland" style={{ marginRight: "0.5rem" }}>
+            Shrubland
+          </label>
+          <br />
+          <input type="checkbox" id="grassland" name="habitats" value="4" />
+          <label htmlFor="grassland" style={{ marginRight: "0.5rem" }}>
+            Grassland
+          </label>
+          <input type="checkbox" id="wetlands" name="habitats" value="5" />
+          <label htmlFor="wetlands" style={{ marginRight: "0.5rem" }}>
+            Wetlands
+          </label>
+          <input type="checkbox" id="rocky_areas" name="habitats" value="6" />
+          <label htmlFor="rocky_areas" style={{ marginRight: "0.5rem" }}>
+            Rocky Areas
+          </label>
+          <br />
+          <input type="checkbox" id="cave" name="habitats" value="7" />
+          <label htmlFor="cave" style={{ marginRight: "0.5rem" }}>
+            Caves/Subterranean
+          </label>
+          <input type="checkbox" id="desert" name="habitats" value="7" />
+          <label htmlFor="desert" style={{ marginRight: "0.5rem" }}>
+            Desert
+          </label>
+          <br />
+          <input type="checkbox" id="marine" name="habitats" value="7" />
+          <label htmlFor="marine" style={{ marginRight: "0.5rem" }}>
+            Marine
+          </label>
+          <input type="checkbox" id="terrestrial" name="habitats" value="7" />
+          <label htmlFor="terrestrial">Terrestrial</label>
+          <br />
+          <button onClick={updateEntry}>Submit</button>
         </form>
       </ReactModal>
     </div>
