@@ -59,9 +59,31 @@ const deleteAnimal = async (req, res) => {
   res.json("Entry deleted");
 };
 
+const updateAnimal = async (req, res) => {
+  const {
+    name,
+    conservation_status,
+    animalClass,
+    region,
+    population,
+    image,
+    id,
+  } = req.body;
+  try {
+    await pool.query(
+      "UPDATE animals SET name=$1, conservation_status=$2, class=$3, region=$4, population=$5, image=$6 WHERE animals.id = $7",
+      [name, conservation_status, animalClass, region, population, image, id]
+    );
+    res.json("Entry updated");
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 module.exports = {
   getAllAnimals,
   getAnimalByID,
   deleteAnimal,
   getAnimalIdByName,
+  updateAnimal,
 };

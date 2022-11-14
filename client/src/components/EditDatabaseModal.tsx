@@ -21,11 +21,11 @@ const EditDatabaseModal = (props) => {
 
   // captures input from input form for updating appointment
 
-  const nameRef = useRef();
-  const classRef = useRef();
-  const regionRef = useRef();
-  const populationRef = useRef();
-  const imageRef = useRef();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const classRef = useRef<HTMLInputElement>(null);
+  const regionRef = useRef<HTMLInputElement>(null);
+  const populationRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
   const [conservationStatus, setConservationStatus] = useState("");
 
   const selectConservationStatus = (e) => {
@@ -40,18 +40,15 @@ const EditDatabaseModal = (props) => {
 
   const updateEntry = (e) => {
     e.preventDefault();
-    props.setUpdatedApptBody({
-      //   date: dateRef.current.value,
-      //   time: startTimeRef.current.value,
-      //   time_end: endTimeRef.current.value,
-      //   name: nameRef.current.value,
-      //   description: descriptionRef.current.value,
-      //   category: category,
-      //   with_who: attendingWithRef.current.value,
-      //   organization: orgRef.current.value,
-      //   address: addressRef.current.value,
-      //   recurring: recurring,
-      //   id: props.entry._id,
+    console.log(nameRef.current.value);
+    props.setUpdatedEntryBody({
+      name: nameRef.current.value,
+      conservation_status: conservationStatus,
+      animalClass: classRef.current.value,
+      region: regionRef.current.value,
+      population: populationRef.current.value,
+      image: imageRef.current.value,
+      id: props.entry.id,
     });
     props.setEditDatabaseModalIsOpen(false);
   };

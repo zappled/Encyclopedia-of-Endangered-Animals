@@ -43,6 +43,8 @@ app.patch("/users/spotlight", usersDB.addToSpotlight);
 
 app.delete("/users/spotlight", usersDB.removeFromSpotlight);
 
+app.patch("/update/animal", animalsDB.updateAnimal);
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);

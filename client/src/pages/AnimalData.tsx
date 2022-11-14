@@ -10,10 +10,12 @@ const AnimalData = () => {
   const [deleteId, setDeleteId] = useState({});
   const currentPage: string = "Animal Database Entries";
   const [animals, setAnimals] = useState([]);
-  const [firstUpdateDelete, setFirstUpdateDelete] = useState(true);
+  const [firstMountDelete, setFirstMountDelete] = useState(true);
+  const [firstMountUpdate, setFirstMountUpdate] = useState(true);
   const context = useContext(Context);
   const navigate = useNavigate();
   const [animalEntry, setAnimalEntry] = useState([]);
+  const [updatedEntryBody, setUpdatedEntryBody] = useState({});
 
   useEffect(() => {
     context.isLoggedIn ? fetchAnimals() : navigate("/");
@@ -52,14 +54,45 @@ const AnimalData = () => {
     }
   };
 
+  const updateAnimal = async () => {
+    console.log(updatedEntryBody);
+    try {
+      const res = await fetch(`http://localhost:5001/update/animal`, {
+        method: "PATCH",
+        body: JSON.stringify(updatedEntryBody),
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + bearer,
+        },
+      });
+      console.log(res);
+      fetchAnimals();
+      console.log("entry updated");
+      if (res.status !== 200) {
+        throw new Error("Something went wrong!");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   // for DELETE
   useEffect(() => {
-    if (firstUpdateDelete === true) {
-      setFirstUpdateDelete(false);
+    if (firstMountDelete === true) {
+      setFirstMountDelete(false);
     } else {
       deleteAnimal();
     }
   }, [deleteId]);
+
+  // for UPDATE
+  useEffect(() => {
+    if (firstMountUpdate === true) {
+      setFirstMountUpdate(false);
+    } else {
+      updateAnimal();
+    }
+  }, [updatedEntryBody]);
 
   // controls toggling of modal for updating appointment
 
@@ -135,8 +168,8 @@ const AnimalData = () => {
         editDatabaseModalIsOpen={editDatabaseModalIsOpen}
         setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}
         entry={animalEntry}
-        // setUpdatedApptBody={props.setUpdatedApptBody}
-        // updatedApptBody={props.updatedApptBody}
+        setUpdatedEntryBody={setUpdatedEntryBody}
+        updatedEntryBody={updatedEntryBody}
       />
     </>
   );
