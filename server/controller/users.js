@@ -50,12 +50,15 @@ const createUser = async (req, res) => {
 };
 
 const getUsers = (req, res) => {
-  pool.query("SELECT name, country FROM user_accounts", (error, results) => {
-    if (error) {
-      throw error;
+  pool.query(
+    "SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
     }
-    res.status(200).json(results.rows);
-  });
+  );
 };
 
 const getUserById = (req, res) => {
@@ -173,7 +176,7 @@ const changeEmail = async (req, res) => {
   const { uuid, email } = req.body;
   try {
     const existingEmail = await pool.query(
-      "SELECT * FROM user_accounts WHERE user_accounts.email = $1",
+      "SELECT name FROM user_accounts WHERE user_accounts.email = $1",
       [email]
     );
     if (existingEmail.rows.length > 0) {
@@ -189,10 +192,6 @@ const changeEmail = async (req, res) => {
     console.error(err.message);
   }
 };
-
-// if (userEmail.rows.length > 0) {
-//   return res.status(401).json("Email has already been registered");
-// }
 
 const toggleAdminStatus = async (req, res) => {
   const { uuid, isAdmin } = req.body;
@@ -216,6 +215,37 @@ const toggleAdminStatus = async (req, res) => {
   }
 };
 
+const addToSpotlight = async (req, res) => {
+  const { uuid, animalId } = req.body;
+  try {
+    const user = await pool.query(
+      "SELECT * FROM users_favourites WHERE users_favourites.user_id = $1",
+      [uuid]
+    );
+    if (user.rows.length > 0) {
+      for (let i = 0; i < user.rows.length; i++) {
+        if (user.rows[i].animals_id === parseInt(animalId)) {
+          pool.query(
+            `DELETE FROM users_favourites WHERE user_id='${uuid}' AND animals_id=${animalId}`
+          );
+          return res.status(200).json("Animal removed from spotlight");
+        }
+        pool.query(
+          `INSERT INTO users_favourites(user_id, animals_id) VALUES ('${uuid}', ${animalId})`
+        );
+      }
+      res.status(200).json("Animal added to spotlight");
+    } else {
+      pool.query(
+        `INSERT INTO users_favourites(user_id, animals_id) VALUES ('${uuid}', ${animalId})`
+      );
+      res.status(200).json("Animal added to spotlight");
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
@@ -225,4 +255,5 @@ module.exports = {
   changeEmail,
   toggleAdminStatus,
   getUserById,
+  addToSpotlight,
 };

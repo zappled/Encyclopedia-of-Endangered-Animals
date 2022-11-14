@@ -25,6 +25,9 @@ const SearchAnimalResults = () => {
   const [habitats, setHabitats] = useState([]);
   const [threats, setThreats] = useState([]);
 
+  const [removedSpotlight, setRemovedSpotlight] = useState(false);
+  const [addedSpotlight, setAddedSpotlight] = useState(false);
+
   useEffect(() => {
     context.isLoggedIn ? <></> : navigate("/");
   }, []);
@@ -115,6 +118,38 @@ const SearchAnimalResults = () => {
     fetchAnimalById();
   }, []);
 
+  const setSpotlight = async (e: any) => {
+    e.preventDefault();
+    setAddedSpotlight(false);
+    setRemovedSpotlight(false);
+    const accountDetails = {
+      uuid: context.userId,
+      animalId: animalId,
+    };
+    try {
+      const res = await fetch(`http://localhost:5001/users/spotlight`, {
+        method: "PATCH",
+        body: JSON.stringify(accountDetails),
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "Bearer " + bearer,
+        },
+      });
+      const result = await res.json();
+      if (res.status !== 200) {
+        alert(result);
+        return;
+      }
+      if (result.includes("added")) {
+        setAddedSpotlight(true);
+      } else if (result.includes("removed")) {
+        setRemovedSpotlight(true);
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <>
       <Navbar currentPage={currentPage} />
@@ -182,7 +217,7 @@ const SearchAnimalResults = () => {
           </div>
           <div
             className="results_text"
-            style={{ fontSize: "1rem", marginTop: "1rem" }}
+            style={{ fontSize: "15px", marginTop: "1rem" }}
           >
             {"Habitats: "}
             {animal.length > 0 ? (
@@ -193,7 +228,7 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
-          <div className="results_text" style={{ fontSize: "1rem" }}>
+          <div className="results_text" style={{ fontSize: "15px" }}>
             {"Threats: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>
@@ -203,9 +238,37 @@ const SearchAnimalResults = () => {
               ""
             )}
             <br />
-            <button className="add_spotlight_button">
-              Add to Your Spotlight
+            <button className="add_spotlight_button" onClick={setSpotlight}>
+              Add/Remove From Spotlight
             </button>
+            {addedSpotlight ? (
+              <span
+                style={{
+                  marginLeft: "1rem",
+                  textDecoration: "underline",
+                  textDecorationColor: "#d9d9d9",
+                  textUnderlineOffset: "5px",
+                }}
+              >
+                Animal added to spotlight!
+              </span>
+            ) : (
+              ""
+            )}
+            {removedSpotlight ? (
+              <span
+                style={{
+                  marginLeft: "1rem",
+                  textDecoration: "underline",
+                  textDecorationColor: "#d9d9d9",
+                  textUnderlineOffset: "5px",
+                }}
+              >
+                Animal removed from spotlight!
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

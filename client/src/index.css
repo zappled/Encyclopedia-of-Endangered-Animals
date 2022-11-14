@@ -490,7 +490,7 @@
   border: none;
   color: #e77929;
   font: 1rem "Lalezar", sans-serif;
-  width: 10rem;
+  width: 14rem;
   height: 2.5rem;
   border-radius: 5px;
   margin: 0.5rem 0;
@@ -618,7 +618,7 @@
 .user_list_table {
   margin: 1rem;
   width: 100%;
-  height: 10vh;
+  height: 3vh;
   font-size: 1rem;
   text-align: center;
   justify-content: center;

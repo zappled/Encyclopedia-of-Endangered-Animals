@@ -30,8 +30,8 @@ const SearchUsers = () => {
 
   const filterbyName = (input) => {
     setIsFiltered(true);
-    const filtered = unfilteredUsers.filter((animal) =>
-      animal.name.toLowerCase().includes(input)
+    const filtered = unfilteredUsers.filter((user) =>
+      user.name.toLowerCase().includes(input)
     );
     setUsers(filtered);
     if (!input) {
@@ -75,7 +75,7 @@ const SearchUsers = () => {
                       />
                       {CountryData.countries[entry.country].name}
                     </td>
-                    <td>{entry.favourites}</td>
+                    <td>{entry.spotlight.join(", ")}</td>
                   </tr>
                 </tbody>
               </>

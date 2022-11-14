@@ -37,6 +37,8 @@ app.patch("/users/email", usersDB.changeEmail);
 
 app.patch("/users/status", usersDB.toggleAdminStatus);
 
+app.patch("/users/spotlight", usersDB.addToSpotlight);
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);
