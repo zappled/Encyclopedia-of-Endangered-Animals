@@ -27,6 +27,8 @@ app.get("/search/animals", animalsDB.getAllAnimals);
 
 app.get("/search/animals/:id", animalsDB.getAnimalByID);
 
+app.post("/search/animals/name", animalsDB.getAnimalIdByName);
+
 app.delete("/search/animals", animalsDB.deleteAnimal);
 
 app.post("/login", usersDB.loginUser);
@@ -38,6 +40,8 @@ app.patch("/users/email", usersDB.changeEmail);
 app.patch("/users/status", usersDB.toggleAdminStatus);
 
 app.patch("/users/spotlight", usersDB.addToSpotlight);
+
+app.delete("/users/spotlight", usersDB.removeFromSpotlight);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../common/Navbar";
 import Context from "../context/context";
 import CountryData from "country-data";
@@ -75,13 +75,21 @@ const SearchUsers = () => {
                       />
                       {CountryData.countries[entry.country].name}
                     </td>
+                    {/* <Link
+                      to={`/search/animals/${entry.spotlight_id}`}
+                      style={{ textDecoration: "none" }}
+                    > */}
                     <td>{entry.spotlight.join(", ")}</td>
+                    {/* </Link> */}
                   </tr>
                 </tbody>
               </>
             );
           })}
         </table>
+        <div style={{ textAlign: "center" }}>
+          Total active accounts: {unfilteredUsers.length}
+        </div>
       </div>
     </>
   );

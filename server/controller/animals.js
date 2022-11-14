@@ -33,6 +33,19 @@ const getAnimalByID = (req, res) => {
   );
 };
 
+const getAnimalIdByName = (req, res) => {
+  const { name } = req.body;
+  pool.query(
+    `SELECT animals.id FROM animals WHERE animals.name='${name}'`,
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
 const deleteAnimal = async (req, res) => {
   const { id } = req.body;
 
@@ -46,4 +59,9 @@ const deleteAnimal = async (req, res) => {
   res.json("Entry deleted");
 };
 
-module.exports = { getAllAnimals, getAnimalByID, deleteAnimal };
+module.exports = {
+  getAllAnimals,
+  getAnimalByID,
+  deleteAnimal,
+  getAnimalIdByName,
+};

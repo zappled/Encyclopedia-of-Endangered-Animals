@@ -51,7 +51,7 @@ const createUser = async (req, res) => {
 
 const getUsers = (req, res) => {
   pool.query(
-    "SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
+    "SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight, ARRAY_AGG(animals.id) AS spotlight_id FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
     (error, results) => {
       if (error) {
         throw error;
@@ -64,7 +64,7 @@ const getUsers = (req, res) => {
 const getUserById = (req, res) => {
   const { id } = req.body;
   pool.query(
-    `SELECT name, country FROM user_accounts WHERE uuid=$1`,
+    `SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id WHERE uuid=$1 GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC`,
     [id],
     (error, results) => {
       if (error) {
@@ -246,6 +246,18 @@ const addToSpotlight = async (req, res) => {
   }
 };
 
+const removeFromSpotlight = async (req, res) => {
+  const { uuid, animalId } = req.body;
+  try {
+    pool.query(
+      `DELETE FROM users_favourites WHERE user_id='${uuid}' AND animals_id=${animalId}`
+    );
+    return res.status(200).json("Animal removed from spotlight");
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
@@ -256,4 +268,5 @@ module.exports = {
   toggleAdminStatus,
   getUserById,
   addToSpotlight,
+  removeFromSpotlight,
 };

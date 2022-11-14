@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Context from "../context/context";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import ChangeEmailForm from "../components/ChangeEmailForm";
+import EditSpotlightForm from "../components/EditSpotlightForm";
 
 const Settings = () => {
   const currentPage: string = "Account Settings";
@@ -17,6 +18,7 @@ const Settings = () => {
 
   const [openPasswordForm, setOpenPasswordForm] = useState<boolean>(false);
   const [openEmailForm, setOpenEmailForm] = useState<boolean>(false);
+  const [openSpotlightForm, setOpenSpotlightForm] = useState<boolean>(false);
 
   return (
     <>
@@ -47,7 +49,17 @@ const Settings = () => {
           ) : (
             <></>
           )}
-          <button className="settings_button">EDIT SPOTLIGHT</button>
+          <button
+            className="settings_button"
+            onClick={() => setOpenSpotlightForm(!openSpotlightForm)}
+          >
+            EDIT SPOTLIGHT
+          </button>
+          {openSpotlightForm ? (
+            <EditSpotlightForm setOpenEmailForm={setOpenSpotlightForm} />
+          ) : (
+            <></>
+          )}
           <br />
           <button className="settings_button" id="delete_button">
             DELETE ACCOUNT
