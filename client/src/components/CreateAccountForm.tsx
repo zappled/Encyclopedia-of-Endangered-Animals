@@ -32,7 +32,11 @@ const CreateAccountForm = (props) => {
         },
       });
       const user = await res.json();
-      if (res.status !== 200) {
+      if (res.status === 400) {
+        console.log(user);
+        alert(JSON.stringify(user[0].msg));
+        return;
+      } else if (res.status === 401) {
         alert(user);
         return;
       }

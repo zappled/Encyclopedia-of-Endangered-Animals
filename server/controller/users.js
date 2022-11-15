@@ -1,7 +1,7 @@
 const Pool = require("pg").Pool;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 const { v4: uuidv4 } = require("uuid");
 
 const pool = new Pool({
@@ -13,12 +13,11 @@ const pool = new Pool({
 });
 
 const createUser = async (req, res) => {
-  const { name, email, password, country } = req.body;
-  body("password").isLength({ min: 5 });
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json(errors.array());
   }
+  const { name, email, password, country } = req.body;
   const user = await pool.query(
     "SELECT * FROM user_accounts WHERE user_accounts.name = $1",
     [name]
