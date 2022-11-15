@@ -88,7 +88,7 @@ const SearchAnimals = () => {
       );
       setAnimals(filtered);
       setCurrentFilter(
-        `status "${statusFilter}", habitat "${habitatFilter}" & threat: "${threatFilter}"`
+        `status "${statusFilter}", habitat "${habitatFilter}" & threat "${threatFilter}"`
       );
     } else if (threatFilter && habitatFilter && !statusFilter) {
       const filtered = unfilteredAnimals.filter(
@@ -97,9 +97,7 @@ const SearchAnimals = () => {
           animal.habitats.includes(habitatFilter)
       );
       setAnimals(filtered);
-      setCurrentFilter(
-        `habitat "${habitatFilter}" & threat: "${threatFilter}"`
-      );
+      setCurrentFilter(`habitat "${habitatFilter}" & threat "${threatFilter}"`);
     } else if (!threatFilter && habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -107,9 +105,7 @@ const SearchAnimals = () => {
           animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
-      setCurrentFilter(
-        `status "${statusFilter}" & habitat: "${habitatFilter}"`
-      );
+      setCurrentFilter(`status "${statusFilter}" & habitat "${habitatFilter}"`);
     } else if (threatFilter && !habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -117,9 +113,7 @@ const SearchAnimals = () => {
           animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
-      setCurrentFilter(
-        `status "${statusFilter}" & habitat: "${habitatFilter}"`
-      );
+      setCurrentFilter(`status "${statusFilter}" & habitat "${habitatFilter}"`);
     } else if (!threatFilter && !habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) => animal.conservation_status === statusFilter.toUpperCase()
@@ -131,7 +125,7 @@ const SearchAnimals = () => {
         animal.habitats.includes(habitatFilter)
       );
       setAnimals(filtered);
-      setCurrentFilter(`habitat: "${habitatFilter}"`);
+      setCurrentFilter(`habitat "${habitatFilter}"`);
     } else if (threatFilter && !habitatFilter && !statusFilter) {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes(threatFilter)

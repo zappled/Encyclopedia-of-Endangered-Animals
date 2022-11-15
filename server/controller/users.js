@@ -85,7 +85,7 @@ const deleteUser = (req, res) => {
       if (error) {
         throw error;
       }
-      res.status(200).send(`User deleted with UUID: ${uuid}`);
+      res.status(200).json(`User deleted with UUID: ${uuid}`);
     }
   );
 };

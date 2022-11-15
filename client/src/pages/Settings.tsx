@@ -5,6 +5,7 @@ import Context from "../context/context";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import ChangeEmailForm from "../components/ChangeEmailForm";
 import EditSpotlightForm from "../components/EditSpotlightForm";
+import DeleteAccountForm from "../components/DeleteAccountForm";
 
 const Settings = () => {
   const currentPage: string = "Account Settings";
@@ -19,6 +20,7 @@ const Settings = () => {
   const [openPasswordForm, setOpenPasswordForm] = useState<boolean>(false);
   const [openEmailForm, setOpenEmailForm] = useState<boolean>(false);
   const [openSpotlightForm, setOpenSpotlightForm] = useState<boolean>(false);
+  const [openDeleteForm, setOpenDeleteForm] = useState<boolean>(false);
 
   return (
     <>
@@ -61,9 +63,18 @@ const Settings = () => {
             <></>
           )}
           <br />
-          <button className="settings_button" id="delete_button">
+          <button
+            className="settings_button"
+            id="delete_button"
+            onClick={() => setOpenDeleteForm(!openDeleteForm)}
+          >
             DELETE ACCOUNT
           </button>
+          {openDeleteForm ? (
+            <DeleteAccountForm setOpenDeleteForm={setOpenDeleteForm} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
