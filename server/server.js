@@ -6,14 +6,11 @@ const app = express();
 
 const animalsDB = require("./controller/animals");
 const usersDB = require("./controller/users");
+const { validatePut } = require("./validation/auth");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.get("/", (request, response) => {
-  response.json({ info: "Node.js, Express, and Postgres API" });
-});
 
 app.get("/search/users", usersDB.getUsers);
 
