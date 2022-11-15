@@ -50,12 +50,15 @@ const SearchAnimals = () => {
 
   const filterbyName = (input) => {
     setIsFiltered(true);
-    const filtered = unfilteredAnimals.filter((animal) =>
+    const previousFilteredSelection = [...animals];
+    console.log(previousFilteredSelection);
+    const filtered = animals.filter((animal) =>
       animal.name.toLowerCase().includes(input)
     );
     setAnimals(filtered);
     setCurrentFilter(`name: "${input}"`);
     if (!input) {
+      resetFilters();
       setIsFiltered(false);
     }
   };
@@ -81,7 +84,7 @@ const SearchAnimals = () => {
         (animal) =>
           animal.threats.includes(threatFilter) &&
           animal.habitats.includes(habitatFilter) &&
-          animal.conservation_status.includes(statusFilter.toUpperCase())
+          animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
       setCurrentFilter(
@@ -101,7 +104,7 @@ const SearchAnimals = () => {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
           animal.habitats.includes(habitatFilter) &&
-          animal.conservation_status.includes(statusFilter.toUpperCase())
+          animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
       setCurrentFilter(
@@ -111,15 +114,15 @@ const SearchAnimals = () => {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
           animal.threats.includes(threatFilter) &&
-          animal.conservation_status.includes(statusFilter.toUpperCase())
+          animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
       setCurrentFilter(
         `status "${statusFilter}" & habitat: "${habitatFilter}"`
       );
     } else if (!threatFilter && !habitatFilter && statusFilter) {
-      const filtered = unfilteredAnimals.filter((animal) =>
-        animal.conservation_status.includes(statusFilter.toUpperCase())
+      const filtered = unfilteredAnimals.filter(
+        (animal) => animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
       setCurrentFilter(`status "${statusFilter}"`);
@@ -277,7 +280,7 @@ const SearchAnimals = () => {
             <span
               style={{
                 display: isFiltered ? "block" : "none",
-                fontSize: "0.75rem",
+                fontSize: "11px",
               }}
             >
               Filtering by {currentFilter}

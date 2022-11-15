@@ -47,25 +47,25 @@ const CreateAccountForm = (props) => {
       <h2 className="modal_header">Create Your Account</h2>
       <div>Fill in the following details:</div>
       <form className="create_account_form">
-        <div className="input_container">
+        <div className="input_container_create">
           <div className="modal_label">
             <label>Username</label>
           </div>
           <input type="text" ref={usernameRef} required />
         </div>
-        <div className="input_container">
+        <div className="input_container_create">
           <div className="modal_label">
             <label>Password</label>
           </div>
           <input type="password" ref={passwordRef} required />
         </div>
-        <div className="input_container">
+        <div className="input_container_create">
           <div className="modal_label">
             <label>Email</label>
           </div>
           <input type="email" ref={emailRef} required />
         </div>
-        <div className="input_container">
+        <div className="input_container_create">
           <div className="modal_label">
             <label>Country</label>
           </div>
@@ -77,7 +77,7 @@ const CreateAccountForm = (props) => {
           />
         </div>
         <br />
-        <button className="modal_button" onClick={createAccount}>
+        <button className="modal_button_create" onClick={createAccount}>
           CREATE
         </button>
       </form>

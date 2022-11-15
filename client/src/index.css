@@ -19,30 +19,52 @@
   color: #d9d9d9;
 }
 
-.create_account_form {
-  justify-content: center;
-  width: 12.5rem;
+.input_container {
+  width: 100%;
 }
 
-.input_container {
-  width: 10rem;
-  margin-left: 1.25rem;
+.input_container_create {
+  width: 100%;
+}
+
+.create_account_form {
+  justify-content: center;
+  width: 100%;
+  margin: 0;
 }
 
 .modal_label {
-  width: 5rem;
-  text-align: left;
-  margin-left: 6px;
+  width: 40%;
+  margin-left: 30%;
+  text-align: center;
+  justify-content: center;
 }
 
 .country_selector {
   width: 10rem;
   font-size: 0.75rem;
+  margin-left: 20%;
 }
 
 .login_icon {
   width: 2.5rem;
   height: 2.5rem;
+}
+
+.modal_button_create {
+  background: #d9d9d9;
+  border: none;
+  color: #e77929;
+  font: 1rem "Lalezar", sans-serif;
+  position: relative;
+  width: 40%;
+  height: 1.75rem;
+  border-radius: 5px;
+}
+
+.modal_button_create:hover {
+  background-color: #e77929;
+  color: #d9d9d9;
 }
 
 .navbar {
