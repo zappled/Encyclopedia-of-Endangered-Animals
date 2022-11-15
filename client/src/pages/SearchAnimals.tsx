@@ -18,6 +18,9 @@ const SearchAnimals = () => {
   const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
   const [currentFilter, setCurrentFilter] = useState<string>("");
+  const [habitatFilter, setHabitatFilter] = useState<string>("");
+  const [threatFilter, setThreatFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
 
   const context = useContext(Context);
   const navigate = useNavigate();
@@ -59,35 +62,93 @@ const SearchAnimals = () => {
 
   const filterbyStatus = (e: string) => {
     setIsFiltered(true);
-    const filtered = unfilteredAnimals.filter(
-      (animal) => animal.conservation_status === e.toUpperCase()
-    );
-    setAnimals(filtered);
-    setCurrentFilter(`habitat: "${e}"`);
+    setStatusFilter(e);
   };
 
   const filterbyHabitat = (e: string) => {
     setIsFiltered(true);
-    const filtered = unfilteredAnimals.filter((animal) =>
-      animal.habitats.includes(e)
-    );
-    setAnimals(filtered);
-    setCurrentFilter(`habitat: "${e}"`);
+    setHabitatFilter(e);
   };
 
   const filterbyThreats = (e: string) => {
     setIsFiltered(true);
-    const filtered = unfilteredAnimals.filter((animal) =>
-      animal.threats.includes(e)
-    );
-    setAnimals(filtered);
-    setCurrentFilter(`threats: "${e}"`);
+    setThreatFilter(e);
+  };
+
+  const filterByMultiple = () => {
+    if (threatFilter && habitatFilter && statusFilter) {
+      const filtered = unfilteredAnimals.filter(
+        (animal) =>
+          animal.threats.includes(threatFilter) &&
+          animal.habitats.includes(habitatFilter) &&
+          animal.conservation_status.includes(statusFilter.toUpperCase())
+      );
+      setAnimals(filtered);
+      setCurrentFilter(
+        `status "${statusFilter}", habitat "${habitatFilter}" & threat: "${threatFilter}"`
+      );
+    } else if (threatFilter && habitatFilter && !statusFilter) {
+      const filtered = unfilteredAnimals.filter(
+        (animal) =>
+          animal.threats.includes(threatFilter) &&
+          animal.habitats.includes(habitatFilter)
+      );
+      setAnimals(filtered);
+      setCurrentFilter(
+        `habitat "${habitatFilter}" & threat: "${threatFilter}"`
+      );
+    } else if (!threatFilter && habitatFilter && statusFilter) {
+      const filtered = unfilteredAnimals.filter(
+        (animal) =>
+          animal.habitats.includes(habitatFilter) &&
+          animal.conservation_status.includes(statusFilter.toUpperCase())
+      );
+      setAnimals(filtered);
+      setCurrentFilter(
+        `status "${statusFilter}" & habitat: "${habitatFilter}"`
+      );
+    } else if (threatFilter && !habitatFilter && statusFilter) {
+      const filtered = unfilteredAnimals.filter(
+        (animal) =>
+          animal.threats.includes(threatFilter) &&
+          animal.conservation_status.includes(statusFilter.toUpperCase())
+      );
+      setAnimals(filtered);
+      setCurrentFilter(
+        `status "${statusFilter}" & habitat: "${habitatFilter}"`
+      );
+    } else if (!threatFilter && !habitatFilter && statusFilter) {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.conservation_status.includes(statusFilter.toUpperCase())
+      );
+      setAnimals(filtered);
+      setCurrentFilter(`status "${statusFilter}"`);
+    } else if (!threatFilter && habitatFilter && !statusFilter) {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.habitats.includes(habitatFilter)
+      );
+      setAnimals(filtered);
+      setCurrentFilter(`habitat: "${habitatFilter}"`);
+    } else if (threatFilter && !habitatFilter && !statusFilter) {
+      const filtered = unfilteredAnimals.filter((animal) =>
+        animal.threats.includes(threatFilter)
+      );
+      setAnimals(filtered);
+      setCurrentFilter(`threat "${threatFilter}"`);
+    }
   };
 
   const resetFilters = () => {
     setAnimals(unfilteredAnimals);
+    setHabitatFilter("");
+    setThreatFilter("");
+    setStatusFilter("");
     setIsFiltered(false);
   };
+
+  useEffect(() => {
+    filterByMultiple();
+  }, [habitatFilter, threatFilter, statusFilter]);
 
   // fetches data from animal database on initial mount
   useEffect(() => {
@@ -213,8 +274,13 @@ const SearchAnimals = () => {
 
         <div className="search_results_container">
           <div className="filter_indicator">
-            <span style={{ display: isFiltered ? "block" : "none" }}>
-              You are filtering by {currentFilter}
+            <span
+              style={{
+                display: isFiltered ? "block" : "none",
+                fontSize: "0.75rem",
+              }}
+            >
+              Filtering by {currentFilter}
             </span>
           </div>
 
