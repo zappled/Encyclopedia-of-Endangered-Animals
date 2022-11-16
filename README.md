@@ -8,8 +8,8 @@ The project aim is to build a web application that showcases my ability to devel
 
 ## Tech Stack
 
-Front-end: React, Typescript, HTML, SCSS
-Back-end: Node.js, JWT, Express, PostgreSQL
+- Front-end: React, Typescript, HTML, SCSS
+- Back-end: Node.js, JWT, Express, PostgreSQL
 
 ## Project Screenshots
 
@@ -44,11 +44,11 @@ Back-end: Node.js, JWT, Express, PostgreSQL
 
 ## SQL Table Structure
 
-to be added
+![sql-structure](/client/src/images/for_readme/endangered_animals_sql_structure.png)
 
 ## React Components Hierarchy
 
-to be added
+![sql-structure](/client/src/images/for_readme/endangered_animals_react_structure.png)
 
 ## General Approach
 
