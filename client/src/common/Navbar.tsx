@@ -52,7 +52,9 @@ const Navbar = (props) => {
         <div className="navbar_right_container">
           <span className="username">
             {context.username
-              ? JSON.stringify(context.username).replaceAll(`"`, "")
+              ? JSON.stringify(context.username)
+                  .replaceAll(`"`, "")
+                  .toUpperCase()
               : ""}
           </span>
           {/* shows database button if logged in user has admin status */}

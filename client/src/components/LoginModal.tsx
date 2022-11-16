@@ -67,7 +67,7 @@ const LoginModal = (props) => {
         context.setIsAdmin(true);
       }
       context.setIsLoggedIn(true);
-      context.setUsername(usernameRef.current.value);
+      context.setUsername(userDetails.name);
       context.setUserId(userDetails.id);
     } catch (err) {
       setFailedLogin(true);
