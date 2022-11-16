@@ -42,7 +42,7 @@ const LoginModal = (props) => {
   const loginAccount = async (e: any) => {
     e.preventDefault();
     const loginDetails = {
-      name: usernameRef.current.value,
+      name: usernameRef.current.value.toLowerCase(),
       password: passwordRef.current.value,
     };
     try {

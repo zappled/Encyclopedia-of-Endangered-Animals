@@ -108,7 +108,7 @@ const loginUser = async (req, res) => {
   const { name, password } = req.body;
   try {
     const user = await pool.query(
-      "SELECT * FROM user_accounts WHERE user_accounts.name = $1",
+      "SELECT * FROM user_accounts WHERE lower(user_accounts.name) = $1",
       [name]
     );
 
