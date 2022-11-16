@@ -64,4 +64,4 @@ From here I filled in my database with the necessary data, removed the dummy dat
 
 - 'Remove From Spotlight' feature on settings page does not work if animal name contains special characters
 - When editing entry in animal database, unable to update values for habitats & threats
-- On user list page, adding links to respective spotlight animals did not work if the user had more than 1 animal saved in their spotlight
+- On user list page, adding links to respective spotlight animals does not work if the user had more than 1 animal saved in their spotlight
