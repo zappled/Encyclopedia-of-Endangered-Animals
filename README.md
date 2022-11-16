@@ -44,11 +44,11 @@ The project aim is to build a web application that showcases my ability to devel
 
 ## SQL Table Structure
 
-![sql-structure](/client/src/images/for_readme/endangered_animals_sql_structure.png)
+![sql-structure](/client/src/images/for_readme/endangered_animals_sql_structure_bg.png)
 
 ## React Components Hierarchy
 
-![sql-structure](/client/src/images/for_readme/endangered_animals_react_structure.png)
+![react-structure](/client/src/images/for_readme/endangered_animals_react_structure_bg.png)
 
 ## General Approach
 
