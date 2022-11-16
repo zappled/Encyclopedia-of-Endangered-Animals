@@ -12,6 +12,9 @@ const pool = new Pool({
   port: 5432,
 });
 
+// creates new user account
+// does a validation check for all input values before proceeding
+
 const createUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -52,6 +55,8 @@ const createUser = async (req, res) => {
   );
 };
 
+// selects account data for all registered users
+
 const getUsers = (req, res) => {
   pool.query(
     "SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight, ARRAY_AGG(animals.id) AS spotlight_id FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
@@ -63,6 +68,8 @@ const getUsers = (req, res) => {
     }
   );
 };
+
+// selects account data for one user, based on user UUID
 
 const getUserById = (req, res) => {
   const { id } = req.body;
@@ -78,6 +85,8 @@ const getUserById = (req, res) => {
   );
 };
 
+// deletes account based on user UUID
+
 const deleteUser = (req, res) => {
   const { uuid } = req.body;
 
@@ -92,6 +101,8 @@ const deleteUser = (req, res) => {
     }
   );
 };
+
+// uses bcrypt and JWT to log in user
 
 const loginUser = async (req, res) => {
   const { name, password } = req.body;
@@ -141,8 +152,17 @@ const loginUser = async (req, res) => {
   }
 };
 
+// changes account's password
+// verifies first that current password matches database data
+
 const changePassword = async (req, res) => {
   const { uuid, currentPassword, newPassword } = req.body;
+  if (newPassword.length < 6 || newPassword.length > 15) {
+    return res.send({
+      message:
+        "New password needs to be at least 6 characters but less than 15",
+    });
+  }
   const newHash = await bcrypt.hash(newPassword, 12);
   try {
     const user = await pool.query(
@@ -153,10 +173,6 @@ const changePassword = async (req, res) => {
       currentPassword,
       user.rows[0].password,
       function (err, result) {
-        if (err) {
-          console.log(err.message);
-          return;
-        }
         if (result) {
           pool.query("UPDATE user_accounts SET password=$1 WHERE uuid=$2", [
             newHash,
@@ -165,7 +181,7 @@ const changePassword = async (req, res) => {
           res.status(200).send({ message: "Password has been changed" });
         } else {
           return res.send({
-            message: "Passwords do not match",
+            message: "Current password does not match",
           });
         }
       }
@@ -175,6 +191,9 @@ const changePassword = async (req, res) => {
   }
 };
 
+// changes account's registered email address
+// verifies that the new email is not already in use
+
 const changeEmail = async (req, res) => {
   const { uuid, email } = req.body;
   try {
@@ -183,7 +202,7 @@ const changeEmail = async (req, res) => {
       [email]
     );
     if (existingEmail.rows.length > 0) {
-      return res.status(401).json("Email has already been registered");
+      return res.status(401).json("This email has already been registered");
     } else {
       pool.query("UPDATE user_accounts SET email=$1 WHERE uuid=$2", [
         email,
@@ -195,6 +214,8 @@ const changeEmail = async (req, res) => {
     console.error(err.message);
   }
 };
+
+// toggles admin status to the opposite of the account's current status
 
 const toggleAdminStatus = async (req, res) => {
   const { uuid, isAdmin } = req.body;
@@ -217,6 +238,8 @@ const toggleAdminStatus = async (req, res) => {
     console.error(err.message);
   }
 };
+
+// either add or remove an animal from account spotlight, depending on whether it already exists
 
 const addToSpotlight = async (req, res) => {
   const { uuid, animalId } = req.body;

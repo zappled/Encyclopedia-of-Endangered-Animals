@@ -7,6 +7,8 @@ const ChangeEmailForm = (props) => {
 
   const emailRef = useRef<any>();
   const [emailChanged, setEmailChanged] = useState(false);
+  const [failedToChangeEmail, setFailedToChangeEmail] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   const changeEmail = async (e: any) => {
     e.preventDefault();
@@ -24,14 +26,11 @@ const ChangeEmailForm = (props) => {
         },
       });
       const result = await res.json();
-      if (res.status !== 200) {
-        alert(result);
-        return;
-      }
       if (result.message === "Email has been changed") {
         setEmailChanged(true);
       } else {
-        alert("Failed to change email");
+        setFailedToChangeEmail(true);
+        setErrorMessage(result);
       }
     } catch (err) {
       setError(err.message);
@@ -45,27 +44,47 @@ const ChangeEmailForm = (props) => {
 
   return (
     <>
-      <div className="settings_form">
-        {emailChanged ? (
-          <>
-            <div>Email has been updated</div>
-            <button className="settings_form_button" onClick={resetEmailForm}>
-              OK
+      {!failedToChangeEmail ? (
+        <>
+          <div className="settings_form">
+            {emailChanged ? (
+              <>
+                <div>Email has been updated</div>
+                <button
+                  className="settings_form_button"
+                  onClick={resetEmailForm}
+                >
+                  OK
+                </button>
+              </>
+            ) : (
+              <>
+                <form onSubmit={changeEmail}>
+                  <div>Enter new email address:</div>
+                  <input type="email" ref={emailRef} required />
+                  <br />
+                  <button type="submit" className="settings_form_button">
+                    Submit
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="settings_form">
+            <div>Failed to change email address:</div>
+            <div style={{ color: "#e77929" }}>{errorMessage}</div>
+            <button
+              className="settings_form_button"
+              onClick={() => setFailedToChangeEmail(false)}
+            >
+              Try Again
             </button>
-          </>
-        ) : (
-          <>
-            <form onSubmit={changeEmail}>
-              <div>Enter new email address:</div>
-              <input type="email" ref={emailRef} required />
-              <br />
-              <button type="submit" className="settings_form_button">
-                Submit
-              </button>
-            </form>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

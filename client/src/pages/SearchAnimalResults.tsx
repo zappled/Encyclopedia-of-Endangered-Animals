@@ -201,6 +201,14 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          <div className="results_text">
+            {"Wild Mature Population: "}
+            {animal.length > 0 ? (
+              <span style={{ color: "#d9d9d9" }}>{animal[0].population}</span>
+            ) : (
+              ""
+            )}
+          </div>
           <div
             className="results_text"
             style={{
@@ -208,9 +216,9 @@ const SearchAnimalResults = () => {
               textUnderlineOffset: "1rem",
             }}
           >
-            {"Wild Population: "}
+            {"Regions: "}
             {animal.length > 0 ? (
-              <span style={{ color: "#d9d9d9" }}>{animal[0].population}</span>
+              <span style={{ color: "#d9d9d9" }}>{animal[0].region}</span>
             ) : (
               ""
             )}
@@ -239,7 +247,7 @@ const SearchAnimalResults = () => {
             )}
             <br />
             <button className="add_spotlight_button" onClick={setSpotlight}>
-              Add/Remove From Spotlight
+              ADD/REMOVE FROM SPOTLIGHT
             </button>
             {addedSpotlight ? (
               <span

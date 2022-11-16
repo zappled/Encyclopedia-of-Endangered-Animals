@@ -9,6 +9,9 @@ const CreateAccountForm = (props) => {
   const passwordRef = useRef<any>();
   const emailRef = useRef<any>();
   const options = useMemo(() => countryList().getData(), []);
+  const [failedCreateAccount, setFailedCreateAccount] =
+    useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const changeHandler = (value: string) => {
     props.setValue(value);
@@ -33,11 +36,12 @@ const CreateAccountForm = (props) => {
       });
       const user = await res.json();
       if (res.status === 400) {
-        console.log(user);
-        alert(JSON.stringify(user[0].msg));
+        setFailedCreateAccount(true);
+        setErrorMessage(user[0].msg);
         return;
       } else if (res.status === 401) {
-        alert(user);
+        setFailedCreateAccount(true);
+        setErrorMessage(user);
         return;
       }
     } catch (err) {
@@ -48,43 +52,61 @@ const CreateAccountForm = (props) => {
 
   return (
     <>
-      <h2 className="modal_header">Create Your Account</h2>
-      <div>Fill in the following details:</div>
-      <form className="create_account_form">
-        <div className="input_container_create">
-          <div className="modal_label">
-            <label>Username</label>
+      {!failedCreateAccount ? (
+        <>
+          <h2 className="modal_header">Create Your Account</h2>
+          <div>Fill in the following details:</div>
+          <form className="create_account_form">
+            <div className="input_container_create">
+              <div className="modal_label">
+                <label>Username</label>
+              </div>
+              <input type="text" ref={usernameRef} required />
+            </div>
+            <div className="input_container_create">
+              <div className="modal_label">
+                <label>Password</label>
+              </div>
+              <input type="password" ref={passwordRef} required />
+            </div>
+            <div className="input_container_create">
+              <div className="modal_label">
+                <label>Email</label>
+              </div>
+              <input type="email" ref={emailRef} required />
+            </div>
+            <div className="input_container_create">
+              <div className="modal_label">
+                <label>Country</label>
+              </div>
+              <Select
+                className="country_selector"
+                onChange={changeHandler}
+                options={options}
+                value={props.value}
+              />
+            </div>
+            <br />
+            <button className="modal_button_create" onClick={createAccount}>
+              CREATE
+            </button>
+          </form>
+        </>
+      ) : (
+        <>
+          <div>Failed to create account</div>
+          <div>
+            <span style={{ color: "#e77929" }}>{errorMessage}</span>
           </div>
-          <input type="text" ref={usernameRef} required />
-        </div>
-        <div className="input_container_create">
-          <div className="modal_label">
-            <label>Password</label>
-          </div>
-          <input type="password" ref={passwordRef} required />
-        </div>
-        <div className="input_container_create">
-          <div className="modal_label">
-            <label>Email</label>
-          </div>
-          <input type="email" ref={emailRef} required />
-        </div>
-        <div className="input_container_create">
-          <div className="modal_label">
-            <label>Country</label>
-          </div>
-          <Select
-            className="country_selector"
-            onChange={changeHandler}
-            options={options}
-            value={props.value}
-          />
-        </div>
-        <br />
-        <button className="modal_button_create" onClick={createAccount}>
-          CREATE
-        </button>
-      </form>
+          <button
+            className="modal_button"
+            style={{ marginTop: "0.5rem" }}
+            onClick={() => setFailedCreateAccount(false)}
+          >
+            Try Again
+          </button>
+        </>
+      )}
     </>
   );
 };

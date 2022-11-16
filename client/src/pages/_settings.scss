@@ -13,7 +13,7 @@ $dark-green-color: #0b1f04;
 
 .settings_page_container {
   width: 70vw;
-  height: 88vh;
+  min-height: 88vh;
   margin: 0 auto;
 }
 
@@ -31,8 +31,17 @@ $dark-green-color: #0b1f04;
   margin-bottom: 1rem;
 }
 
+.settings_button:hover {
+  background-color: $orange-color;
+  color: $grey-color;
+}
+
 #delete_button {
   color: $orange-color;
+}
+
+#delete_button:hover {
+  color: $dark-green-color;
 }
 
 .settings_form {

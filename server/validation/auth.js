@@ -1,5 +1,7 @@
 const { check } = require("express-validator");
 
+// validates input for account creation
+
 const validatePut = [
   check("name", "name is required").notEmpty(),
   check("name", "Name must be at least 4 characters but less than 15").isLength(

@@ -10,7 +10,8 @@ const LoginModal = (props) => {
   const [error, setError] = useState(null);
   const context = useContext(Context);
   const navigate = useNavigate();
-  const [initialMount, setInitialMount] = useState(true);
+  const [initialMount, setInitialMount] = useState<boolean>(true);
+  const [failedLogin, setFailedLogin] = useState<boolean>(false);
 
   const customStyles = {
     content: {
@@ -64,7 +65,8 @@ const LoginModal = (props) => {
       context.setUsername(usernameRef.current.value);
       context.setUserId(userDetails.id);
     } catch (err) {
-      alert("Login unsuccessful");
+      setFailedLogin(true);
+      // alert("Login unsuccessful, check your username or password");
       setError(err.message);
     }
   };
@@ -81,46 +83,73 @@ const LoginModal = (props) => {
   }, [context.isLoggedIn]);
 
   return (
-    <div>
-      <ReactModal
-        isOpen={props.modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Login Modal"
-      >
-        {context.username ? (
-          <>
-            <div onClick={() => navigate("/homepage")}>
-              <div>Successfully Logged In!</div>
-              <div>Click to navigate to main page</div>
-              <div>Auto-redirecting in 5 seconds...</div>
-            </div>
-          </>
-        ) : (
-          <>
-            <img src={redPandaIcon} className="login_icon" alt="panda icon" />
-            <form className="create_account_form" onSubmit={loginAccount}>
-              <div className="input_container">
-                <div className="modal_label">
-                  <label>Username</label>
+    <>
+      {!failedLogin ? (
+        <>
+          <ReactModal
+            isOpen={props.modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Login Modal"
+          >
+            {context.username ? (
+              <>
+                <div onClick={() => navigate("/homepage")}>
+                  <div>Successfully Logged In!</div>
+                  <div>Click to navigate to main page</div>
+                  <div>Auto-redirecting in 5 seconds...</div>
                 </div>
-                <input type="text" ref={usernameRef} required />
-              </div>
-              <div className="input_container">
-                <div className="modal_label">
-                  <label>Password</label>
-                </div>
-                <input type="password" ref={passwordRef} required />
-              </div>
-              <br />
-              <button className="modal_button" type="submit">
-                LOGIN
-              </button>
-            </form>
-          </>
-        )}
-      </ReactModal>
-    </div>
+              </>
+            ) : (
+              <>
+                <img
+                  src={redPandaIcon}
+                  className="login_icon"
+                  alt="panda icon"
+                />
+                <form className="create_account_form" onSubmit={loginAccount}>
+                  <div className="input_container">
+                    <div className="modal_label">
+                      <label>Username</label>
+                    </div>
+                    <input type="text" ref={usernameRef} required />
+                  </div>
+                  <div className="input_container">
+                    <div className="modal_label">
+                      <label>Password</label>
+                    </div>
+                    <input type="password" ref={passwordRef} required />
+                  </div>
+                  <br />
+                  <button className="modal_button" type="submit">
+                    LOGIN
+                  </button>
+                </form>
+              </>
+            )}
+          </ReactModal>
+        </>
+      ) : (
+        <>
+          <ReactModal
+            isOpen={props.modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Login Modal"
+          >
+            Login unsuccessful, check your username or password
+            <br />
+            <button
+              className="modal_button"
+              style={{ marginTop: "0.5rem" }}
+              onClick={() => setFailedLogin(false)}
+            >
+              Try Again
+            </button>
+          </ReactModal>
+        </>
+      )}
+    </>
   );
 };
 
