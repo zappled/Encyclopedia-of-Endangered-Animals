@@ -7,16 +7,22 @@ import CountryData from "country-data";
 const SearchUsers = () => {
   const context = useContext(Context);
   const navigate = useNavigate();
+
+  // sets current page name on navbar
   const currentPage: string = "View Other Users";
+
+  // sets user array based on fetched data
+  // unfilteredUsers state is used to reset back to unfiltered array after filtering
   const [users, setUsers] = useState([]);
-
   const [unfilteredUsers, setUnfilteredUsers] = useState([]);
-  const [isFiltered, setIsFiltered] = useState<boolean>(false);
 
+  // auto-navigates user back to login page if not logged in
+  // if logged in, fetches data from user database
   useEffect(() => {
     context.isLoggedIn ? fetchUsers() : navigate("/");
   }, []);
 
+  // fetches all user data on initial mount
   const fetchUsers = async () => {
     try {
       const response = await fetch("http://localhost:5001/search/users");
@@ -28,15 +34,12 @@ const SearchUsers = () => {
     }
   };
 
-  const filterbyName = (input) => {
-    setIsFiltered(true);
+  // filters by username, shows only results that matches the input
+  const filterbyName = (input: string) => {
     const filtered = unfilteredUsers.filter((user) =>
       user.name.toLowerCase().includes(input)
     );
     setUsers(filtered);
-    if (!input) {
-      setIsFiltered(false);
-    }
   };
 
   return (
@@ -44,6 +47,7 @@ const SearchUsers = () => {
       <Navbar currentPage={currentPage} />
       <div className="banner search_users_banner"></div>
       <div className="search_userspage_container">
+        {/* input form to allow users to filter users by username */}
         <div className="search_input_container">
           <div className="animal_search_label">Search by Username:</div>
           <input
@@ -52,6 +56,8 @@ const SearchUsers = () => {
             onChange={(e) => filterbyName(e.target.value)}
           />
         </div>
+        {/* table displays account username, country and animal spotlight */}
+        {/* backend query sorts lower-case usernames alphabetically */}
         <table className="user_list_table">
           <thead>
             <tr>
@@ -60,6 +66,7 @@ const SearchUsers = () => {
               <th>Animal Spotlight</th>
             </tr>
           </thead>
+          {/* maps corresponding data from user database into one table row per user */}
           {users.map((entry: any, key: any) => {
             return (
               <>
@@ -75,18 +82,14 @@ const SearchUsers = () => {
                       />
                       {CountryData.countries[entry.country].name}
                     </td>
-                    {/* <Link
-                      to={`/search/animals/${entry.spotlight_id}`}
-                      style={{ textDecoration: "none" }}
-                    > */}
                     <td>{entry.spotlight.join(", ")}</td>
-                    {/* </Link> */}
                   </tr>
                 </tbody>
               </>
             );
           })}
         </table>
+        {/* displays total active accounts using the length of the unfiltered user array */}
         <div style={{ textAlign: "center" }}>
           Total active accounts: {unfilteredUsers.length}
         </div>

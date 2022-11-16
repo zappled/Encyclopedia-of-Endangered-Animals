@@ -10,6 +10,8 @@ const LoginModal = (props) => {
   const [error, setError] = useState(null);
   const context = useContext(Context);
   const navigate = useNavigate();
+
+  // ensures that timer to auto-navigate to homepage does not run on initial mount
   const [initialMount, setInitialMount] = useState<boolean>(true);
   const [failedLogin, setFailedLogin] = useState<boolean>(false);
 
@@ -39,8 +41,10 @@ const LoginModal = (props) => {
   const usernameRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
 
+  // attempts to log in user based on input username and password
   const loginAccount = async (e: any) => {
     e.preventDefault();
+    // converts input username to lower case when checking for a match
     const loginDetails = {
       name: usernameRef.current.value.toLowerCase(),
       password: passwordRef.current.value,
@@ -58,6 +62,7 @@ const LoginModal = (props) => {
         throw new Error("Something went wrong!");
       }
       const userDetails = await res.json();
+      // if login is successful, stores account details within context
       if (userDetails.isAdmin) {
         context.setIsAdmin(true);
       }
@@ -66,11 +71,12 @@ const LoginModal = (props) => {
       context.setUserId(userDetails.id);
     } catch (err) {
       setFailedLogin(true);
-      // alert("Login unsuccessful, check your username or password");
       setError(err.message);
     }
   };
 
+  // if successfully logged in, redirects user to the homepage after 5 seconds
+  // does not run on initial mount
   useEffect(() => {
     if (initialMount === true) {
       setInitialMount(false);
@@ -94,6 +100,7 @@ const LoginModal = (props) => {
           >
             {context.username ? (
               <>
+                {/* displays auto-navigate message after user has successfully logged in */}
                 <div onClick={() => navigate("/homepage")}>
                   <div>Successfully Logged In!</div>
                   <div>Click to navigate to main page</div>
@@ -102,6 +109,7 @@ const LoginModal = (props) => {
               </>
             ) : (
               <>
+                {/* displays login form if user is not logged in */}
                 <img
                   src={redPandaIcon}
                   className="login_icon"
@@ -131,6 +139,7 @@ const LoginModal = (props) => {
         </>
       ) : (
         <>
+          {/* displays error message if user login failed */}
           <ReactModal
             isOpen={props.modalIsOpen}
             onRequestClose={closeModal}

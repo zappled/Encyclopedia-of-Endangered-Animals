@@ -12,17 +12,20 @@ import Context from "../context/context";
 import { useNavigate } from "react-router-dom";
 
 const ConservationStatus = () => {
-  const currentPage = "Conservation Status";
-
   const context = useContext(Context);
   const navigate = useNavigate();
 
+  // sets current page name on navbar
+  const currentPage = "Conservation Status";
+
+  // auto-navigates user back to login page if not logged in
   useEffect(() => {
     context.isLoggedIn ? <></> : navigate("/");
   }, []);
 
   const defaultText = (
     <>
+      {/* text displays by default if user has not clicked any of the conservation status buttons yet */}
       <div
         className="conservation_page_title"
         style={{ width: "50%", marginTop: "3.5rem" }}
@@ -35,8 +38,12 @@ const ConservationStatus = () => {
   );
 
   const [detailsText, setDetailsText] = useState(defaultText);
+  // selects button to change colour in active state when selected
   const [activeButton, setActiveButton] = useState("");
 
+  // sets the correct icon and text for each conversation status
+
+  // data deficient
   const DDText = (
     <>
       <img className="conservation_icon_enlarged" src={dataDeficientIcon} />
@@ -51,6 +58,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // least concern
   const LCText = (
     <>
       <img className="conservation_icon_enlarged" src={leastConcernIcon} />
@@ -65,6 +73,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // near threatened
   const NTText = (
     <>
       <img className="conservation_icon_enlarged" src={nearThreatenedIcon} />
@@ -79,6 +88,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // vulnerable
   const VUText = (
     <>
       <img className="conservation_icon_enlarged" src={vulnerableIcon} />
@@ -93,6 +103,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // endangered
   const ENText = (
     <>
       <img className="conservation_icon_enlarged" src={endangeredIcon} />
@@ -107,6 +118,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // critically endangered
   const CRText = (
     <>
       <img
@@ -125,6 +137,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // extinct in the wild
   const EWText = (
     <>
       <img className="conservation_icon_enlarged" src={extinctWildIcon} />
@@ -139,6 +152,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // extinct
   const EXText = (
     <>
       <img className="conservation_icon_enlarged" src={extinctIcon} />
@@ -154,6 +168,7 @@ const ConservationStatus = () => {
     </>
   );
 
+  // sets active button & detail text to correct selection based on which button is clicked
   const setValue = (e) => {
     setActiveButton("");
     if (e == "DD") {
@@ -188,6 +203,7 @@ const ConservationStatus = () => {
       <Navbar currentPage={currentPage} />
       <div className="banner conservation_banner"></div>
       <div className="conservation_page_container">
+        {/* contains row of 8 conservation status icons */}
         <div className="conservation_icon_container">
           <img className="conservation_icon" src={dataDeficientIcon} alt="" />
           <img className="conservation_icon" src={leastConcernIcon} alt="" />
@@ -202,6 +218,7 @@ const ConservationStatus = () => {
           <img className="conservation_icon" src={extinctWildIcon} alt="" />
           <img className="conservation_icon" src={extinctIcon} alt="" />
         </div>
+        {/* sets the correct active button on click */}
         <div className="conservation_button_container">
           <button
             className={

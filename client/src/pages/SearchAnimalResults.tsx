@@ -12,26 +12,33 @@ import criticallyEndangeredIcon from "../images/icons/conservation/critically_en
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 
 const SearchAnimalResults = () => {
-  const animalId = window.location.href.slice(37);
   const [error, setError] = useState(null);
-  const [animal, setAnimal] = useState([]);
-  const [currentPage, setCurrentPage] = useState("");
-
   const context = useContext(Context);
   const navigate = useNavigate();
 
+  // obtain correct animal ID by slicing the url string
+  const animalId = window.location.href.slice(37);
+  // sets animal data that corresponds with the sliced animal ID
+  const [animal, setAnimal] = useState([]);
+  // sets current page name on navbar based on the fetched animal name
+  const [currentPage, setCurrentPage] = useState("");
+
+  // sets animal data based on what has been fetched
   const [conservationStatus, setConservationStatus] = useState("");
   const [conservationIcon, setConservationIcon] = useState("");
   const [habitats, setHabitats] = useState([]);
   const [threats, setThreats] = useState([]);
 
+  // toggles to show a different message whenever an animal is either added or removed from user's animal spotlight
   const [removedSpotlight, setRemovedSpotlight] = useState(false);
   const [addedSpotlight, setAddedSpotlight] = useState(false);
 
+  // auto-navigates user back to login page if not logged in
   useEffect(() => {
     context.isLoggedIn ? <></> : navigate("/");
   }, []);
 
+  // fetches a random animal on initial mount, based on ID sliced from url
   const fetchAnimalById = async () => {
     setHabitats([]);
     setThreats([]);
@@ -53,6 +60,7 @@ const SearchAnimalResults = () => {
         setConservationStatus("Vulnerable");
         setConservationIcon(vulnerableIcon);
       }
+      // populates the habitats array based on animal data
       if (data[0].habitats.includes("Forest")) {
         setHabitats((arr) => [...arr, "Forest"]);
       }
@@ -83,6 +91,7 @@ const SearchAnimalResults = () => {
       if (data[0].habitats.includes("Terrestrial")) {
         setHabitats((arr) => [...arr, "Terrestrial"]);
       }
+      // populates the threats array based on animal data
       if (data[0].threats.includes("Human Intrusion")) {
         setThreats((arr) => [...arr, "Human Intrusion"]);
       }
@@ -118,6 +127,7 @@ const SearchAnimalResults = () => {
     fetchAnimalById();
   }, []);
 
+  // either adds or remove the animal from user's animal spotlight, depending on whether the animal is already on their list
   const setSpotlight = async (e: any) => {
     e.preventDefault();
     setAddedSpotlight(false);
@@ -160,16 +170,18 @@ const SearchAnimalResults = () => {
       >
         {/* first carousel image */}
         <CCarouselItem>
+          {/* displays animal image based on fetched data */}
           <CImage
             className="d-block w-100 animal_result_image"
             src={animal.length > 0 ? animal[0].image : ""}
             alt="slide 1"
           />
-          {/* caption for first image with orange background */}
+          {/* caption for first image */}
           <CCarouselCaption
             className="d-md-block banner_label"
             style={{ width: "19rem" }}
           >
+            {/* displays animal name based on fetched data */}
             <div>
               <span>{animal.length > 0 ? animal[0].name : ""}</span>
             </div>
@@ -178,6 +190,7 @@ const SearchAnimalResults = () => {
       </CCarousel>
       <div className="result_page_container">
         <div className="animal_result">
+          {/* displays animal class based on fetched data */}
           <div className="results_text" style={{ marginTop: "1rem" }}>
             {"Class: "}
             {animal.length > 0 ? (
@@ -186,6 +199,7 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          {/* displays animal conservation status and icon based on fetched data */}
           <div className="results_text">
             {"Conservation Status: "}
             {animal.length > 0 ? (
@@ -201,6 +215,7 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          {/* displays animal population based on fetched data */}
           <div className="results_text">
             {"Wild Mature Population: "}
             {animal.length > 0 ? (
@@ -209,6 +224,8 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          {/* displays animal region based on fetched data */}
+          {/* adds a separator underline below to demarcate different sections of text */}
           <div
             className="results_text"
             style={{
@@ -223,6 +240,7 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          {/* displays animal habitats based on fetched data */}
           <div
             className="results_text"
             style={{ fontSize: "15px", marginTop: "1rem" }}
@@ -236,6 +254,7 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          {/* displays animal threats faced based on fetched data */}
           <div className="results_text" style={{ fontSize: "15px" }}>
             {"Threats: "}
             {animal.length > 0 ? (
@@ -246,6 +265,7 @@ const SearchAnimalResults = () => {
               ""
             )}
             <br />
+            {/* button to add ot remove animal from user spotlight */}
             <button className="add_spotlight_button" onClick={setSpotlight}>
               ADD/REMOVE FROM SPOTLIGHT
             </button>

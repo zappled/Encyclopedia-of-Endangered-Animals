@@ -7,20 +7,31 @@ import Context from "../context/context";
 
 const AnimalData = () => {
   const [error, setError] = useState(null);
-  const [deleteId, setDeleteId] = useState({});
-  const currentPage: string = "Animal Database Entries";
-  const [animals, setAnimals] = useState([]);
-  const [firstMountDelete, setFirstMountDelete] = useState(true);
-  const [firstMountUpdate, setFirstMountUpdate] = useState(true);
   const context = useContext(Context);
   const navigate = useNavigate();
+
+  // sets id of animal to be deleted from database
+  const [deleteId, setDeleteId] = useState({});
+  // sets current page name on navbar
+  const currentPage: string = "Animal Database Entries";
+  // sets array of animal data after fetch function has completed
+  const [animals, setAnimals] = useState([]);
+  // ensures delete useEffect does not run on initial mount
+  const [firstMountDelete, setFirstMountDelete] = useState(true);
+  // ensures update useEffect does not run on initial mount
+  const [firstMountUpdate, setFirstMountUpdate] = useState(true);
+  // sets animal default data values when corresponding modal is opened
   const [animalEntry, setAnimalEntry] = useState([]);
+  // sets the entry body to update animal data entry
   const [updatedEntryBody, setUpdatedEntryBody] = useState({});
 
+  // auto-navigates user back to login page if not logged in
+  // fetches animal data if logged in
   useEffect(() => {
     context.isLoggedIn ? fetchAnimals() : navigate("/");
   }, []);
 
+  // fetches all animal data from the database
   const fetchAnimals = async () => {
     try {
       const response = await fetch("http://localhost:5001/search/animals");
@@ -31,6 +42,7 @@ const AnimalData = () => {
     }
   };
 
+  // deletes animal entry based on animal ID
   const deleteAnimal = async () => {
     if (window.confirm("Are you sure you want to delete this entry?")) {
       try {
@@ -42,10 +54,6 @@ const AnimalData = () => {
             // Authorization: "Bearer " + bearer,
           },
         });
-        // if (res.status !== 200) {
-        //   throw new Error("Something went wrong!");
-        // }
-        // await res.json();
         fetchAnimals();
         console.log("entry deleted");
       } catch (err) {
@@ -54,6 +62,7 @@ const AnimalData = () => {
     }
   };
 
+  // updates animal entry based on entry body and animal ID
   const updateAnimal = async () => {
     console.log(updatedEntryBody);
     try {
@@ -76,7 +85,7 @@ const AnimalData = () => {
     }
   };
 
-  // for DELETE
+  // for DELETE, does not run on initial mount
   useEffect(() => {
     if (firstMountDelete === true) {
       setFirstMountDelete(false);
@@ -85,7 +94,7 @@ const AnimalData = () => {
     }
   }, [deleteId]);
 
-  // for UPDATE
+  // for UPDATE, does not run on initial mount
   useEffect(() => {
     if (firstMountUpdate === true) {
       setFirstMountUpdate(false);
@@ -94,19 +103,15 @@ const AnimalData = () => {
     }
   }, [updatedEntryBody]);
 
-  // controls toggling of modal for updating appointment
+  // controls toggling of modal for updating entry
 
   const [editDatabaseModalIsOpen, setEditDatabaseModalIsOpen] = useState(false);
-
-  // const openEditDatabaseModal = () => {
-  //   setAnimalEntry(entry);
-  //   setEditDatabaseModalIsOpen(true);
-  // };
 
   return (
     <>
       {context.isAdmin ? (
         <>
+          {/* data table with edit/delete buttons only appears if logged in & user is admin */}
           <Navbar currentPage={currentPage} />
           <table className="animal_data_table">
             <thead>
@@ -122,6 +127,7 @@ const AnimalData = () => {
                 <th>Habitats</th>
               </tr>
             </thead>
+            {/* maps animal database data into table format */}
             {animals.map((entry: any, key: any) => {
               return (
                 <>
@@ -162,8 +168,10 @@ const AnimalData = () => {
           </table>
         </>
       ) : (
+        // shows error if user is logged in but is not admin
         <div>Administrator rights is required to view this page</div>
       )}
+      {/* passes individual animal entry data into each modal */}
       <EditDatabaseModal
         editDatabaseModalIsOpen={editDatabaseModalIsOpen}
         setEditDatabaseModalIsOpen={setEditDatabaseModalIsOpen}

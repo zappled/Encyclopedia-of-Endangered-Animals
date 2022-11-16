@@ -5,20 +5,23 @@ import CreateAccountModal from "../components/CreateAccountModal";
 import Context from "../context/context";
 
 const LandingPage = () => {
+  // toggles display of login or create account modal
   const [loginModalIsOpen, setLoginModalIsOpen] = useState<boolean>(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
-  const [apptBody, setApptBody] = useState({});
 
+  // opens login modal on button click
   const openLoginModal = () => {
     setLoginModalIsOpen(true);
   };
 
+  // opens create account modal on button click
   const openCreateModal = () => {
     setCreateModalIsOpen(true);
   };
 
   return (
     <>
+      {/* default landing page when user is not logged in */}
       <div className="landing_background">
         <h1>
           ENCYCLOPEDIA OF <span>ENDANGERED</span> ANIMALS
@@ -39,8 +42,6 @@ const LandingPage = () => {
       <CreateAccountModal
         modalIsOpen={createModalIsOpen}
         setModalIsOpen={setCreateModalIsOpen}
-        apptBody={apptBody}
-        setApptBody={setApptBody}
       />
     </>
   );

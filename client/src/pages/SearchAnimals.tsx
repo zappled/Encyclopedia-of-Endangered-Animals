@@ -8,38 +8,56 @@ import { useNavigate } from "react-router-dom";
 import Context from "../context/context";
 
 const SearchAnimals = () => {
+  const context = useContext(Context);
+  const navigate = useNavigate();
+
+  // sets current page name on navbar
   const currentPage: string = "Search for Animals";
+
+  // toggle to open/close expanded body with search filter options
   const [conservationDisplay, setConservationDisplay] =
     useState<boolean>(false);
   const [habitatDisplay, setHabitatDisplay] = useState<boolean>(false);
   const [threatsDisplay, setThreatsDisplay] = useState<boolean>(false);
 
+  // sets animal array based on fetched data
+  // animals state is used to filter search options
+  // unfilteredAnimals state is used to reset back to unfiltered array after filtering
   const [animals, setAnimals] = useState([]);
   const [unfilteredAnimals, setUnfilteredAnimals] = useState([]);
+
+  // when toggled, displays text indicating the current active filter
   const [isFiltered, setIsFiltered] = useState<boolean>(false);
+
+  // changes text being displayed for each set of filters in use
   const [currentFilter, setCurrentFilter] = useState<string>("");
+
+  // on click, stores the current filter value for habitat, threat & conservation status
   const [habitatFilter, setHabitatFilter] = useState<string>("");
   const [threatFilter, setThreatFilter] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
 
-  const context = useContext(Context);
-  const navigate = useNavigate();
-
+  // auto-navigates user back to login page if not logged in
+  // if logged in, fetches data from animal database
   useEffect(() => {
-    context.isLoggedIn ? <></> : navigate("/");
+    context.isLoggedIn ? fetchAnimals() : navigate("/");
   }, []);
 
-  function shuffle(array: []) {
+  // shuffle function used after fetching animals
+  // randomizes display order of the animals on each page load
+  const shuffle = (array: []) => {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
-  }
+  };
 
+  // fetches all animal data on initial mount
   const fetchAnimals = async () => {
     try {
       const response = await fetch("http://localhost:5001/search/animals");
       const data = await response.json();
+      // shuffles order after fetch
       shuffle(data);
       setAnimals(data);
       setUnfilteredAnimals(data);
@@ -48,6 +66,8 @@ const SearchAnimals = () => {
     }
   };
 
+  // filters by name using the previous filtered section
+  // returns results that includes the input text
   const filterbyName = (input) => {
     setIsFiltered(true);
     const previousFilteredSelection = [...animals];
@@ -58,27 +78,33 @@ const SearchAnimals = () => {
     setAnimals(filtered);
     setCurrentFilter(`name: "${input}"`);
     if (!input) {
+      // once input is cleared, resets all filters back to original state
       resetFilters();
       setIsFiltered(false);
     }
   };
 
+  // sets the status filter state based on selected button value
   const filterbyStatus = (e: string) => {
     setIsFiltered(true);
     setStatusFilter(e);
   };
 
+  // sets the habitat filter state based on selected button value
   const filterbyHabitat = (e: string) => {
     setIsFiltered(true);
     setHabitatFilter(e);
   };
 
+  // sets the threat filter state based on selected button value
   const filterbyThreats = (e: string) => {
     setIsFiltered(true);
     setThreatFilter(e);
   };
 
+  // filters data based on status, habitat & threat filter states
   const filterByMultiple = () => {
+    // if all three filters have been selected, filters results by all 3 parameters
     if (threatFilter && habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -90,6 +116,7 @@ const SearchAnimals = () => {
       setCurrentFilter(
         `status '${statusFilter}', habitat '${habitatFilter}' & threat '${threatFilter}'`
       );
+      // filters by only threat and filter filter
     } else if (threatFilter && habitatFilter && !statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -98,6 +125,7 @@ const SearchAnimals = () => {
       );
       setAnimals(filtered);
       setCurrentFilter(`habitat '${habitatFilter}' & threat '${threatFilter}'`);
+      // filters by only habitat and status filter
     } else if (!threatFilter && habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -106,6 +134,7 @@ const SearchAnimals = () => {
       );
       setAnimals(filtered);
       setCurrentFilter(`status '${statusFilter}' & habitat '${habitatFilter}'`);
+      // filters by only threat and status filter
     } else if (threatFilter && !habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) =>
@@ -114,18 +143,21 @@ const SearchAnimals = () => {
       );
       setAnimals(filtered);
       setCurrentFilter(`status '${statusFilter}' & habitat '${habitatFilter}'`);
+      // filters by only status filter
     } else if (!threatFilter && !habitatFilter && statusFilter) {
       const filtered = unfilteredAnimals.filter(
         (animal) => animal.conservation_status === statusFilter.toUpperCase()
       );
       setAnimals(filtered);
       setCurrentFilter(`status '${statusFilter}'`);
+      // filters by only habitat filter
     } else if (!threatFilter && habitatFilter && !statusFilter) {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.habitats.includes(habitatFilter)
       );
       setAnimals(filtered);
       setCurrentFilter(`habitat '${habitatFilter}'`);
+      // filters by only threat filter
     } else if (threatFilter && !habitatFilter && !statusFilter) {
       const filtered = unfilteredAnimals.filter((animal) =>
         animal.threats.includes(threatFilter)
@@ -135,6 +167,7 @@ const SearchAnimals = () => {
     }
   };
 
+  // resets all filters and displayed data back to default
   const resetFilters = () => {
     setAnimals(unfilteredAnimals);
     setHabitatFilter("");
@@ -143,23 +176,22 @@ const SearchAnimals = () => {
     setIsFiltered(false);
   };
 
+  // runs the filter function whenever any of the 3 filter states is updated
   useEffect(() => {
     filterByMultiple();
   }, [habitatFilter, threatFilter, statusFilter]);
 
-  // fetches data from animal database on initial mount
-  useEffect(() => {
-    fetchAnimals();
-  }, []);
-
+  // opens or closes conservation status dropdown
   const openConservationDropdown = () => {
     setConservationDisplay(!conservationDisplay);
   };
 
+  // opens or closes habitat dropdown
   const openHabitatDropdown = () => {
     setHabitatDisplay(!habitatDisplay);
   };
 
+  // opens or closes threats dropdown
   const openThreatsDropdown = () => {
     setThreatsDisplay(!threatsDisplay);
   };
@@ -169,6 +201,7 @@ const SearchAnimals = () => {
       <Navbar currentPage={currentPage} />
       <div className="search_page_container">
         <div className="three_buttons_container">
+          {/* input form to allow users to filter animals by name */}
           <div className="animal_search_label">Search by Animal Name:</div>
           <input
             type="text"
@@ -176,6 +209,7 @@ const SearchAnimals = () => {
             onChange={(e) => filterbyName(e.target.value)}
           />
 
+          {/* button to toggle additional conservation dropdown */}
           <button
             className={
               conservationDisplay
@@ -186,6 +220,7 @@ const SearchAnimals = () => {
           >
             Conservation Status
           </button>
+          {/* dropdown contains buttons to filter search by different conversation statuses */}
           <div
             className={"search_header_content"}
             style={{ display: conservationDisplay ? "block" : "none" }}
@@ -199,6 +234,7 @@ const SearchAnimals = () => {
               Critically Endangered
             </p>
           </div>
+          {/* button to toggle additional habitat dropdown */}
           <button
             className={
               habitatDisplay ? "search_active_button" : "search_header_button"
@@ -207,6 +243,7 @@ const SearchAnimals = () => {
           >
             Habitat
           </button>
+          {/* dropdown contains buttons to filter search by different habitats */}
           <div
             className={"search_header_content"}
             style={{ display: habitatDisplay ? "block" : "none" }}
@@ -226,6 +263,7 @@ const SearchAnimals = () => {
             <p onClick={() => filterbyHabitat("Desert")}>Desert</p>
             <p onClick={() => filterbyHabitat("Marine")}>Marine</p>
           </div>
+          {/* button to toggle additional threats dropdown */}
           <button
             className={
               threatsDisplay ? "search_active_button" : "search_header_button"
@@ -234,7 +272,7 @@ const SearchAnimals = () => {
           >
             Threats
           </button>
-
+          {/* dropdown contains buttons to filter search by different threats faced */}
           <div
             className={"search_header_content"}
             style={{ display: threatsDisplay ? "block" : "none" }}
@@ -259,7 +297,7 @@ const SearchAnimals = () => {
               Geological Events
             </p>
           </div>
-
+          {/* button to reset all search filters and display full unfiltered animal data again */}
           <button
             className={"search_header_button"}
             style={{ color: "#d9d9d9" }}
@@ -268,7 +306,8 @@ const SearchAnimals = () => {
             Reset Search Filters
           </button>
         </div>
-
+        {/* displays the parameters currently used to filter the results */}
+        {/* only displays if at least 1 filter is in use */}
         <div className="search_results_container">
           <div className="filter_indicator">
             <span
@@ -280,7 +319,8 @@ const SearchAnimals = () => {
               Filtering by {currentFilter}
             </span>
           </div>
-
+          {/* maps animal image, name & conservation status into their individual entry box */}
+          {/* displays a different conservation icon based on their status */}
           <div className="animal_entry_container">
             {animals.map((entry: any) => {
               return (

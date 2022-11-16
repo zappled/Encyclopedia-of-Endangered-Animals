@@ -9,14 +9,20 @@ import { Link, useNavigate } from "react-router-dom";
 import Context from "../context/context";
 
 const Homepage = () => {
-  const currentPage: string = "Homepage";
   const context = useContext(Context);
   const navigate = useNavigate();
+
+  // sets current page name on navbar
+  const currentPage: string = "Homepage";
+
+  // sets featured animal data based on result of fetch random animal function
   const [featuredAnimal, setFeaturedAnimal] = useState<any>({});
 
+  // sets the correct conservation status & icon for the fetched featured animal
   const [conservationStatus, setConservationStatus] = useState("");
   const [conservationIcon, setConservationIcon] = useState("");
 
+  // fetches data of a random animal in the database on initial mount
   const fetchRandomAnimal = async () => {
     try {
       const response = await fetch("http://localhost:5001/search/animals");
@@ -24,6 +30,7 @@ const Homepage = () => {
       const randomIndex = Math.floor(Math.random() * data.length);
       setFeaturedAnimal(data[randomIndex]);
       const dataStatus = data[randomIndex].conservation_status;
+      // sets conservation status & icon state here
       if (dataStatus === "CRITICALLY ENDANGERED") {
         setConservationStatus("Critically Endangered");
         setConservationIcon(criticallyEndangeredIcon);
@@ -39,6 +46,8 @@ const Homepage = () => {
     }
   };
 
+  // fetches random animal data on initial mount
+
   useEffect(() => {
     context.isLoggedIn ? fetchRandomAnimal() : navigate("/");
   }, []);
@@ -48,6 +57,7 @@ const Homepage = () => {
       <Navbar currentPage={currentPage} />
       <HomepageCarousel />
       <div className="page_container">
+        {/* container for featured animal  */}
         <div className="feature_box">
           <div className="featured_details">
             <div className="featured_label">
@@ -78,6 +88,7 @@ const Homepage = () => {
           />
         </div>
 
+        {/* container linking to 'conservation status' page */}
         <Link to="/conservation_status" style={{ textDecoration: "none" }}>
           <div className="feature_box">
             <div className="featured_details">
@@ -89,6 +100,7 @@ const Homepage = () => {
           </div>
         </Link>
 
+        {/* container linking to 'search animal database' page */}
         <Link to="/search/animals" style={{ textDecoration: "none" }}>
           <div className="feature_box">
             <div className="featured_details">
