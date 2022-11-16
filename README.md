@@ -14,6 +14,8 @@ Back-end: Node.js, JWT, Express, PostgreSQL
 ## Project Screenshots
 
 ![homepage](/client/src/images/for_readme/endangered_animals_01.png)
+![conservation-status](/client/src/images/for_readme/endangered_animals_02.png)
+![search-filters](/client/src/images/for_readme/endangered_animals_03.png)
 
 ## User Requirements
 
