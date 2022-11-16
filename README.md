@@ -48,7 +48,7 @@ The project aim is to build a web application that showcases my ability to devel
 
 ## React Components Hierarchy
 
-![react-structure](/client/src/images/for_readme/endangered_animals_react_structure_bg.png)
+![react-structure](/client/src/images/for_readme/endangered_animals_react_structure2_bg.png)
 
 ## General Approach
 
