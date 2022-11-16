@@ -1,4 +1,3 @@
-import { buildQueries } from "@testing-library/react";
 import React, { useContext, useRef, useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import redPandaIcon from "../images/icons/animals/icons8_redpanda_lightgrey.png";
@@ -67,7 +66,7 @@ const LoginModal = (props) => {
         context.setIsAdmin(true);
       }
       context.setIsLoggedIn(true);
-      context.setUsername(userDetails.name);
+      context.setUsername(usernameRef.current.value);
       context.setUserId(userDetails.id);
     } catch (err) {
       setFailedLogin(true);
