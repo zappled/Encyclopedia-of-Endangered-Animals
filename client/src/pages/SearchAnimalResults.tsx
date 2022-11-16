@@ -298,6 +298,11 @@ const SearchAnimalResults = () => {
               ""
             )}
           </div>
+          <div className="back_button_container">
+            <button className="back_button" onClick={() => navigate(-1)}>
+              Return to previous page
+            </button>
+          </div>
         </div>
       </div>
     </>

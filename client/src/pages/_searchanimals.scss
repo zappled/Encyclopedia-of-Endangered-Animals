@@ -167,7 +167,27 @@ $dark-green-color: #0b1f04;
 
 .result_page_container {
   width: 70vw;
-  height: 45.5vh;
+  height: 58vh;
   margin: 0 auto;
   display: flex;
+}
+
+.back_button_container {
+  text-align: center;
+  justify-content: center;
+}
+
+.back_button {
+  position: relative;
+  @include theme;
+  background-color: $dark-green-color;
+  width: 15rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+.back_button:hover {
+  background-color: $orange-color;
+  color: $white-color;
 }
