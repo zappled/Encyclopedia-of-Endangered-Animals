@@ -11,6 +11,8 @@ $dark-green-color: #0b1f04;
   border: none;
   color: $orange-color;
   font: 1rem $font-type;
+  width: 25%;
+  padding: 0.5rem;
 }
 
 .conservation_page_container {
@@ -55,9 +57,7 @@ $dark-green-color: #0b1f04;
 
 .conservation_button {
   @include theme;
-  width: 25%;
   background-color: $dark-green-color;
-  padding: 0.5rem;
 }
 
 .conservation_button:active {
@@ -67,9 +67,7 @@ $dark-green-color: #0b1f04;
 
 .active_button {
   @include theme;
-  width: 25%;
   background-color: $orange-color;
-  padding: 0.5rem;
   color: $grey-color;
 }
 

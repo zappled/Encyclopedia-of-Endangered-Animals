@@ -7,6 +7,8 @@ import bannerOne from "../images/homepage/homepagebanner_one.jpeg";
 import bannerTwo from "../images/homepage/homepagebanner_two.jpeg";
 import bannerThree from "../images/homepage/homepagebanner_three.jpeg";
 
+// used for homepage banner, switches between 3 different images
+
 const HomepageCarousel = () => {
   return (
     <>
@@ -18,7 +20,7 @@ const HomepageCarousel = () => {
             src={bannerOne}
             alt="slide 1"
           />
-          {/* caption for first image with orange background */}
+          {/* caption for first image */}
           <CCarouselCaption className="d-md-block banner_label">
             <div>
               Welcome to the <br />

@@ -5,11 +5,16 @@ const ChangeEmailForm = (props) => {
   const [error, setError] = useState(null);
   const context = useContext(Context);
 
+  // captures input to change email
   const emailRef = useRef<any>();
+  // changes page display text after email is successfully changed
   const [emailChanged, setEmailChanged] = useState(false);
+  // changes page display text if failed to change email
   const [failedToChangeEmail, setFailedToChangeEmail] = useState(false);
+  // sets corresponding error message to display, if failed to change email
   const [errorMessage, setErrorMessage] = useState();
 
+  // attempts to update account email after form onSubmit
   const changeEmail = async (e: any) => {
     e.preventDefault();
     const accountDetails = {
@@ -37,6 +42,7 @@ const ChangeEmailForm = (props) => {
     }
   };
 
+  // closes the email form and resets text back to default if opened again
   const resetEmailForm = () => {
     setEmailChanged(false);
     props.setOpenEmailForm(false);
@@ -46,6 +52,7 @@ const ChangeEmailForm = (props) => {
     <>
       {!failedToChangeEmail ? (
         <>
+          {/* displays this if email successfully updated */}
           <div className="settings_form">
             {emailChanged ? (
               <>
@@ -59,6 +66,7 @@ const ChangeEmailForm = (props) => {
               </>
             ) : (
               <>
+                {/* displays this if user has not attempted to change email yet */}
                 <form onSubmit={changeEmail}>
                   <div>Enter new email address:</div>
                   <input type="email" ref={emailRef} required />
@@ -73,6 +81,7 @@ const ChangeEmailForm = (props) => {
         </>
       ) : (
         <>
+          {/* displays this if user has attempted to change email, but received an error */}
           <div className="settings_form">
             <div>Failed to change email address:</div>
             <div style={{ color: "#e77929" }}>{errorMessage}</div>

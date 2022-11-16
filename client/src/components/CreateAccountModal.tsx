@@ -21,18 +21,14 @@ const CreateAccountModal = (props) => {
 
   ReactModal.setAppElement("#root");
 
+  // closes the modal, and resets content back to default view if opened again
+
   const closeModal = () => {
     props.setModalIsOpen(false);
     setAccountCreated(false);
   };
 
-  // captures input from input form for creating account
-
-  // const usernameRef = useRef<any>(null);
-  // const passwordRef = useRef<any>(null);
-  // const emailRef = useRef<any>(null);
-
-  // updates modal content to show 'account successfully created' message
+  // after account creation, updates modal content to show 'account successfully created' message
 
   const [accountCreated, setAccountCreated] = useState(false);
 
@@ -48,12 +44,14 @@ const CreateAccountModal = (props) => {
         style={customStyles}
         contentLabel="Create Account Modal"
       >
+        {/* displays success message if account has been created */}
         {accountCreated ? (
           <>
             <div>Account successfully created!</div>
             <div>You may proceed to login</div>
           </>
         ) : (
+          // displays account creation form by default
           <CreateAccountForm
             value={value}
             setValue={setValue}

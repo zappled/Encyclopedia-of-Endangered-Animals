@@ -7,6 +7,8 @@ const DeleteAccountForm = (props) => {
   const context = useContext(Context);
   const navigate = useNavigate();
 
+  // on button click, deletes account based on user UUID saved in context
+
   const deleteAccount = async (e: any) => {
     e.preventDefault();
     if (window.confirm("Are you sure you want to delete your account?")) {
@@ -23,6 +25,7 @@ const DeleteAccountForm = (props) => {
           },
         });
         const result = await res.json();
+        // after successful delete, clears stored context values and navigates users back to login page
         context.setIsLoggedIn(false);
         context.setUsername("");
         context.setUserId("");
@@ -40,6 +43,7 @@ const DeleteAccountForm = (props) => {
 
   return (
     <>
+      {/* delete account form */}
       <div className="settings_form">
         <div style={{ width: "30%", marginLeft: "35%" }}>
           Are you sure you want to delete your account? This cannot be undone!

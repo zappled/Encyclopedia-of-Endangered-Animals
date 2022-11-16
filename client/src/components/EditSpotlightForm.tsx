@@ -5,10 +5,10 @@ const EditSpotlightForm = (props) => {
   const [error, setError] = useState(null);
   const context = useContext(Context);
 
+  // stores user's current spotlight list after fetch function is completed
   const [user, setUser] = useState([]);
 
-  const [deleteId, setDeleteId] = useState({});
-
+  // on initial mount, fetches user spotlight data based on their UUID
   const fetchUserById = async () => {
     const userId = { id: context.userId };
     try {
@@ -27,10 +27,12 @@ const EditSpotlightForm = (props) => {
     }
   };
 
+  // fetches user data on initial mount
   useEffect(() => {
     fetchUserById();
   }, []);
 
+  // removes animal from user spotlight list based on animal name
   const removeEntry = async (input: any) => {
     const inputName = { name: input };
     if (
@@ -75,6 +77,7 @@ const EditSpotlightForm = (props) => {
 
   return (
     <>
+      {/* displays this if user has at least 1 animal in their spotlight list */}
       <div className="settings_form">
         {user[0] !== null ? (
           user.map((entry: any) => {
@@ -95,6 +98,7 @@ const EditSpotlightForm = (props) => {
             );
           })
         ) : (
+          // displays this if user's animal spotlight list is currently empty
           <div>Your animal spotlight list is currently empty</div>
         )}
       </div>

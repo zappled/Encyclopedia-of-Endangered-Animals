@@ -6,6 +6,8 @@ import Context from "../context/context";
 const Navbar = (props) => {
   const context = useContext(Context);
 
+  // common navbar component to be used on all logged in pages
+
   return (
     <>
       <div className="navbar">
@@ -15,8 +17,10 @@ const Navbar = (props) => {
           </Link>
         </div>
         <div className="page_header_container">
+          {/* shows the current navigated page */}
           <div className="page_header">{props.currentPage}</div>
         </div>
+        {/* navigation link to 'conservation status' page */}
         <div className="navlink_container">
           <Link to="/conservation_status" style={{ textDecoration: "none" }}>
             <div className="navlink">
@@ -25,7 +29,7 @@ const Navbar = (props) => {
             </div>
           </Link>
         </div>
-
+        {/* navigation link to 'search animals' page */}
         <div className="navlink_container">
           <Link to="/search/animals" style={{ textDecoration: "none" }}>
             <div className="navlink">
@@ -34,7 +38,7 @@ const Navbar = (props) => {
             </div>
           </Link>
         </div>
-
+        {/* navigation link to 'view other users' page */}
         <div className="navlink_container">
           <Link to="/search/users" style={{ textDecoration: "none" }}>
             <div className="navlink">
@@ -44,12 +48,14 @@ const Navbar = (props) => {
             </div>
           </Link>
         </div>
+        {/* displays username */}
         <div className="navbar_right_container">
           <span className="username">
             {context.username
               ? JSON.stringify(context.username).replaceAll(`"`, "")
               : ""}
           </span>
+          {/* shows database button if logged in user has admin status */}
           {context.isAdmin ? (
             <>
               <Link to="/edit_database">
@@ -59,6 +65,7 @@ const Navbar = (props) => {
           ) : (
             ""
           )}
+          {/* shows settings button to change password etc */}
           <Link to="/settings">
             <span className="material-symbols-outlined">settings</span>
           </Link>

@@ -16,6 +16,8 @@ const EditDatabaseModal = (props) => {
 
   ReactModal.setAppElement("#root");
 
+  // closes the corresponding modal
+
   const closeModal = () => {
     props.setEditDatabaseModalIsOpen(false);
   };
@@ -31,15 +33,13 @@ const EditDatabaseModal = (props) => {
   const [habitats, setHabitats] = useState([]);
   const [threats, setThreats] = useState([]);
 
+  // sets conservation status value based on currently selected option
+
   const selectConservationStatus = (e) => {
     setConservationStatus(e.target.value);
   };
 
-  //   const selectRecurring = (e) => {
-  //     setRecurring(e.target.value);
-  //   };
-
-  // creates new object to be passed into fetch POST function
+  // attempted to convert habitat & threats input to add to entry body, not currently functional
 
   const selectHabitats = (e) => {
     const refreshHabitats = [];
@@ -69,8 +69,9 @@ const EditDatabaseModal = (props) => {
     }
   };
 
+  // creates new object to be passed into fetch POST function
+
   const updateEntry = (e) => {
-    // e.preventDefault();
     console.log(habitats);
     props.setUpdatedEntryBody({
       name: nameRef.current.value,
@@ -84,11 +85,9 @@ const EditDatabaseModal = (props) => {
     props.setEditDatabaseModalIsOpen(false);
   };
 
-  console.log(props.entry.habitats);
-  console.log(props.entry.threats);
-
   return (
     <div>
+      {/* opens 'edit entry' modal form based on corresponding animal ID */}
       <ReactModal
         isOpen={props.editDatabaseModalIsOpen}
         onRequestClose={closeModal}

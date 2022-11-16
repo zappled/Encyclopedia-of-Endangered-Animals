@@ -5,18 +5,27 @@ import countryList from "react-select-country-list";
 
 const CreateAccountForm = (props) => {
   const [error, setError] = useState(null);
+
+  // captures input to create account
   const usernameRef = useRef<any>();
   const passwordRef = useRef<any>();
   const emailRef = useRef<any>();
+
+  // used to populate dropdown menu with all countries in component database
   const options = useMemo(() => countryList().getData(), []);
+
+  // changes page display text if failed to create account
   const [failedCreateAccount, setFailedCreateAccount] =
     useState<boolean>(false);
+  // sets corresponding error message to display, if failed to create account
   const [errorMessage, setErrorMessage] = useState("");
 
+  // dynamically updates value of selected country in dropdown menu
   const changeHandler = (value: string) => {
     props.setValue(value);
   };
 
+  // attempts to create account after button onClick
   const createAccount = async (e: any) => {
     e.preventDefault();
     const accountDetails = {
@@ -52,6 +61,7 @@ const CreateAccountForm = (props) => {
 
   return (
     <>
+    {/* displays by default when user has not attempted to create account yet */}
       {!failedCreateAccount ? (
         <>
           <h2 className="modal_header">Create Your Account</h2>
@@ -94,6 +104,7 @@ const CreateAccountForm = (props) => {
         </>
       ) : (
         <>
+        {/* displays if user receives error when trying to create account */}
           <div>Failed to create account</div>
           <div>
             <span style={{ color: "#e77929" }}>{errorMessage}</span>

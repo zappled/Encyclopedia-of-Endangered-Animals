@@ -314,8 +314,8 @@
   color: #e77929;
   font: 1rem "Lalezar", sans-serif;
   width: 25%;
-  background-color: #0b1f04;
   padding: 0.5rem;
+  background-color: #0b1f04;
 }
 
 .conservation_button:active {
@@ -329,8 +329,8 @@
   color: #e77929;
   font: 1rem "Lalezar", sans-serif;
   width: 25%;
-  background-color: #e77929;
   padding: 0.5rem;
+  background-color: #e77929;
   color: #d9d9d9;
 }
 
@@ -641,7 +641,7 @@
 
 .search_userspage_container {
   width: 70vw;
-  min-height: 100vh;
+  min-height: 60vh;
   margin: 0 auto;
 }
 
