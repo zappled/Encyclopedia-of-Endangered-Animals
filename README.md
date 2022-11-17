@@ -16,6 +16,7 @@ The project aim is to build a web application that showcases my ability to devel
 ![homepage](/client/src/images/for_readme/endangered_animals_01.png)
 ![conservation-status](/client/src/images/for_readme/endangered_animals_04.png)
 ![search-filters](/client/src/images/for_readme/endangered_animals_03.png)
+![search-result](/client/src/images/for_readme/endangered_animals_05.png)
 
 ## User Requirements
 
