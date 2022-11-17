@@ -11,13 +11,24 @@ import endangeredIcon from "../images/icons/conservation/endangered.png";
 import criticallyEndangeredIcon from "../images/icons/conservation/critically_endangered.png";
 import vulnerableIcon from "../images/icons/conservation/vulnerable.png";
 
+import regionIcon from "../images/icons/data/icons8-globe_lightgrey.png";
+import threatsIcon from "../images/icons/data/icons8-sword.png";
+import populationIcon from "../images/icons/data/icons8-multiple-stars.png";
+import habitatIcon from "../images/icons/data/icons8-oak-tree_lightgrey.png";
+
+import birdIcon from "../images/icons/animals/icons8_parrot_lightgrey.png";
+import mammalIcon from "../images/icons/animals/icons8_redpanda_lightgrey.png";
+import reptileIcon from "../images/icons/animals/icons8-alligator.png";
+import amphibianIcon from "../images/icons/animals/icons8-frog.png";
+import fishIcon from "../images/icons/animals/icons8-whole-fish.png";
+
 const SearchAnimalResults = () => {
   const [error, setError] = useState(null);
   const context = useContext(Context);
   const navigate = useNavigate();
 
   // obtain correct animal ID by slicing the url string
-  const animalId:string = window.location.href.slice(37);
+  const animalId: string = window.location.href.slice(37);
   // sets animal data that corresponds with the sliced animal ID
   const [animal, setAnimal] = useState<any>([]);
   // sets current page name on navbar based on the fetched animal name
@@ -28,6 +39,7 @@ const SearchAnimalResults = () => {
   const [conservationIcon, setConservationIcon] = useState<string>("");
   const [habitats, setHabitats] = useState<any>([]);
   const [threats, setThreats] = useState<any>([]);
+  const [classIcon, setClassIcon] = useState<string>("");
 
   // toggles to show a different message whenever an animal is either added or removed from user's animal spotlight
   const [removedSpotlight, setRemovedSpotlight] = useState<boolean>(false);
@@ -60,8 +72,20 @@ const SearchAnimalResults = () => {
         setConservationStatus("Vulnerable");
         setConservationIcon(vulnerableIcon);
       }
-      // populates the habitats array based on animal data
+      const dataClass = data[0].class;
+      if (dataClass === "Mammal") {
+        setClassIcon(mammalIcon);
+      } else if (dataClass === "Amphibian") {
+        setClassIcon(amphibianIcon);
+      } else if (dataClass === "Reptile") {
+        setClassIcon(reptileIcon);
+      } else if (dataClass === "Bird") {
+        setClassIcon(birdIcon);
+      } else if (dataClass === "Ray-finned Fish") {
+        setClassIcon(fishIcon);
+      }
       if (data[0].habitats.includes("Forest")) {
+        // populates the habitats array based on animal data
         setHabitats((arr) => [...arr, "Forest"]);
       }
       if (data[0].habitats.includes("Savanna")) {
@@ -192,6 +216,7 @@ const SearchAnimalResults = () => {
         <div className="animal_result">
           {/* displays animal class based on fetched data */}
           <div className="results_text" style={{ marginTop: "1rem" }}>
+            <img src={classIcon} className="featured_icon" />
             {"Class: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>{animal[0].class}</span>
@@ -201,14 +226,10 @@ const SearchAnimalResults = () => {
           </div>
           {/* displays animal conservation status and icon based on fetched data */}
           <div className="results_text">
+            <img src={conservationIcon} className="featured_icon" />
             {"Conservation Status: "}
             {animal.length > 0 ? (
               <>
-                <img
-                  src={conservationIcon}
-                  className="featured_icon"
-                  style={{ margin: "0 0.2rem" }}
-                />
                 <span style={{ color: "#d9d9d9" }}>{conservationStatus}</span>
               </>
             ) : (
@@ -217,6 +238,7 @@ const SearchAnimalResults = () => {
           </div>
           {/* displays animal population based on fetched data */}
           <div className="results_text">
+            <img src={populationIcon} className="featured_icon" />
             {"Wild Mature Population: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>{animal[0].population}</span>
@@ -233,6 +255,7 @@ const SearchAnimalResults = () => {
               textUnderlineOffset: "1rem",
             }}
           >
+            <img src={regionIcon} className="featured_icon" />
             {"Regions: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>{animal[0].region}</span>
@@ -245,6 +268,7 @@ const SearchAnimalResults = () => {
             className="results_text"
             style={{ fontSize: "15px", marginTop: "1rem" }}
           >
+            <img src={habitatIcon} className="featured_icon" />
             {"Habitats: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>
@@ -256,6 +280,7 @@ const SearchAnimalResults = () => {
           </div>
           {/* displays animal threats faced based on fetched data */}
           <div className="results_text" style={{ fontSize: "15px" }}>
+            <img src={threatsIcon} className="featured_icon" />
             {"Threats: "}
             {animal.length > 0 ? (
               <span style={{ color: "#d9d9d9" }}>
