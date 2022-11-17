@@ -27,7 +27,6 @@ const SearchUsers = () => {
     try {
       const response = await fetch("http://localhost:5001/search/users");
       const data = await response.json();
-      console.log(data);
       setUsers(data);
       setUnfilteredUsers(data);
     } catch (err) {
