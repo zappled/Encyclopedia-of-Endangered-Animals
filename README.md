@@ -29,6 +29,7 @@ The project aim is to build a web application that showcases my ability to devel
 ## Proposed Features
 
 - Minimize text, use images and icons where possible
+- Page that explains the different conservation statuses
 - Can filter search results by different categories
 - Can add favourite animals to animal spotlight
 - View user list and see other users' animal spotlights
@@ -59,6 +60,19 @@ I started by crafting out the front-end first, populated with a set of dummy dat
 The SQL database structure was decided during the planning phase, and at this stage I focused on building the database using those specifications. Queries were tested out to ensure functionality, before they were exported to my API routes to be further tested, and finally synced to my front-end functions.
 
 From here I filled in my database with the necessary data, removed the dummy data files, and linked my pages to use the database data instead. With front-end and back-end now successfully synced, I proceeded to work on implementing more features based on a pre-determined priority list, such as search filters, user authentication etc.
+
+## Dependencies
+
+- CoreUI
+- react-modal
+- react-select-country-list
+- country-data
+- Typescript
+- bcrypt
+- express
+- express-validator
+- jsonwebtoken
+- uuid
 
 ## Issues Not Yet Resolved
 

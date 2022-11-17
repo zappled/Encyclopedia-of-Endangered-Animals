@@ -1,10 +1,20 @@
 import React, { useContext } from "react";
 import redPandaIcon from "../images/icons/animals/icons8_redpanda_lightgrey.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Context from "../context/context";
+import { Navigate } from "react-router-dom";
 
 const Navbar = (props) => {
+  const navigate = useNavigate();
   const context = useContext(Context);
+
+  const logOut = () => {
+    context.setIsLoggedIn(false);
+    context.setUsername("");
+    context.setIsAdmin(false);
+    context.setUserId("");
+    navigate("/");
+  };
 
   // common navbar component to be used on all logged in pages
 
@@ -68,6 +78,11 @@ const Navbar = (props) => {
           {/* shows settings button to change password etc */}
           <Link to="/settings">
             <span className="material-symbols-outlined">settings</span>
+          </Link>
+          <Link to="/">
+            <span className="material-symbols-outlined" onClick={logOut}>
+              logout
+            </span>
           </Link>
         </div>
       </div>

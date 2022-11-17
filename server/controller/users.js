@@ -152,6 +152,40 @@ const loginUser = async (req, res) => {
   }
 };
 
+const refreshLogin = (req, res) => {
+  if (!req?.body?.refresh) {
+    return res
+      .status(400)
+      .json({ status: "error", message: "req.body.refresh is required" });
+  }
+
+  try {
+    const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
+
+    const payload = {
+      id: decoded.id,
+      username: decoded.username,
+    };
+
+    const access = jwt.sign(payload, process.env.ACCESS_SECRET, {
+      expiresIn: "20m",
+      jwtid: uuidv4(),
+    });
+
+    const response = {
+      access,
+    };
+
+    res.json(response);
+  } catch (err) {
+    console.error("POST /users/refresh", err);
+    res.status(401).json({
+      status: "error",
+      message: "unauthorised",
+    });
+  }
+};
+
 // changes account's password
 // verifies first that current password matches database data
 
@@ -295,4 +329,5 @@ module.exports = {
   getUserById,
   addToSpotlight,
   removeFromSpotlight,
+  refreshLogin,
 };

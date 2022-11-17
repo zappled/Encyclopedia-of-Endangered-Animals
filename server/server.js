@@ -42,6 +42,8 @@ app.delete("/users/spotlight", usersDB.removeFromSpotlight);
 
 app.patch("/update/animal", animalsDB.updateAnimal);
 
+app.post("/users/refresh", usersDB.refreshLogin);
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);
