@@ -152,6 +152,8 @@ const loginUser = async (req, res) => {
   }
 };
 
+// refreshes user login after access token expiry
+
 const refreshLogin = (req, res) => {
   if (!req?.body?.refresh) {
     return res
@@ -250,6 +252,7 @@ const changeEmail = async (req, res) => {
 };
 
 // toggles admin status to the opposite of the account's current status
+// not implemented on frontend
 
 const toggleAdminStatus = async (req, res) => {
   const { uuid, isAdmin } = req.body;

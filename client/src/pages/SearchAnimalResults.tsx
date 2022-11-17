@@ -17,21 +17,21 @@ const SearchAnimalResults = () => {
   const navigate = useNavigate();
 
   // obtain correct animal ID by slicing the url string
-  const animalId = window.location.href.slice(37);
+  const animalId:string = window.location.href.slice(37);
   // sets animal data that corresponds with the sliced animal ID
-  const [animal, setAnimal] = useState([]);
+  const [animal, setAnimal] = useState<any>([]);
   // sets current page name on navbar based on the fetched animal name
-  const [currentPage, setCurrentPage] = useState("");
+  const [currentPage, setCurrentPage] = useState<string>("");
 
   // sets animal data based on what has been fetched
-  const [conservationStatus, setConservationStatus] = useState("");
-  const [conservationIcon, setConservationIcon] = useState("");
-  const [habitats, setHabitats] = useState([]);
-  const [threats, setThreats] = useState([]);
+  const [conservationStatus, setConservationStatus] = useState<string>("");
+  const [conservationIcon, setConservationIcon] = useState<string>("");
+  const [habitats, setHabitats] = useState<any>([]);
+  const [threats, setThreats] = useState<any>([]);
 
   // toggles to show a different message whenever an animal is either added or removed from user's animal spotlight
-  const [removedSpotlight, setRemovedSpotlight] = useState(false);
-  const [addedSpotlight, setAddedSpotlight] = useState(false);
+  const [removedSpotlight, setRemovedSpotlight] = useState<boolean>(false);
+  const [addedSpotlight, setAddedSpotlight] = useState<boolean>(false);
 
   // auto-navigates user back to login page if not logged in
   useEffect(() => {

@@ -372,7 +372,6 @@ const SearchAnimals = () => {
                       </div>
                     </div>
                   </Link>
-                  {/* <SearchAnimalResults /> */}
                 </>
               );
             })}

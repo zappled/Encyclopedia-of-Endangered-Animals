@@ -90,7 +90,7 @@ const SearchUsers = () => {
           })}
         </table>
         {/* displays total active accounts using the length of the unfiltered user array */}
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", paddingBottom: "1rem" }}>
           Total active accounts: {unfilteredUsers.length}
         </div>
       </div>

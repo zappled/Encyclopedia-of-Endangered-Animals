@@ -42,9 +42,8 @@ const EditDatabaseModal = (props) => {
   // attempted to convert habitat & threats input to add to entry body, not currently functional
 
   const selectHabitats = (e) => {
-    const refreshHabitats = [];
     if (e.target.checked) {
-      setHabitats([...refreshHabitats, e.target.value]);
+      setHabitats([e.target.value]);
     } else if (!e.target.checked) {
       const selected = [...habitats];
       const index = selected.indexOf(e.target.value);

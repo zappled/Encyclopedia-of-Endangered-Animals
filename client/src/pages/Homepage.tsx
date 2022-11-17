@@ -19,8 +19,8 @@ const Homepage = () => {
   const [featuredAnimal, setFeaturedAnimal] = useState<any>({});
 
   // sets the correct conservation status & icon for the fetched featured animal
-  const [conservationStatus, setConservationStatus] = useState("");
-  const [conservationIcon, setConservationIcon] = useState("");
+  const [conservationStatus, setConservationStatus] = useState<string>("");
+  const [conservationIcon, setConservationIcon] = useState<string>("");
 
   // fetches data of a random animal in the database on initial mount
   const fetchRandomAnimal = async () => {

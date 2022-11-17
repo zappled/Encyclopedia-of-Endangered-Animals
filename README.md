@@ -47,6 +47,8 @@ The project aim is to build a web application that showcases my ability to devel
 
 ![sql-structure](/client/src/images/for_readme/endangered_animals_sql_structure2_bg.png)
 
+Database name: endangered_animals
+
 ## React Components Hierarchy
 
 ![react-structure](/client/src/images/for_readme/endangered_animals_react_structure2_bg.png)

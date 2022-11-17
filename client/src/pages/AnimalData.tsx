@@ -11,19 +11,19 @@ const AnimalData = () => {
   const navigate = useNavigate();
 
   // sets id of animal to be deleted from database
-  const [deleteId, setDeleteId] = useState({});
+  const [deleteId, setDeleteId] = useState<{}>({});
   // sets current page name on navbar
   const currentPage: string = "Animal Database Entries";
   // sets array of animal data after fetch function has completed
-  const [animals, setAnimals] = useState([]);
+  const [animals, setAnimals] = useState<[]>([]);
   // ensures delete useEffect does not run on initial mount
-  const [firstMountDelete, setFirstMountDelete] = useState(true);
+  const [firstMountDelete, setFirstMountDelete] = useState<boolean>(true);
   // ensures update useEffect does not run on initial mount
-  const [firstMountUpdate, setFirstMountUpdate] = useState(true);
+  const [firstMountUpdate, setFirstMountUpdate] = useState<boolean>(true);
   // sets animal default data values when corresponding modal is opened
-  const [animalEntry, setAnimalEntry] = useState([]);
+  const [animalEntry, setAnimalEntry] = useState<[]>([]);
   // sets the entry body to update animal data entry
-  const [updatedEntryBody, setUpdatedEntryBody] = useState({});
+  const [updatedEntryBody, setUpdatedEntryBody] = useState<{}>({});
 
   // auto-navigates user back to login page if not logged in
   // fetches animal data if logged in

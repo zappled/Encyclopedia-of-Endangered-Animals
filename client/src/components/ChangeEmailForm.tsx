@@ -8,11 +8,12 @@ const ChangeEmailForm = (props) => {
   // captures input to change email
   const emailRef = useRef<any>();
   // changes page display text after email is successfully changed
-  const [emailChanged, setEmailChanged] = useState(false);
+  const [emailChanged, setEmailChanged] = useState<boolean>(false);
   // changes page display text if failed to change email
-  const [failedToChangeEmail, setFailedToChangeEmail] = useState(false);
+  const [failedToChangeEmail, setFailedToChangeEmail] =
+    useState<boolean>(false);
   // sets corresponding error message to display, if failed to change email
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // attempts to update account email after form onSubmit
   const changeEmail = async (e: any) => {
