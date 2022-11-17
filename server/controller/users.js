@@ -59,7 +59,7 @@ const createUser = async (req, res) => {
 
 const getUsers = (req, res) => {
   pool.query(
-    "SELECT user_accounts.name, user_accounts.country, ARRAY_AGG(animals.name) AS spotlight, ARRAY_AGG(animals.id) AS spotlight_id FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
+    "SELECT user_accounts.name, user_accounts.country, json_agg(json_build_object('name', animals.name, 'id', animals.id)) AS spotlight FROM user_accounts LEFT JOIN users_favourites ON user_accounts.uuid = users_favourites.user_id LEFT JOIN animals ON users_favourites.animals_id = animals.id GROUP BY user_accounts.name, user_accounts.country ORDER by LOWER(user_accounts.name) ASC",
     (error, results) => {
       if (error) {
         throw error;

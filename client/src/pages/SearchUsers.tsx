@@ -27,6 +27,7 @@ const SearchUsers = () => {
     try {
       const response = await fetch("http://localhost:5001/search/users");
       const data = await response.json();
+      console.log(data);
       setUsers(data);
       setUnfilteredUsers(data);
     } catch (err) {
@@ -81,8 +82,33 @@ const SearchUsers = () => {
                         src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${entry.country}.svg`}
                       />
                       {CountryData.countries[entry.country].name}
+                    </td>{" "}
+                    <td>
+                      <>
+                        {" "}
+                        {entry.spotlight.map((entry, index) => {
+                          return (
+                            <>
+                              <Link
+                                to={`/search/animals/${entry.id}`}
+                                style={{
+                                  textDecoration: "none",
+                                  color: "#0b1f04",
+                                }}
+                              >
+                                <span>
+                                  {(index ? ", " : "") +
+                                    JSON.stringify(entry.name).replaceAll(
+                                      `"`,
+                                      ``
+                                    )}
+                                </span>
+                              </Link>
+                            </>
+                          );
+                        })}
+                      </>
                     </td>
-                    <td>{entry.spotlight.join(", ")}</td>
                   </tr>
                 </tbody>
               </>
